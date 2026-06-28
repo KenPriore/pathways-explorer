@@ -907,6 +907,76 @@ function makeFunnel(){
   };
 }
 
+/* per-world signature headers (one canvas move per scenario) */
+function makeWorldS1(color){
+  return function(ctx,W,H,t,reduced){
+    var pad=16, cols=Math.max(10, Math.round((W-2*pad)/36)), rows=4;
+    var cw=(W-2*pad)/cols, ch=(H-2*pad)/rows, sz=Math.min(cw,ch)-6;
+    var orow=Math.floor(rows/2), ocol=0;
+    var maxd=Math.sqrt(Math.pow(cols-1-ocol,2)+Math.pow(Math.max(orow,rows-1-orow),2));
+    var p=reduced?1:clamp((t%4.6)/3.3,0,1), front=easeInOut(p)*maxd;
+    for(var r=0;r<rows;r++){ for(var c=0;c<cols;c++){
+      var cx=pad+c*cw+cw/2, cy=pad+r*ch+ch/2, d=Math.sqrt(Math.pow(c-ocol,2)+Math.pow(r-orow,2));
+      if(d<=front){ var edge=d>front-0.9; ctx.fillStyle=edge?PAL.ink:color; ctx.globalAlpha=edge?1:0.9; ctx.fillRect(cx-sz/2,cy-sz/2,sz,sz); ctx.globalAlpha=1; }
+      else { ctx.strokeStyle=PAL.grid; ctx.lineWidth=1.4; ctx.strokeRect(cx-sz/2,cy-sz/2,sz,sz); }
+    }}
+    var ocx=pad+ocol*cw+cw/2, ocy=pad+orow*ch+ch/2;
+    ctx.strokeStyle=PAL.ink; ctx.lineWidth=2; ctx.strokeRect(ocx-sz/2-2,ocy-sz/2-2,sz+4,sz+4);
+  };
+}
+function makeWorldS2(color){
+  var sats=null;
+  return function(ctx,W,H,t,reduced){
+    var cx=W*0.5, cy=H*0.5;
+    if(!sats){ sats=[]; var n=11; for(var i=0;i<n;i++){ var a=(i/n)*Math.PI*2+(i%2?0.25:-0.18); sats.push({a:a, rx:W*(0.16+(i%3)*0.07), ry:H*(0.20+(i%3)*0.10)}); } }
+    var sweep=reduced?Math.PI*2:(t*1.3)%(Math.PI*2);
+    sats.forEach(function(s){
+      var sx=cx+Math.cos(s.a)*s.rx, sy=cy+Math.sin(s.a)*s.ry;
+      var ang=(((sweep-s.a)%(Math.PI*2))+Math.PI*2)%(Math.PI*2), connected=reduced||ang<Math.PI*1.8;
+      if(connected){ ctx.strokeStyle=color; ctx.globalAlpha=0.45; ctx.lineWidth=1.5; ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(sx,sy); ctx.stroke(); ctx.globalAlpha=1; ctx.fillStyle=color; ctx.fillRect(sx-4,sy-4,8,8); }
+      else { ctx.strokeStyle=PAL.mute; ctx.lineWidth=1.6; ctx.strokeRect(sx-4,sy-4,8,8); }
+    });
+    if(!reduced){ ctx.strokeStyle=PAL.grid; ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(cx+Math.cos(sweep)*W*0.45, cy+Math.sin(sweep)*H*0.45); ctx.stroke(); }
+    ctx.fillStyle=PAL.ink; ctx.fillRect(cx-7,cy-7,14,14); ctx.fillStyle=color; ctx.fillRect(cx-3,cy-3,6,6);
+  };
+}
+function makeWorldS3(color){
+  var nodes=null, clusters=null;
+  return function(ctx,W,H,t,reduced){
+    var pad=22;
+    if(!nodes){ clusters=[]; var K=4; for(var k=0;k<K;k++) clusters.push({x:pad+(k+0.5)*(W-2*pad)/K, y:H*0.46});
+      nodes=[]; for(var i=0;i<18;i++) nodes.push({sx:pad+((i*53)%100)/100*(W-2*pad), sy:pad+((i*29)%100)/100*(H-2*pad-20), k:i%4}); }
+    var p=reduced?1:easeInOut(clamp((t%5.2)/3.4,0,1));
+    nodes.forEach(function(nd){ var x=lerp(nd.sx,clusters[nd.k].x,p), y=lerp(nd.sy,clusters[nd.k].y,p);
+      ctx.globalAlpha=lerp(0.85,0,clamp((p-0.7)/0.3,0,1)); ctx.fillStyle=color; ctx.fillRect(x-3,y-3,6,6); ctx.globalAlpha=1; });
+    clusters.forEach(function(cl){ var s=6+clamp((p-0.4)/0.6,0,1)*16; ctx.fillStyle=color; ctx.fillRect(cl.x-s/2,cl.y-s/2,s,s); ctx.fillStyle='#fff'; ctx.fillRect(cl.x-2,cl.y-2,4,4); });
+    var sh=lerp(9,2.5,p); ctx.fillStyle=PAL.ink; ctx.fillRect(W*0.5-sh,H-20-sh,sh*2,sh*2);
+  };
+}
+function makeWorldS4(color){
+  var toks=null, spawn=0;
+  return function(ctx,W,H,t,reduced){
+    var trackY=H*0.62, x0=20, x1=W-20, gateX=W*0.62, topY=H*0.26;
+    ctx.strokeStyle=PAL.ink; ctx.lineWidth=2.5; ctx.beginPath(); ctx.moveTo(x0,topY); ctx.lineTo(x1,topY); ctx.stroke();
+    ctx.strokeStyle=PAL.grid; ctx.lineWidth=1.5; ctx.beginPath(); ctx.moveTo(x0,trackY); ctx.lineTo(x1,trackY); ctx.stroke();
+    var cyc=reduced?0.5:(t%2.0)/2.0, gateActive=reduced?true:(cyc>0.45&&cyc<0.72);
+    var gateDrop=reduced?1:(gateActive?(clamp((cyc-0.45)/0.1,0,1)-clamp((cyc-0.62)/0.1,0,1)):0);
+    if(!toks) toks=[];
+    if(!reduced){ if(t-spawn>0.22){ spawn=t; toks.push({born:t}); } toks=toks.filter(function(tk){ return x0+(t-tk.born)*((x1-x0)/2.6)<x1+10; }); }
+    else if(toks.length===0){ for(var i=0;i<6;i++) toks.push({born:-i*0.35}); }
+    var speed=(x1-x0)/2.6;
+    toks.forEach(function(tk){ var tx=reduced?lerp(x0,gateX-6,(toks.indexOf(tk)+1)/7):x0+(t-tk.born)*speed; if(gateActive&&tx>gateX-6)tx=gateX-6; ctx.fillStyle=color; ctx.fillRect(tx-3,trackY-3,6,6); });
+    if(gateDrop>0){ var gy=lerp(topY,trackY,gateDrop); ctx.strokeStyle=PAL.red; ctx.lineWidth=4; ctx.beginPath(); ctx.moveTo(gateX,topY); ctx.lineTo(gateX,gy); ctx.stroke(); ctx.fillStyle=PAL.red; ctx.fillRect(gateX-5,gy-2,10,4); }
+    else { ctx.fillStyle=PAL.ink; ctx.fillRect(gateX-4,topY-4,8,8); }
+  };
+}
+var WORLD_MOTION={
+  's1-clo-coo':{make:makeWorldS1, cap:'Legal stops being a department and threads into the whole business.'},
+  's2-gc-chief-legal-strategist':{make:makeWorldS2, cap:'One control tower sets the standards. A scattered market of tools and agents plugs into it.'},
+  's3-default-judgment':{make:makeWorldS3, cap:'The market consolidates into a few owners as corporate legal shrinks to its last lawyer.'},
+  's4-human-judgment-on-top':{make:makeWorldS4, cap:'The machine does most of the work, fast. A human still holds the switch.'}
+};
+
 /* ===================== MODE 1: NAVIGATOR ===================== */
 function cubeMap(onPick){
   var wrap=el('div',{class:'cube-wrap'});
@@ -1053,6 +1123,8 @@ function renderWorld(id){
     axisChips(sc),
     el('p',{class:'w-glance'}, sc.glance)
   ));
+
+  var wm=WORLD_MOTION[sc.id]; if(wm) root.appendChild(mgFigure(150, wm.make(sc.color), wm.cap));
 
   root.appendChild(el('div',{class:'section'}, subkicker('The world in brief'), el('p',{class:'prose'}, sc.summary)));
 
