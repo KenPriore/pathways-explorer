@@ -1,0 +1,1619 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="cool">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pathways Explorer: The Future of Law to 2040</title>
+<meta name="description" content="An interactive navigation instrument for the Pathways scenario project. Three questions, eight possible worlds, four built in detail.">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23fff'/><g fill='none' stroke='%230a0a0a' stroke-width='6'><polygon points='50,18 78,34 78,66 50,82 22,66 22,34'/><path d='M50 18 V50 M50 50 L78 34 M50 50 L22 34'/></g><circle cx='50' cy='18' r='7' fill='%23FF0000'/></svg>">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Pathways Explorer: The Future of Law to 2040">
+<meta property="og:description" content="An interactive navigation instrument for the Pathways scenario project. Three yes-or-no questions, eight possible worlds, four built in detail.">
+<meta property="og:url" content="https://pathways.kenpriore.ai/explorer/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Pathways Explorer: The Future of Law to 2040">
+<meta name="twitter:description" content="Three questions, eight possible worlds, four built in detail. Explore the Pathways scenarios for the business of law in 2040.">
+<style>
+  :root{
+    /* ---- Signal primaries (locked) ---- */
+    --c-red:#FF0000; --c-blue:#0057B8; --c-yellow:#FFCC00;
+    /* ---- Signal categorical = the four scenario accents ---- */
+    --c-cat-1:#E5006D; --c-cat-2:#0E7C7B; --c-cat-3:#6A3FA0; --c-cat-4:#1F4E9B;
+    /* ---- neutrals (cool / white theme) ---- */
+    --paper:#ffffff; --ink:#0a0a0a; --ink-soft:#3a3a3a; --muted:#6f6f6f;
+    --hairline:#e4e4e4; --line-firm:var(--ink); --fill-soft:#f4f4f2;
+    /* ---- semantic roles ---- */
+    --signal:var(--c-red); --emphasis:var(--c-blue); --caution:var(--c-yellow);
+    --on-signal:#ffffff; --on-caution:var(--ink);
+    /* ---- type: Archivo leads (free Helvetica Neue substitute), HN kept in fallback. No webfont @import, to stay offline / self-contained. ---- */
+    --font-sans:"Archivo","Helvetica Neue","Helvetica Neue LT Std",Helvetica,Arial,system-ui,sans-serif;
+    --font-mono:"SFMono-Regular","SF Mono",Consolas,"Liberation Mono",Menlo,monospace;
+    --fs-display:clamp(40px,7vw,88px); --fs-h1:clamp(30px,4.5vw,52px); --fs-h2:clamp(22px,3vw,32px); --fs-h3:clamp(17px,2vw,21px);
+    --fs-body:16px; --fs-small:13px; --fs-caption:11px; --fs-kicker:11px;
+    --lh-tight:1.05; --lh-snug:1.2; --lh-body:1.5;
+    --fw-bold:700; --fw-black:800;
+    --tr-tight:-0.02em; --tr-kicker:0.22em; --tr-caps:0.12em;
+    /* ---- rule weights (heavy solid rules = the signature) ---- */
+    --rule-hairline:1px; --rule-base:2px; --rule-firm:3px; --rule-heavy:4px; --rule-poster:6px; --radius:0;
+    /* ---- spacing (4px base) ---- */
+    --sp-1:4px; --sp-2:8px; --sp-3:12px; --sp-4:16px; --sp-5:24px; --sp-6:32px; --sp-7:48px; --sp-8:64px; --sp-9:96px;
+    --inset:clamp(20px,5vw,72px);
+    /* ---- motion (metronomic beat; decisive easing only) ---- */
+    --beat:480ms; --beat-half:240ms; --beat-2:960ms; --stagger:80ms;
+    --ease-cut:cubic-bezier(.2,.8,.2,1); --ease-snap:cubic-bezier(.85,0,.15,1); --ease-anticipate:cubic-bezier(.5,-0.4,.2,1);
+    /* ---- grid ---- */
+    --grid-cols:6; --container-max:1180px;
+    /* ---- back-compat aliases (existing rules reference these names) ---- */
+    --ink2:var(--ink-soft); --mute:var(--muted); --grid:var(--hairline); --soft:var(--fill-soft); --line:var(--ink);
+    --blue:var(--c-blue); --yellow:var(--c-yellow); --red:var(--c-red);
+    --s1:var(--c-cat-1); --s2:var(--c-cat-2); --s3:var(--c-cat-3); --s4:var(--c-cat-4);
+    --sans:var(--font-sans); --mono:var(--font-mono); --max:var(--container-max);
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:var(--fs-body);line-height:var(--lh-body);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  a{color:inherit}
+  button{font-family:inherit}
+  h1,h2,h3,h4{margin:0;font-weight:800;letter-spacing:-0.02em;line-height:1.05}
+  p{margin:0 0 1em}
+  ::selection{background:var(--yellow);color:var(--ink)}
+
+  /* ---------- chrome ---------- */
+  header.top{position:sticky;top:0;z-index:50;background:var(--paper);border-bottom:3px solid var(--line);display:flex;align-items:stretch;justify-content:space-between;flex-wrap:wrap}
+  .brand{display:flex;flex-direction:row;align-items:center;gap:12px;padding:12px 20px;border-right:3px solid var(--line)}
+  .brand-tx{display:flex;flex-direction:column;justify-content:center}
+  .brand-cube{width:30px;height:30px;color:var(--ink);flex:none}
+  /* ---------- signal icons ---------- */
+  .icon{width:24px;height:24px;color:var(--ink);display:inline-block;vertical-align:middle;flex:none}
+  .icon-16{width:16px;height:16px}
+  /* ---------- signal moves (build / beat) ---------- */
+  @keyframes sig-rise{from{transform:translateY(22px)}to{transform:translateY(0)}}
+  .m-build>*{animation:sig-rise var(--beat) var(--ease-cut) backwards}
+  .m-build>*:nth-child(2){animation-delay:var(--stagger)}
+  .m-build>*:nth-child(3){animation-delay:calc(var(--stagger)*2)}
+  .m-build>*:nth-child(4){animation-delay:calc(var(--stagger)*3)}
+  .m-build>*:nth-child(5){animation-delay:calc(var(--stagger)*4)}
+  .m-build>*:nth-child(6){animation-delay:calc(var(--stagger)*5)}
+  @keyframes sig-beat{0%,70%,100%{transform:scale(1)}80%{transform:scale(1.16)}}
+  .m-beat{animation:sig-beat var(--beat-2) var(--ease-snap) infinite;transform-origin:center}
+  .brand .pj{font-weight:800;font-size:18px;letter-spacing:0.16em;text-transform:uppercase}
+  .brand .sub{font:600 10px/1.3 var(--mono);text-transform:uppercase;letter-spacing:0.12em;color:var(--mute);margin-top:2px}
+  nav.modes{display:flex;flex-wrap:wrap}
+  nav.modes button{background:var(--paper);border:0;border-left:1px solid var(--grid);padding:10px 16px;font:700 11px/1 var(--sans);text-transform:uppercase;letter-spacing:var(--tr-caps);color:var(--ink2);cursor:pointer;transition:background var(--beat-half) var(--ease-cut),color var(--beat-half) var(--ease-cut)}
+  nav.modes button .n{color:var(--mute);margin-right:7px}
+  nav.modes button:hover{background:var(--soft)}
+  nav.modes button.active{background:var(--ink);color:#fff}
+  nav.modes button.active .n{color:var(--yellow)}
+
+  main{max-width:var(--max);margin:0 auto;padding:36px 20px 80px;position:relative}
+  main::before{content:"";position:absolute;inset:0 20px;pointer-events:none;z-index:0;opacity:.5;background:repeating-linear-gradient(90deg,transparent 0,transparent calc(100%/6 - 1px),var(--grid) calc(100%/6 - 1px),var(--grid) calc(100%/6))}
+  main>.mode{position:relative;z-index:1}
+  .mode{animation:m-cut-up var(--beat) var(--ease-cut) both}
+  @keyframes m-cut-up{from{transform:translateY(14px)}to{transform:translateY(0)}}
+
+  /* ---------- type helpers ---------- */
+  .kicker{font:700 11px/1 var(--sans);text-transform:uppercase;letter-spacing:var(--tr-kicker);color:var(--muted);display:flex;align-items:center;gap:10px;margin-bottom:14px}
+  .kicker .bar{height:1px;background:var(--line);flex:1}
+  .kicker b{color:var(--ink)}
+  h1.big{font-size:clamp(30px,5vw,52px);margin:0 0 14px;max-width:18ch}
+  .lede{font-size:clamp(17px,2.2vw,21px);line-height:1.4;color:var(--ink2);max-width:60ch;margin:0 0 26px}
+  .sub-kicker{font:800 13px/1 var(--sans);text-transform:uppercase;letter-spacing:var(--tr-caps);border-bottom:var(--rule-firm) solid var(--line);padding-bottom:8px;margin:0 0 18px;display:flex;align-items:center;gap:10px}
+  /* tabular numerals on every figure (Signal) */
+  .drift-val,.pf-n,.tyear,.ptier .pt-p,.sl-val,.cell-num,.w-num,nav.modes button .n,.mg-cap,.foot-meta,.readout-coords{font-variant-numeric:tabular-nums}
+
+  /* ---------- motion graphics ---------- */
+  .mg-fig{margin:0 0 26px;border:2px solid var(--ink);background:var(--paper)}
+  .mg{position:relative;width:100%;overflow:hidden}
+  .mg-canvas{display:block;width:100%}
+  .mg-cap{font:600 11px/1.4 var(--mono);color:var(--mute);padding:9px 14px;border-top:1px solid var(--grid);letter-spacing:0.02em}
+
+  /* ---------- provenance ---------- */
+  .prov{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;font:700 10px/1 var(--mono);vertical-align:middle;border:1.5px solid var(--ink);cursor:help;flex:0 0 auto}
+  .prov.S{background:var(--ink);color:#fff}
+  .prov.I{background:#fff;color:var(--ink)}
+  .prov.A{background:#fff;color:var(--ink);border-style:dashed}
+
+  /* ---------- toggles ---------- */
+  .controls{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:0 0 30px}
+  .toggle .toggle-label{font:700 11px/1 var(--mono);text-transform:uppercase;letter-spacing:0.1em;color:var(--mute);margin-bottom:7px}
+  .toggle-hint{font:400 12px/1.35 var(--sans);color:var(--muted);margin-top:8px}
+  .seg{display:flex;border:2px solid var(--ink)}
+  .seg-btn{flex:1;background:var(--paper);border:0;border-left:2px solid var(--ink);padding:12px 8px;font:700 12px/1.2 var(--sans);letter-spacing:0.01em;cursor:pointer;color:var(--ink2);transition:background var(--beat-half) var(--ease-cut),color var(--beat-half) var(--ease-cut)}
+  .seg-btn:first-child{border-left:0}
+  .seg-btn:hover{background:var(--soft)}
+  .seg-btn.on{background:var(--ink);color:#fff}
+  .seg-btn.on.red{background:var(--red);color:#fff}
+
+  /* ---------- navigator ---------- */
+  .nav-layout{display:grid;grid-template-columns:1.35fr 1fr;gap:26px;align-items:start}
+  .cube-wrap{display:flex;gap:18px;align-items:stretch}
+  .plane{flex:1;border:2px solid var(--grid);padding:12px;transition:opacity .3s ease, transform .3s ease, border-color .3s ease;background:var(--paper)}
+  .plane.active{border-color:var(--ink)}
+  .plane.dim{opacity:0.5}
+  .plane-label{font:800 13px/1 var(--mono);text-transform:uppercase;letter-spacing:0.08em;display:flex;flex-direction:column;gap:3px;margin-bottom:12px}
+  .plane.active .plane-label .hs{color:var(--red)}
+  .plane-label .plane-sub{font:600 9px/1.2 var(--mono);color:var(--mute);letter-spacing:0.06em}
+  .grid{display:grid;grid-template-columns:auto 1fr 1fr;gap:7px}
+  .corner{}
+  .col-h{font:700 9px/1.1 var(--mono);text-transform:uppercase;letter-spacing:0.06em;color:var(--mute);align-self:end;padding:0 2px 4px;text-align:center}
+  .row-h{font:700 9px/1.1 var(--mono);text-transform:uppercase;letter-spacing:0.05em;color:var(--mute);align-self:center;max-width:58px}
+  .cell{position:relative;text-align:left;min-height:92px;padding:9px;border:2px solid var(--grid);background:var(--paper);cursor:pointer;display:flex;flex-direction:column;gap:4px;transition:transform .15s ease, box-shadow .15s ease;color:var(--ink)}
+  .cell:hover{transform:translateY(-2px);box-shadow:4px 4px 0 var(--grid)}
+  .cell.developed{border-color:var(--ink);border-top:7px solid var(--accent)}
+  .cell.empty{border-style:dashed;background:repeating-linear-gradient(45deg,#fff,#fff 7px,#fafafa 7px,#fafafa 14px)}
+  .cell.selected{box-shadow:0 0 0 3px var(--ink);transform:translateY(-2px)}
+  .cell .cell-num{font:700 9px/1 var(--mono);text-transform:uppercase;letter-spacing:0.08em;color:var(--mute)}
+  .cell.developed .cell-num{color:var(--accent)}
+  .cell .cell-title{font-weight:800;font-size:13px;line-height:1.12}
+  .cell .cell-foot{margin-top:auto;font:600 9px/1 var(--mono);text-transform:uppercase;letter-spacing:0.06em;color:var(--mute)}
+  .cell.selected::after{content:"";position:absolute;top:6px;right:6px;width:9px;height:9px;background:var(--ink);border-radius:50%}
+  .cell.developed.selected::after{background:var(--accent)}
+  .skew-note{margin-top:16px;font-size:13px;color:var(--ink2);display:flex;gap:8px;align-items:flex-start;border-left:3px solid var(--yellow);padding-left:12px}
+
+  .readout{border:2px solid var(--ink);padding:20px;position:sticky;top:96px}
+  .readout.exhaust{border-color:var(--red)}
+  .readout-coords{font:700 11px/1 var(--mono);text-transform:uppercase;letter-spacing:0.06em;color:var(--mute);margin-bottom:12px}
+  .readout-tag{display:inline-block;font:800 10px/1 var(--mono);text-transform:uppercase;letter-spacing:0.08em;padding:5px 8px;background:var(--accent,var(--ink));color:#fff;margin-bottom:12px}
+  .readout-tag.empty{background:#fff;color:var(--ink);border:1.5px dashed var(--ink)}
+  .readout.exhaust .readout-tag.empty{color:var(--red);border-color:var(--red)}
+  .readout-title{font-size:20px;margin-bottom:10px;display:flex;gap:8px;align-items:flex-start;flex-wrap:wrap}
+  .readout-glance{font-size:14px;color:var(--ink2);margin-bottom:14px}
+  .readout-why{font-size:13px;color:var(--ink2);border-top:1px solid var(--grid);padding-top:12px}
+
+  .btn{display:inline-flex;align-items:center;gap:8px;border:var(--rule-base) solid var(--ink);background:var(--ink);color:#fff;padding:12px 16px;font:700 11px/1 var(--sans);text-transform:uppercase;letter-spacing:var(--tr-caps);cursor:pointer;text-decoration:none;transition:background var(--beat-half) var(--ease-cut),color var(--beat-half) var(--ease-cut)}
+  .btn:hover{background:#fff;color:var(--ink)}
+  .btn.ghost{background:#fff;color:var(--ink)}
+  .btn.ghost:hover{background:var(--ink);color:#fff}
+  .btn.sm{padding:8px 12px;font-size:11px}
+
+  /* ---------- worlds index ---------- */
+  .world-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-bottom:40px}
+  .wcard{border:2px solid var(--ink);border-top:9px solid var(--accent);padding:20px;display:flex;flex-direction:column;cursor:pointer;background:var(--paper);transition:transform .15s,box-shadow .15s}
+  .wcard:hover{transform:translateY(-3px);box-shadow:7px 7px 0 var(--grid)}
+  .wcard .wn{font:800 11px/1 var(--mono);letter-spacing:0.1em;color:var(--accent);text-transform:uppercase}
+  .wcard h3{font-size:21px;margin:8px 0 12px}
+  .wcard .wglance{font-size:14px;color:var(--ink2);flex:1;margin-bottom:16px}
+  .chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+  .chip{font:700 10px/1 var(--mono);text-transform:uppercase;letter-spacing:0.05em;border:1.5px solid var(--ink2);color:var(--ink2);padding:5px 7px}
+  .chip.red{border-color:var(--red);color:var(--red)}
+  .empty-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  .ecard{border:2px dashed var(--ink);padding:16px;background:repeating-linear-gradient(45deg,#fff,#fff 7px,#fafafa 7px,#fafafa 14px)}
+  .ecard.exhaust{border-color:var(--red)}
+  .ecard .et{font:800 11px/1 var(--mono);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px}
+  .ecard.exhaust .et{color:var(--red)}
+  .ecard .eo{font-size:13px;color:var(--ink2)}
+
+  /* ---------- world detail ---------- */
+  .backlink{font:700 11px/1 var(--mono);text-transform:uppercase;letter-spacing:0.08em;color:var(--mute);background:none;border:0;cursor:pointer;padding:0;margin-bottom:18px}
+  .backlink:hover{color:var(--ink)}
+  .w-head{border-bottom:3px solid var(--line);padding-bottom:22px;margin-bottom:26px}
+  .w-num{font:800 13px/1 var(--mono);letter-spacing:0.12em;text-transform:uppercase;color:var(--accent)}
+  .w-title{font-size:clamp(26px,4vw,40px);margin:10px 0 16px;max-width:24ch}
+  .w-glance{font-size:18px;line-height:1.4;color:var(--ink2);max-width:62ch}
+  .section{margin:0 0 40px}
+  .prose{font-size:16px;line-height:1.6;max-width:68ch;color:var(--ink2)}
+  .profile-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--grid);border:1px solid var(--grid)}
+  .pcell{background:var(--paper);padding:14px}
+  .pcell .pl{font:700 9px/1 var(--mono);text-transform:uppercase;letter-spacing:0.08em;color:var(--mute);margin-bottom:7px}
+  .pcell .pv{font-size:14px;font-weight:600}
+  .quotes{display:flex;flex-direction:column;gap:14px;margin:0 0 22px}
+  blockquote{margin:0;border-left:5px solid var(--accent);padding:6px 0 6px 18px;font-size:19px;font-weight:700;line-height:1.25;letter-spacing:-0.01em}
+  .timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--grid);border:1px solid var(--grid)}
+  .tcol{background:var(--paper);padding:16px}
+  .tyear{font:800 18px/1 var(--mono);margin-bottom:12px;color:var(--accent)}
+  .tcol ul{margin:0;padding:0;list-style:none}
+  .tcol li{font-size:13px;line-height:1.4;color:var(--ink2);padding:8px 0;border-top:1px solid var(--grid)}
+  .tcol li:first-child{border-top:0}
+  .hiw{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+  .hiw-block .hb-t{font:800 11px/1 var(--mono);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px;border-bottom:2px solid var(--line);padding-bottom:7px}
+  .hiw-block ul{margin:0;padding:0;list-style:none}
+  .hiw-block li{font-size:14px;line-height:1.45;padding:7px 0 7px 16px;position:relative;color:var(--ink2)}
+  .hiw-block li::before{content:"";position:absolute;left:0;top:13px;width:7px;height:7px;background:var(--accent)}
+  .pyramid{display:flex;flex-direction:column;align-items:center;gap:4px;margin-top:8px}
+  .ptier{color:#fff;text-align:center;padding:12px;font-weight:700}
+  .ptier .pt-t{font:800 11px/1 var(--mono);letter-spacing:0.1em}
+  .ptier .pt-l{font-size:13px;margin-top:3px;font-weight:600}
+  .ptier .pt-p{font:800 16px/1 var(--mono);margin-top:5px}
+  .qgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+  .qcard{border:2px solid var(--ink);padding:16px}
+  .qcard .ql{font:700 10px/1 var(--mono);text-transform:uppercase;letter-spacing:0.06em;color:var(--mute);margin-bottom:9px}
+  .qcard .qv{font-size:15px;font-weight:600;line-height:1.35}
+  .w-foot{display:flex;justify-content:space-between;gap:12px;border-top:3px solid var(--line);padding-top:20px;margin-top:10px}
+
+  /* ---------- arc ---------- */
+  .funnel{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:36px}
+  .stage{border:2px solid var(--ink);padding:0;display:flex;flex-direction:column}
+  .stage-h{background:var(--ink);color:#fff;padding:14px 16px}
+  .stage-h .sm{font:700 10px/1 var(--mono);text-transform:uppercase;letter-spacing:0.1em;color:var(--yellow)}
+  .stage-h .st{font-size:19px;font-weight:800;margin-top:5px}
+  .stage-h .sd{font:600 10px/1.2 var(--mono);color:#bdbdbd;margin-top:6px;letter-spacing:0.04em}
+  .stage-b{padding:14px 16px;flex:1}
+  .stage-b .item{font-size:13px;line-height:1.35;padding:8px 0;border-top:1px solid var(--grid);color:var(--ink2)}
+  .stage-b .item:first-child{border-top:0}
+  .stage-b .item b{color:var(--ink)}
+  .stage-w{display:flex;align-items:center;justify-content:center;height:8px;background:var(--soft);position:relative}
+  .throughline{border:1px solid var(--grid)}
+  .tl-row{display:grid;grid-template-columns:1.1fr 1.1fr 1fr;gap:1px;background:var(--grid)}
+  .tl-row>div{background:var(--paper);padding:11px 13px;font-size:13px}
+  .tl-row.head>div{background:var(--ink);color:#fff;font:700 10px/1 var(--mono);text-transform:uppercase;letter-spacing:0.07em}
+  .tl-row .fin{font-weight:700;display:flex;align-items:center;gap:8px;cursor:pointer}
+  .tl-row .fin:hover{text-decoration:underline}
+  .dotc{width:11px;height:11px;flex:0 0 auto}
+
+  /* ---------- signals ---------- */
+  .drift{border:2px solid var(--ink);padding:18px;margin-bottom:28px}
+  .drift-row{display:flex;align-items:center;gap:12px;margin:9px 0}
+  .drift-name{width:190px;flex:0 0 auto;font-size:13px;font-weight:700;display:flex;align-items:center;gap:8px}
+  .drift-track{flex:1;height:22px;background:var(--soft);position:relative;overflow:hidden}
+  .drift-fill{height:100%;width:0;background:var(--accent);transition:width .5s cubic-bezier(.2,.7,.2,1)}
+  .drift-val{width:30px;text-align:right;font:800 13px/1 var(--mono)}
+  .horizons{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .hcol{border:2px solid var(--ink)}
+  .hcol-h{background:var(--ink);color:#fff;padding:12px 14px}
+  .hcol-h .hh{font:800 13px/1 var(--mono);letter-spacing:0.06em}
+  .hcol-h .hs{font:600 10px/1.2 var(--mono);color:#bdbdbd;margin-top:4px}
+  .hcol-b{padding:10px}
+  .sig{width:100%;text-align:left;border:1.5px solid var(--grid);background:#fff;padding:10px;margin-bottom:8px;cursor:pointer;display:flex;gap:9px;align-items:flex-start;transition:border-color .15s,background .15s}
+  .sig:hover{border-color:var(--ink2)}
+  .sig.on{border-color:var(--ink);background:var(--soft)}
+  .sig .box{width:16px;height:16px;border:2px solid var(--ink);flex:0 0 auto;margin-top:1px;position:relative}
+  .sig.on .box{background:var(--ink)}
+  .sig.on .box::after{content:"";position:absolute;left:3px;top:0;width:5px;height:9px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg)}
+  .sig .stext{font-size:13px;line-height:1.3}
+  .sig .smeta{font:600 9px/1 var(--mono);text-transform:uppercase;letter-spacing:0.05em;color:var(--mute);margin-top:5px;display:flex;gap:7px;flex-wrap:wrap;align-items:center}
+  .sig .lean{display:inline-block;width:9px;height:9px}
+  .note-line{font-size:12px;color:var(--mute);margin-top:6px;font-style:italic}
+
+  /* ---------- sandbox ---------- */
+  .panel{border:2px solid var(--ink);padding:20px;margin-bottom:22px}
+  .panel-lede{font-size:14px;color:var(--ink2);max-width:62ch;margin-bottom:16px}
+  .ov-wrap{display:grid;grid-template-columns:1fr 220px;gap:26px;align-items:center}
+  .slider-row{margin-bottom:18px}
+  .slider-row .sl-top{display:flex;justify-content:space-between;font:700 11px/1 var(--mono);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px}
+  .slider-row .sl-val{font-size:14px}
+  input[type=range]{width:100%;-webkit-appearance:none;appearance:none;height:6px;background:var(--ink);outline:none}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:22px;height:22px;background:#fff;border:3px solid var(--ink);cursor:pointer;border-radius:0}
+  input[type=range]::-moz-range-thumb{width:22px;height:22px;background:#fff;border:3px solid var(--ink);cursor:pointer;border-radius:0}
+  input[type=range].cap{background:var(--blue)}
+  input[type=range].rec{background:var(--ink)}
+  .ov-viz{display:flex;align-items:flex-end;justify-content:center;gap:14px;height:200px;border-left:2px solid var(--ink);border-bottom:2px solid var(--ink);padding:0 10px 0 12px}
+  .ov-col{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;width:50px}
+  .ov-bar{width:46px;transition:height .25s ease}
+  .ov-bar.cap{background:var(--blue)}
+  .ov-bar.rec{background:var(--ink2)}
+  .ov-bar.eff{background:var(--ink)}
+  .ov-bar.eff.danger{background:var(--red)}
+  .ov-cap-l{font:700 9px/1.1 var(--mono);text-transform:uppercase;letter-spacing:0.04em;color:var(--mute);margin-top:7px;text-align:center}
+  .ov-verdict{margin-top:18px;padding:13px 15px;font-weight:700;font-size:15px;border:2px solid var(--ink)}
+  .ov-verdict.danger{border-color:var(--red);color:var(--red);background:#fff5f5}
+  .ov-verdict.ok{border-color:var(--ink);background:var(--soft)}
+  .stake-pick{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+  .stake-pick button{border:2px solid var(--ink);background:#fff;padding:10px 14px;font:700 12px/1 var(--sans);cursor:pointer}
+  .stake-pick button.on{background:var(--ink);color:#fff}
+  .stake-center{border-left:4px solid var(--yellow);padding:8px 0 8px 14px;font-size:15px;font-weight:600;margin-bottom:16px}
+  .stance-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--grid);border:1px solid var(--grid);margin-bottom:18px}
+  .stance{background:#fff;padding:13px}
+  .stance .sl{font:700 10px/1 var(--mono);text-transform:uppercase;letter-spacing:0.07em;color:var(--mute);margin-bottom:7px}
+  .sgloss{display:block;font:400 11px/1.3 var(--sans);text-transform:none;letter-spacing:0;color:var(--muted);margin-top:4px}
+  .stance .sv{font-size:13px;line-height:1.4}
+  .pw-table{border:1px solid var(--grid)}
+  .pw-row{display:grid;grid-template-columns:1fr 1.4fr 1fr;gap:1px;background:var(--grid)}
+  .pw-row>div{background:#fff;padding:11px 13px;font-size:13px;line-height:1.35}
+  .pw-row.head>div{background:var(--ink);color:#fff;font:700 10px/1 var(--mono);text-transform:uppercase;letter-spacing:0.06em}
+  .pw-row .pw-world{font-weight:700;display:flex;align-items:center;gap:7px}
+  .pw-row .fm{color:var(--red);font-weight:600}
+  .byo{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+  .byo label{display:block;font:700 10px/1 var(--mono);text-transform:uppercase;letter-spacing:0.06em;color:var(--mute);margin:0 0 6px}
+  .byo input,.byo textarea,.byo select{width:100%;border:2px solid var(--ink);padding:10px;font:inherit;font-size:14px;margin-bottom:14px;border-radius:0;background:#fff}
+  .byo textarea{min-height:74px;resize:vertical}
+  .saved-list{margin-top:6px}
+  .saved-item{border:2px solid var(--ink);border-left:7px solid var(--yellow);padding:11px 13px;margin-bottom:10px}
+  .saved-item .si-t{font-weight:800;font-size:15px}
+  .saved-item .si-c{font:700 9px/1 var(--mono);text-transform:uppercase;letter-spacing:0.06em;color:var(--mute);margin:5px 0}
+  .saved-item .si-o{font-size:13px;color:var(--ink2)}
+  .saved-item .si-x{float:right;border:0;background:none;color:var(--mute);cursor:pointer;font:700 11px/1 var(--mono)}
+
+  /* ---------- critical read ---------- */
+  .cr-list{border:1px solid var(--grid);margin-bottom:30px}
+  .cr-item{border-top:1px solid var(--grid);padding:15px 16px;display:flex;gap:13px}
+  .cr-item:first-child{border-top:0}
+  .cr-item .cr-x{flex:0 0 auto;width:24px;text-align:center;font:800 14px/1.2 var(--mono);color:var(--mute)}
+  .cr-item .cr-t{font-weight:800;font-size:15px;margin-bottom:5px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .cr-item .cr-d{font-size:14px;color:var(--ink2);line-height:1.45}
+  .voices{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--grid);border:1px solid var(--grid);margin-bottom:30px}
+  .voices div{background:#fff;padding:13px 15px;font-size:14px;font-weight:600;display:flex;gap:10px;align-items:flex-start}
+  .voices div::before{content:"";flex:0 0 auto;width:8px;height:18px;background:var(--red);margin-top:2px}
+  .rootcause{border:3px solid var(--ink);padding:22px;background:var(--soft)}
+  .rootcause .rc-l{font:800 11px/1 var(--mono);text-transform:uppercase;letter-spacing:0.1em;color:var(--mute);margin-bottom:10px}
+  .rootcause .rc-t{font-size:19px;font-weight:700;line-height:1.4}
+  .pf-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--grid);border:1px solid var(--grid)}
+  .pf{background:#fff;padding:13px;display:flex;gap:10px}
+  .pf-n{font:800 13px/1 var(--mono);color:var(--mute);flex:0 0 auto}
+  .pf-t{font-size:13px;line-height:1.35}
+
+  /* ---------- footer ---------- */
+  footer.site{border-top:3px solid var(--line);margin-top:50px;padding:28px 20px;max-width:var(--max);margin-left:auto;margin-right:auto}
+  .legend{display:flex;flex-wrap:wrap;gap:18px;margin-bottom:18px}
+  .legend .lg{display:flex;gap:8px;align-items:center;font-size:12px;color:var(--ink2)}
+  .foot-meta{font:600 11px/1.5 var(--mono);color:var(--mute);text-transform:uppercase;letter-spacing:0.04em}
+  .foot-disc{font-size:13px;color:var(--ink2);max-width:70ch;margin-top:10px}
+
+  /* ---------- embed + responsive ---------- */
+  body.embed header.top, body.embed footer.site{display:none}
+  body.embed main{padding-top:24px}
+  @media (max-width:900px){
+    .nav-layout{grid-template-columns:1fr}
+    .controls{grid-template-columns:1fr}
+    .world-grid,.qgrid,.hiw,.byo,.ov-wrap{grid-template-columns:1fr}
+    .funnel,.horizons,.stance-grid,.pf-grid{grid-template-columns:1fr}
+    .timeline,.profile-grid{grid-template-columns:repeat(2,1fr)}
+    .empty-row,.voices{grid-template-columns:1fr 1fr}
+    .cube-wrap{flex-direction:column}
+    .readout{position:static}
+    .tl-row,.pw-row{grid-template-columns:1fr}
+    .ov-viz{height:160px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important}
+  }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute;overflow:hidden" aria-hidden="true"><defs>
+<symbol id="cube" viewBox="0 0 100 100"><g fill="none" stroke="currentColor" stroke-width="5"><polygon points="50,18 78,34 78,66 50,82 22,66 22,34"></polygon><path d="M50 18 V50 M50 50 L78 34 M50 50 L22 34"></path></g><circle cx="50" cy="18" r="6" fill="var(--signal,#FF0000)"></circle></symbol>
+<symbol id="e-node" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="miter" stroke-linecap="butt"><line x1="12" y1="12" x2="5" y2="6"></line><line x1="12" y1="12" x2="20" y2="7"></line><line x1="12" y1="12" x2="14" y2="20"></line><circle fill="currentColor" stroke="none" cx="5" cy="6" r="1.6"></circle><circle fill="currentColor" stroke="none" cx="20" cy="7" r="1.6"></circle><circle fill="currentColor" stroke="none" cx="14" cy="20" r="1.6"></circle><circle fill="var(--signal,#FF0000)" stroke="none" cx="12" cy="12" r="3"></circle></symbol>
+<symbol id="d-architecture" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="miter" stroke-linecap="butt"><line x1="3" y1="20" x2="21" y2="20"></line><line x1="6" y1="20" x2="6" y2="7"></line><line x1="18" y1="20" x2="18" y2="7"></line><line x1="4" y1="7" x2="20" y2="7"></line></symbol>
+<symbol id="e-throughput" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="miter" stroke-linecap="butt"><circle fill="currentColor" stroke="none" cx="5" cy="12" r="2"></circle><circle fill="currentColor" stroke="none" cx="10" cy="12" r="2"></circle><circle fill="currentColor" stroke="none" cx="15" cy="12" r="2"></circle><polyline stroke="var(--signal,#FF0000)" points="18,9 21,12 18,15"></polyline></symbol>
+<symbol id="e-signal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="miter" stroke-linecap="butt"><circle fill="var(--signal,#FF0000)" stroke="none" cx="7" cy="17" r="2.5"></circle><path d="M11 17 A4 4 0 0 0 7 13"></path><path d="M15 17 A8 8 0 0 0 7 9"></path></symbol>
+<symbol id="e-eval" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="miter" stroke-linecap="butt"><line x1="4" y1="18" x2="20" y2="18"></line><circle fill="currentColor" stroke="none" cx="9" cy="12" r="2"></circle><polyline stroke="var(--signal,#FF0000)" points="14,12 16,14 20,8"></polyline></symbol>
+<symbol id="a-audit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="miter" stroke-linecap="butt"><circle cx="7" cy="7" r="4"></circle><line x1="9" y1="11" x2="12" y2="14"></line><line x1="4" y1="18" x2="20" y2="18"></line><line x1="8" y1="18" x2="8" y2="15"></line><line x1="12" y1="18" x2="12" y2="15"></line><line x1="16" y1="18" x2="16" y2="15"></line></symbol>
+<symbol id="e-override" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="miter" stroke-linecap="butt"><circle fill="currentColor" stroke="none" cx="5" cy="12" r="2"></circle><circle fill="currentColor" stroke="none" cx="19" cy="12" r="2"></circle><line x1="8" y1="12" x2="16" y2="12"></line><line stroke="var(--signal,#FF0000)" x1="12" y1="8" x2="12" y2="16"></line></symbol>
+<symbol id="d-foundation" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="miter" stroke-linecap="butt"><rect x="6" y="5" width="12" height="9"></rect><line x1="3" y1="15" x2="21" y2="15"></line><line x1="5" y1="15" x2="3" y2="18"></line><line x1="9" y1="15" x2="7" y2="18"></line><line x1="13" y1="15" x2="11" y2="18"></line><line x1="17" y1="15" x2="15" y2="18"></line><line x1="21" y1="15" x2="19" y2="18"></line></symbol>
+<symbol id="e-agent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="miter" stroke-linecap="butt"><circle fill="var(--signal,#FF0000)" stroke="none" cx="12" cy="12" r="3.5"></circle><line x1="12" y1="3" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="21"></line><line x1="3" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="21" y2="12"></line></symbol>
+</defs></svg>
+<header class="top">
+  <div class="brand">
+    <svg class="icon brand-cube" aria-hidden="true"><use href="#cube"></use></svg>
+    <div class="brand-tx">
+      <span class="pj">Pathways</span>
+      <span class="sub">The Future of Law &middot; 2040</span>
+    </div>
+  </div>
+  <nav class="modes" id="modeNav"></nav>
+</header>
+<main id="app"></main>
+<footer class="site">
+  <div class="legend" id="legend"></div>
+  <div class="foot-meta" id="footMeta"></div>
+  <p class="foot-disc">Nineteen senior legal leaders mapped where the business of law could land by 2040. They are plausible worlds, not predictions. The cohort built four of the eight and left four dark. The drift meter shows how many real-world signals point at each world, which reads as a lean rather than odds. Every claim carries a source tag.</p>
+</footer>
+
+<script>
+/* =====================================================================
+   PATHWAYS EXPLORER  —  self-contained, no dependencies, runs from file://
+   Data is inlined below as const DATA (do not fetch on file://).
+   ===================================================================== */
+const DATA = {
+  "meta": {
+    "project": "Pathways: The Future of Law",
+    "subtitle": "The future of the business of law to 2040, from the vantage point of corporate legal",
+    "tagline": "Exploring how agreements are made, friction and disputes are resolved, and compliance is ensured in a legal ecosystem reshaped by disruptive technology.",
+    "conveners": ["The LegalTech Fund (TLTF)", "Harvey", "Law.com / ALM"],
+    "facilitation": "Leaders' Quest",
+    "method": "Three Horizons framework + critical-uncertainty scenario planning (scenario method credited to Bill Sharpe)",
+    "horizonYear": 2040,
+    "lastUpdated": "2026-06-25"
+  },
+  "provenance": {
+    "S": "Sourced. Stated in a Pathways document.",
+    "I": "Inference. Analytical read from the material, not stated in any source.",
+    "A": "Assumption. Not in the sources and not independently verified."
+  },
+  "program": {
+    "phase1": { "name": "Phase 1: TLTF Summit, Austin", "date": "2025-11", "participants": "120+", "output": "Predetermined factors, 2040 visions, four thematic Roadmap reports" },
+    "phase2": {
+      "name": "Phase 2: curated 19-person cohort",
+      "convenings": [
+        { "id": "c1", "name": "Convening 1", "mode": "Emergence", "date": "2026-04-28/29", "purpose": "Surface a wide range of possible futures: scope, predetermineds, uncertainty clusters, scenario pitches, voting.", "output": "7 scenario pitches narrowed to 4; the uncertainty clusters; documented in the Convening 1 readout." },
+        { "id": "c2", "name": "Convening 2", "mode": "Divergence", "location": "New York City, McDermott Will & Schulte", "date": "2026-05-27/28", "purpose": "Test, stretch and develop the surviving scenarios into full worlds.", "output": "The C2 feedback deck: 4 developed scenarios + 3 critical uncertainties." },
+        { "id": "c3", "name": "Convening 3", "mode": "Convergence", "status": "completed", "date": "2026-06-23/24", "purpose": "Bring the scenarios into participants' organizations and identify the tools and resources to act on them.", "output": "Four stakeholder strategies and the shared 'build an override switch' finding. See c3Convergence." }
+      ]
+    }
+  },
+  "predeterminedFactors": [
+    "Exponential growth in the scale and speed of legal activity driven by automation, agents, and evolving consumer expectations",
+    "Continued pressure toward outcome-based value and pricing",
+    "Increasing reliance on data-driven and evidence-based trust over institutional reputation",
+    "Deepening integration of human and machine workflows",
+    "Shift toward scalable, systematized and increasingly self-sufficient legal capability alongside increasing value of differentiated judgment and advice",
+    "Transition from static documents to dynamic, data-driven agreements and systems",
+    "Expansion of legal's role as a strategic and operational adviser across business, technology, governance, and risk management",
+    "Reshaping of legal training, apprenticeship, entry-level pathways, and routes into the broader legal ecosystem",
+    "Increasing pressure on legal, regulatory, and institutional systems to keep pace with technological and market change"
+  ],
+  "scenarios": [
+    {
+      "id": "s1-clo-coo", "number": 1, "shortTitle": "CLO becomes COO",
+      "title": "The CLO drives legal intelligence into business infrastructure and becomes the COO",
+      "color": "#E5006D",
+      "axes": { "techLayer": "Integrated", "corporateLegal": "Buyer disruption", "lawTechFirstWorld": "Algocracy" },
+      "glance": "Corporate legal leads the shift early, moving legal capability out of a standalone legal tech stack and into shared enterprise systems. Legal judgment is built into the flow of work until legal's influence expands into a broader COO mandate across the enterprise.",
+      "summary": "By 2040, the CLO has become a COO-like enterprise operator. Corporate legal led the shift early, first by automating legal work, then by building legal and risk judgment into daily workflows across HR, marketing, finance, procurement, product, sales and operations. The CLO moved legal tools, agents and expertise out of a separate legal tech stack and into the company's enterprise systems, shared data layer and business workflows. Lawyers, operators, technologists and governance experts turned legal know-how into agents, playbooks and risk controls at the point where decisions are made. Legal no longer appears as advice after the fact. It becomes an ambient governance layer that sits inside decisions, blocks risk and prevents legal problems before humans name them. Law firms no longer control the knowledge infrastructure; they plug into the corporation's systems when external expertise is needed. The promise is speed, consistency and legal problems prevented at source. The danger is ambient intelligence: this model works only if the risk layer can learn from emails, chats, documents, decisions and interactions across the enterprise.",
+      "profile": { "team": ["Tim", "Sumeet", "Michael Shea", "Anu"], "soundtrack": "Mr. Roboto, Styx", "artifactFromFuture": "Sharpie product launch meeting, 2040", "image2040": "A Chief Risk and Operations Strategist meets the agentic team preparing a space-age pen launch" },
+      "stepIntoWorld": {
+        "title": "Sharpie, 2040",
+        "pullQuotes": ["Legal problems are prevented at the source, not cleaned up after the fact.", "Legal is no longer a separate service function. It is threaded through HR, marketing, contracts, risk, governance, product launch, business workflows and escalation protocols.", "Legal's biggest power move was not getting bigger. It was building the plumbing into the walls of the business."],
+        "narrative": "It is 2040, and Sharpie is preparing to launch a new space-age pen. Handwriting has become fashionable again. People are tired of being tracked online. They are journaling more. But the real story is not the pen. It is the operating model behind the launch. Sharpie now runs on an enterprise intelligence layer shaped by legal. Supplier terms, marketing claims, HR implications, regulatory compliance, KYC, IP and product risk all move through connected workflows. Product claims are checked before they leave marketing. Supplier risks are flagged before procurement signs. HR issues are triaged before they become disputes. A smaller group of expert lawyers, operators and technologists supervises thousands of agents, handles exceptions, and builds new legal-risk modules as the business evolves. The CLO who drove the change did not preserve legal as a bigger department. They turned it into enterprise infrastructure. By 2040, that former CLO has become the COO-like operator of the business's risk intelligence layer. The promise is speed, scale and legal problems prevented at source. The danger is ambient intelligence: this model works only if the risk layer can learn from emails, chats, documents, decisions and interactions across the enterprise."
+      },
+      "timeline": {
+        "2026": ["C-suite pressure pushes legal to reduce cost, speed up decision making and show measurable value", "In-house legal begins asserting control over data, documents and legal know-how", "Court rules that data access is a right", "Open APIs and shared data protocols begin making legal knowledge more portable", "Legal teams start experimenting with targeted agents for contracts, claims, HR, procurement and compliance"],
+        "2030": ["Targeted legal agents move from pilots into daily workflows", "AI platform integration accelerates across HR, marketing, finance, procurement and operations", "CLOs become recognised as AI changemakers because they understand risk, regulation, contracts and governance across the business", "Corporate legal innovation accelerates because law firms are too slow, too expensive, or constrained by insurance and liability concerns", "CLOs demand access to company data, documents, playbooks and outside counsel history"],
+        "2035": ["Targeted legal knowledge mining evolves into agentic replacement of routine legal work", "Full enterprise integration begins: legal risk is embedded into product launch, supplier approval, employee decisions, claims and contracts", "Toshiba automatically negotiates 95 percent of contracts through supervised legal agents", "Legal starts building new risk modules for new business lines, jurisdictions and product categories", "The legal function becomes smaller, but its operating reach expands across the enterprise"],
+        "2040": ["An ambient intelligence layer monitors legal and operational risk with minimal human hours", "Thousands of legal agents sit across the enterprise, supervised by a small expert legal layer", "Legal intelligence is embedded in business workflows rather than housed in a separate legal department", "The former CLO has become the COO-like operator of the business's risk intelligence layer", "Law firms plug into the corporation's systems when specialist external expertise is needed"]
+      },
+      "howItWorks": {
+        "whoAndWhatMadeItHappen": ["A forward-looking CLO sees legal not as a cost centre, but as an operating system for business risk", "Legal teams translate contracts, claims, employment risk, compliance and product review into reusable agents, playbooks and workflow controls", "Corporate legal claims the company's data, documents and legal know-how, then builds them into enterprise workflow, intelligence and data layers", "Legal moves first because contracts, regulation, claims, employment risk and compliance were blocking business speed", "Law firm slowness, insurance hurdles and cost pressure create the opening for corporate legal innovation", "Ambient intelligence becomes the bargain: the business accepts more monitoring because legal problems are prevented before they surface"],
+        "dayToDay2040": ["The former CLO now holds a COO-like mandate for enterprise risk intelligence", "Legal judgment appears inside HR cases, marketing claims, product launches, contracts, procurement and finance approvals before decisions are made", "A small group of expert lawyers, operators and technologists supervises agent families across HR, marketing, procurement, sales, product and finance", "Legal issues are flagged or prevented before documents are signed, claims go live, suppliers are approved or employees are paid", "Most routine contracts, claims, reviews and approvals are resolved inside workflow platforms", "Law firms plug into the company's operating infrastructure when external expertise is needed"]
+      },
+      "questionsThisWorldRaises": {
+        "governanceAndAccountability": "Who is accountable when legal problems are prevented by systems before humans see them?",
+        "peopleAndWork": "What expert legal work remains when a large legal department becomes a small group supervising thousands of agents?",
+        "powerAndInfrastructure": "What happens when the company owns the data, documents, workflows and legal know-how that once sat with law firms?",
+        "legitimacyAndTrust": "What must employees, regulators and courts accept for an enterprise-wide legal knowledge layer to feel legitimate?"
+      },
+      "deckPages": "6-10"
+    },
+    {
+      "id": "s2-gc-chief-legal-strategist", "number": 2, "shortTitle": "GC, Chief Legal Strategist",
+      "title": "The GC orchestrates a fragmented legal tech market and becomes the Chief Legal Strategist",
+      "color": "#0E7C7B",
+      "axes": { "techLayer": "Fragmented", "corporateLegal": "Buyer disruption", "lawTechFirstWorld": "Algocracy" },
+      "glance": "Corporate legal is a visible control tower as legal tech flourishes around it: specialist tools, agents, firms and providers compete in a fragmented market, while the GC uses budget, data and accountability to set the rules.",
+      "summary": "By 2040, corporate legal buyers have seized control of the legal market. The GC has evolved into a Chief Legal Strategist, holding the budget, accountability and legal knowledge assets: data, documents, matter history, playbooks and outside counsel memory. Legal remains a distinct strategic function because privilege, confidentiality, regulatory risk and board accountability still matter, while CEOs and CFOs want one throat to choke. Legal tech has flourished, but not through one dominant enterprise platform. Instead, a rich ecosystem of specialist legal tools, agents, firms and providers competes on the buyer's terms. The GC's power is not that they make every legal call directly. It is that they orchestrate the fragmented legal tech ecosystem: setting standards, granting access and deciding which systems enter the control tower, even as more legal decisions and processes are shaped by agents and automation. Corporate legal imposes interoperability standards, pulls knowledge back from firms and vendors, and grants access through the control tower. The result is not a smaller or weaker legal function, but a more powerful buyer-led function that turns a fragmented market into a coherent system.",
+      "profile": { "team": ["Steve", "Mark", "Farrah", "Gina", "Zach"], "soundtrack": "It's My Life, Bon Jovi", "artifactFromFuture": "The Chief Legal Strategist control tower", "image2040": "A Chief Legal Strategist answers CEO and CFO questions instantly because data, workflows and outside counsel history are visible in one system" },
+      "stepIntoWorld": {
+        "title": "the legal control tower, 2040",
+        "pullQuotes": ["They want one throat to choke.", "The information is literally now at your fingertips.", "It's our data, documents and know-how."],
+        "narrative": "It is 2040, and the GC has woken up from a nightmare. In the dream, it was 2026 again: Brazil tax litigation, a cartel ruling, a California class action, missing emails, outside counsel holding the data. The CEO wants answers, the CFO wants cost down, and everyone still wants one person accountable. Then the GC wakes up. Today, there is no scramble. The control tower is already live. Litigation, contracts, employee claims, transactions, compliance status, outside counsel history and internal workflows are all visible in one place. No calls to chase. No waiting for a memo. No wondering who has the latest version. Corporate legal still runs its own legal stack. It is separate from the wider enterprise stack, but not chaotic. Legal has bespoke tools because privilege, confidentiality and regulatory accountability still matter. A rich market of specialist tools, agents, firms and providers sits around the legal function, but buyer-set standards make the fragmentation manageable. The real shift is ownership. Corporate legal pays the bills, so corporate legal claims the data, documents, matter history and legal know-how, then grants firms, vendors and agents access on its terms. The GC is now the Chief Legal Strategist, sitting at the centre of legal data, technology and business accountability."
+      },
+      "timeline": {
+        "2026": ["Large companies begin resisting dependence on external law firms by organising their own legal data, building internal legal operations capability and using technology to reduce outside counsel spend", "C-suite pressure pushes legal to reduce costs and answer faster through technology", "Law schools move toward tech-heavy legal training", "In-house legal begins asserting control over its own data, documents and technology choices"],
+        "2030": ["Courts decide that broad enterprise tools can create privilege and confidentiality risks", "Legal-specific tools become necessary because legal needs cannot simply sit inside the general enterprise stack", "Corporate legal starts pulling matter data, documents and outside counsel history back in-house", "Law.com launches a GC efficiency ranking, rewarding legal teams for cost, speed, visibility and control", "Conventional lawyer headcount falls as legal operations, data and technology roles grow around the GC"],
+        "2035": ["Boards tie GC incentives to cost reduction, responsiveness, data visibility and risk control", "Legal buyers require interoperability standards across all providers", "Corporate legal requires firms and vendors to plug into buyer-controlled stacks", "Law firms shift toward outcome pricing and success fees to stay relevant in buyer-led panels", "Unit cost of legal services falls as buyers force specialist tools, firms and agents to compete on common standards"],
+        "2040": ["Meta names the first Chief Legal Strategist", "The GC role becomes less about being the most senior lawyer and more about legal judgment, data control and ecosystem orchestration", "Corporate legal owns the legal knowledge base: data, documents, matter history, playbooks and outside counsel memory", "Firms, vendors and agents compete for permission to plug into the control tower", "The legal function remains distinct, but its power comes from orchestrating a fragmented legal tech market on the buyer's terms"]
+      },
+      "howItWorks": {
+        "whoAndWhatMadeItHappen": ["CEO and CFO pressure forces legal to reduce cost, speed up answers and become more accountable", "Corporate legal uses buy/build decisions to reshape the market", "Legal buyers require interoperability standards across all providers", "Court rulings make data access a right and require data to move more easily", "Legal-specific tools become necessary because broad enterprise tools create privilege and confidentiality risks", "Legal buyers push to control their own data, even when it has historically sat with outside counsel", "Alternative providers, hybrid models and tech-infused firms reduce dependence on traditional law firms"],
+        "dayToDay2040": ["The Chief Legal Strategist sits at the center of the legal control tower", "Legal runs its own technology stack, separate from broad enterprise systems", "Open data protocols and buyer-set standards allow reporting and integration across many specialist systems", "Data scientists, technologists, operators and lawyers surround the legal strategist", "High-end litigation, bankruptcy, strategy and bet-the-company work still draw on external resources", "Major GCs refuse vendors that cannot plug into their legal control towers"]
+      },
+      "questionsThisWorldRaises": {
+        "governanceAndAccountability": "How can fragmented legal systems still operate coherently? How does the Chief Legal Strategist create accountability, privilege protection and data rights across the legal-specific stack?",
+        "peopleAndWork": "How far does the 'one throat to choke' logic reshape the GC role? Can a smaller legal department keep up with global legal complexity, even with agents?",
+        "powerAndInfrastructure": "What has to be true for corporate legal to control its own data and infrastructure? Who owns the stack when the buyer demands control, but the tools and agents come from a fragmented provider market?",
+        "legitimacyAndTrust": "What would make CEOs, CFOs and boards trust this model? What happens if the 'one throat to choke' becomes one point of failure?"
+      },
+      "deckPages": "11-15"
+    },
+    {
+      "id": "s3-default-judgment", "number": 3, "shortTitle": "Default judgment",
+      "title": "Default judgment: how corporate legal ceded power to an [un]holy alliance of law firms, legal tech and big tech",
+      "color": "#6A3FA0",
+      "axes": { "techLayer": "Integrated", "corporateLegal": "Status quo", "lawTechFirstWorld": "Algocracy" },
+      "glance": "By 2040, law firms, legal tech and big tech have built the operating layer around corporate legal. In-house lawyers set risk appetite and handle exceptional judgment, but operate inside systems others have built.",
+      "summary": "By 2040, law firms, legal tech and big tech have built the operating layer around corporate legal. Corporates wanted speed, efficiency and predictability, but most legal teams could not match the capital, technical capability or scale of the firms and platforms building the infrastructure. A period of consolidation reshaped the market: leading firms bought, built or partnered with technology providers, while big tech and legal tech became essential to the stack. Agreements, disputes and compliance now run through living contracts, predictive settlement, algorithmic arbitration and ambient guardrails. Much of the data, documents, workflows and legal knowledge sits inside the external infrastructure corporates depend on. The legal professional has not disappeared, but the role has changed. In-house lawyers become risk setters, relationship managers and strategic decision makers. Law firm lawyers become architects, engineers, governors of infrastructure and trusted counsel at the 'cream' of the work. The promise is speed and scale. The danger is that corporates knowingly trade sovereignty for efficiency.",
+      "profile": { "team": ["Laurie", "David", "Richard", "Whitney"], "soundtrack": "Mad World, Gary Jules", "artifactFromFuture": "Documentary premiere of The Last In-House Lawyer", "image2040": "The premiere of The Last In-House Lawyer, presented by Kirkland Infrastructure Group" },
+      "stepIntoWorld": {
+        "title": "The Last In-House Lawyer, 2040",
+        "pullQuotes": ["The algorithm's making the judgment. That's the essence of it.", "By not joining the game, corporate legal lost the game.", "Once you push the button, the process is shockingly quick."],
+        "narrative": "It is 2040, and you are arriving at the premiere of The Last In-House Lawyer, a Legal Tech Fund production in association with Harvey and ALM, presented by Kirkland Infrastructure Group. The title is deliberately provocative: by 2040, the last in-house lawyer sits at the centre of a small legal operating team, acting as the senior human interface to legal infrastructure owned elsewhere. Back in the 2020s, legal services were fragmented. Corporates hired firms. Firms hired lawyers. Vendors sold tools. Everyone guarded their data. Then the market consolidated. Kirkland invested heavily in its own AI infrastructure. Paul Weiss bought Harvey. Leading firms bought, built or partnered with technology platforms, while legal tech and big tech became essential to the stack. Agreements, disputes and compliance moved into infrastructure corporates could use faster than they could build. By 2040, a company entering a major partnership needs human judgment, but the legal team looks very different. One senior in-house lawyer sets risk appetite, relationship strategy and when to enter or challenge the system. Around them sits a small team of policy architects, legal engineers, agentic coordinators and risk pilots, operating on law firm and tech infrastructure. Once they push the button, the legal process moves through living contracts, predictive settlement, algorithmic arbitration and ambient guardrails. Much of the data, documents and legal knowledge now sits inside systems others have built. The question at the heart of the documentary is what remains of legal power when the last in-house lawyer becomes the human interface to infrastructure they no longer own."
+      },
+      "timeline": {
+        "2026": ["Corporate legal faces pressure to do more with less and reduce outside counsel spend", "Kirkland invests heavily in its own AI infrastructure", "Harvey-style legal AI is adopted by major law firms and corporate clients for drafting, research, review and workflow tasks", "Law firms and tech partners begin positioning themselves to run the legal infrastructure layer", "Debate begins over what would make algorithmic legal systems trustworthy"],
+        "2030": ["Corporate legal sets standards for the algorithms and systems it is willing to trust", "Clifford Chance buys Legora, signalling that major firms are moving from advice into legal infrastructure", "Kirkland ends hourly billing for core and commodity work", "Corporate clients rely heavily on external legal infrastructure for contracting, compliance and dispute workflows", "Harvard Law adds training on how lawyers communicate with agents, humans and hybrid legal teams"],
+        "2035": ["Clio is bought, signalling further consolidation across legal tech and legal infrastructure", "Kirkland poaches top partners from BCG as law firms compete for strategy, systems and transformation capability", "New roles emerge: agentic coordinator, legal engineer, policy architect and risk pilot", "Agent conflict-of-interest protocols become standard across major legal infrastructure platforms", "Asimov's Laws of Robotics become an oath for agents and governance"],
+        "2040": ["Corporate legal headcount has dropped sharply, with the last in-house lawyer sitting at the centre of a small legal operating team", "Core and commodity legal work runs through external legal infrastructure", "The market consolidates into an Am Law 15, with elite firms combining privilege, precedent, data, distribution and technical capability", "Algocracy law firms become 10 percent legal work, 90 percent data", "The 'cream' work now includes strategy, risk appetite, system governance and the future"]
+      },
+      "howItWorks": {
+        "primeMovers": ["CEOs and CFOs demand speed, predictability and lower friction", "Corporate legal sets standards for the systems it is willing to trust, but does not build the infrastructure itself", "Leading law firms, legal tech and big tech partners build the operating layer around contracting, compliance and disputes", "The Am Law 15 consolidate power by combining privilege, precedent, data, distribution and technical capability"],
+        "operatingModel": ["Corporates rely heavily on external legal infrastructure for agreements, compliance and dispute workflows", "Living contracts and agentic negotiation move routine decisions into executable systems", "Predictive settlement and algorithmic arbitration resolve many disputes in minutes", "Ambient compliance guardrails prevent some legal and regulatory failures before they happen"],
+        "whatChangesInLegal": ["Corporate legal becomes smaller, more strategic and more dependent on infrastructure it does not own", "The last in-house lawyer sits at the centre of a small legal operating team, setting risk appetite and deciding when to enter or challenge the system", "New roles include policy architects, legal engineers, agentic coordinators and risk pilots", "Law firms become infrastructure companies as much as advisory businesses"],
+        "valuePyramid": [{ "tier": "CREAM", "label": "Strategy + future", "price": "x10" }, { "tier": "CORE", "label": "Agent-supported legal work", "price": "-50%" }, { "tier": "COMMODITY", "label": "Automated legal work", "price": "-90%" }]
+      },
+      "questionsThisWorldRaises": {
+        "governanceAndAccountability": "Who owns accountability when rule interpreters also own the systems? What standards would make corporate legal, clients and courts willing to trust the algorithm?",
+        "peopleAndWork": "Do humans manage the bots, or do the bots manage the bots? If judgment has been ceded to the alliance, what is the lawyer bringing to the corporation?",
+        "powerAndInfrastructure": "What would make corporates knowingly trade sovereignty for efficiency? What remains of legal power when data, documents and legal knowledge sit inside systems owned by law firms, legal tech and big tech?",
+        "legitimacyAndTrust": "What happens when third-party capital needs an exit? Who benefits from no court backlog and 15-minute disputes, and who is excluded?"
+      },
+      "deckPages": "16-20"
+    },
+    {
+      "id": "s4-human-judgment-on-top", "number": 4, "shortTitle": "Human judgment on top",
+      "title": "Human judgment on top: how the legal guild reinvented itself after machine-led law hit its limits",
+      "color": "#1F4E9B",
+      "axes": { "techLayer": "Integrated", "corporateLegal": "Status quo", "lawTechFirstWorld": "Human supremacy (contested)" },
+      "glance": "By 2040, legal technology is deeply integrated, but after trust breaches, jagged-edge failures and public pushback, humans remain the judgment and accountability layer. The legal guild reinvents itself into a wider licensing ecosystem focused on knowing when to trust, challenge or override the machine.",
+      "summary": "By 2040, human judgment sits above a deeply integrated legal technology system. Legal work across business, courts, regulators and everyday workflows is faster, cheaper and more automated. But humans still set values, own accountability and override the machine where trust, fairness, fiduciary judgment and legitimacy are at stake. This model emerged through disruption, not design. Technology and market demand moved faster than the legal system could control. The old guild tried to defend the boundaries of legal work, but users routed around anything that simply blocked speed, access or usefulness. Then the technology hit its own limits: jagged-edge failures, trust breaches and high-stakes judgment calls exposed the need for humans who could grab the stick. By 2040, corporate legal does not own the legal operating layer, but it has held onto the judgment, permissions and business context that matter most. Legal teams are smaller and more senior, focused on escalation, risk ownership and human decision making, while the guild has reinvented itself around licensed legal engineers, legal intelligence orchestrators, rule of law strategists and human translators. The promise is legal capability embedded everywhere. The tension is whether the humans on top have the skill, trust and independence to challenge the systems they rely on.",
+      "profile": { "team": ["Bridget", "Ken", "Mike Pastor", "Carly"], "soundtrack": "Viva La Vida, Coldplay", "artifactFromFuture": "Procter & Gamble shareholder meeting, 2040", "image2040": "A P&G shareholder meeting where a smaller, more senior legal team explains when it trusts, challenges or overrides the system" },
+      "stepIntoWorld": {
+        "title": "Procter & Gamble shareholder meeting, 2040",
+        "pullQuotes": ["Human judgment sits on top.", "The system gets most of the way. The human still has to sign off.", "When the weather goes sideways, someone has to grab the stick."],
+        "narrative": "It is 2040, and you are sitting in the Procter & Gamble shareholder meeting alongside shareholders, regulators, lawyers and agents. The long-standing General Counsel has retired. The new legal team is smaller, more technical and focused on judgment, escalation and system oversight. Fifteen years earlier, P&G embedded legal infrastructure across the business. Product claims, supplier risks, employee issues and disclosures were checked in real time. At first, legal was faster, cheaper and no longer the bottleneck. Then came the failure that changed the model. A product launch cleared every automated legal and compliance check, but the system missed the wider context: consumer vulnerability, reputational risk and the public meaning of the claim. The fallout exposed the jagged edge of machine-led law. By 2040, that lesson is built into the operating model. The system can present the risk map in seconds, but humans decide whether to trust, challenge or override it. A legal intelligence orchestrator explains the reasoning. A rule of law strategist names the public interest risk. A licensed legal engineer shows where the model is uncertain. The shareholder meeting turns on one question: is human judgment truly on top, or has P&G simply learned to make machine-led law feel accountable?"
+      },
+      "timeline": {
+        "2026": ["Kirkland & Ellis announces a $500 million proprietary AI investment, signalling leading law firms are trying to build legal infrastructure, not just use legal tech", "Legal AI spreads through law firms and in-house teams, promising faster drafting, review, research and compliance, while hallucinations and bias create pressure for verification and supervision", "Courts sanction lawyers for AI-generated false citations, making clear that humans remain accountable for machine output", "Berkeley Law restricts most AI use in assignments and exams, signalling a fight to preserve independent legal reasoning", "State-level AI rules and bills in California, Colorado and Illinois point toward human sign-off requirements and limits on automated legal decision making", "States including Oregon, Arizona and others experiment with licensed legal paraprofessional models, widening who can deliver legal help under new forms of supervision and licensing"],
+        "2030-2032": ["Legal AI is widely adopted across contracts, research, disputes, compliance and product review, but it has not delivered fully reliable legal judgment", "Systems get routine work most of the way there, but fail at the last mile: context, fairness, vulnerability, intent, fiduciary duty and public legitimacy", "High-profile failures clear automated legal checks but miss human context; the backlash forces questions about who can challenge the system", "Clients, consumers and businesses route around lawyers where the profession blocks speed, access or usefulness", "The legal guild splits: some defend lawyer-only control, while others argue for reinvention around supervision, systems and judgment", "Corporate legal uses AI more heavily, but struggles to define which decisions can be automated, which require human sign-off and who owns the risk when the system is wrong"],
+        "2035": ["'Human in the loop' is no longer enough. Humans decide they need real authority to inspect, challenge and override machine-mediated legal systems", "Boards, courts and regulators require clear human ownership for high-stakes legal, fiduciary and public-interest judgments", "Law firms, legal tech providers and corporate legal teams must show audit trails, explainability, escalation routes and override protocols", "Law schools and professional bodies rebuild training around judgment under uncertainty, system design, ethics, public legitimacy and human sign-off", "The legal guild reinvents itself around humans who know when to trust, challenge or override the machine"],
+        "2040": ["Legal capability is embedded across business, courts, regulators and everyday workflows", "Corporate legal teams are smaller and more senior; they do not own the full operating layer, but they hold the judgment, escalation rights and business context that matter most", "Courts and regulators accept machine-mediated legal systems only where humans can inspect, challenge and override", "Law firms and legal tech providers compete on trust, explainability and human-supervised system design", "The profession includes licensed legal engineers, legal intelligence orchestrators, rule of law strategists and human translators"]
+      },
+      "howItWorks": {
+        "primeMovers": ["Technology innovation leaders, CIOs and Chief Intelligence Officers build the integrated technical layer", "Courts, regulators and boards respond to trust failures by requiring human accountability, appeal rights and override", "Corporate legal does not drive the disruption, but rolls with it, retaining the judgment, permissions and business context that matter most", "The legal guild reinvents itself into a wider licensing ecosystem: legal engineers, legal intelligence orchestrators, rule of law strategists and human translators"],
+        "operatingModel": ["Legal capability is embedded inside corporate, product, regulatory and court systems", "Agents manage routine contracts, disclosures, HR issues, tax, patent review, arbitration and compliance workflows", "Humans sit above the system with authority to interpret context, carry accountability and override machine-mediated legal judgments", "High-impact workflows escalate to humans who can inspect, challenge or override machine-mediated legal judgments"],
+        "whatChangesInLegal": ["Corporate legal becomes smaller and more senior, focused on judgment, escalation, risk ownership and human decision making", "CIOs and Chief Intelligence Officers run the technical layer, but legal retains responsibility for accountability, legitimacy and override", "New licensed roles emerge around the judgment layer: legal intelligence orchestrators, licensed legal engineers, rule of law strategists and human translators", "Law firms remain important for litigation, regulatory review and really tough issues, but become fewer, more expensive and more reputation-led", "Legal work becomes faster, more embedded and more systematised, but the scarce skill is knowing when to trust, challenge or override the machine"]
+      },
+      "questionsThisWorldRaises": {
+        "governanceAndAccountability": "Can anyone switch off the machine? Who is accountable when judgment, fairness and justice are partly built into code?",
+        "humanJudgmentAndWork": "What does human supremacy actually mean in this world? What kinds of human judgment become more valuable when most legal work runs through agents?",
+        "institutionalControl": "What happens to people and institutions that resist the shift? Who has the authority to challenge, override or slow the system?",
+        "legitimacyAndTrust": "Are humans truly on top, or just the face of an algorithmic order? What would make this system feel legitimate to courts, regulators, businesses and the public?"
+      },
+      "deckPages": "21-26"
+    }
+  ],
+  "scenarioThroughLine": [
+    { "quadrant": "Integrated · Buyer disruption · Algocracy", "c1Pitch": "Merger of Legal Tech & Business Operations", "c3PreSeedCard": "Merge of Legal + Tech + Business Operations", "finalScenarioId": "s1-clo-coo" },
+    { "quadrant": "Fragmented · Buyer disruption · Algocracy", "c1Pitch": "Build Your Own Legal", "c3PreSeedCard": "Build your own legal: one GC corporate legal department", "finalScenarioId": "s2-gc-chief-legal-strategist" },
+    { "quadrant": "Integrated · Status quo · Algocracy", "c1Pitch": "Law Firms Own the Platform, Data & Legal Services", "c3PreSeedCard": "Law firms own the platform, data, and legal infrastructure", "finalScenarioId": "s3-default-judgment" },
+    { "quadrant": "Integrated · Status quo · Human supremacy", "c1Pitch": "Legal Technologists on Top", "c3PreSeedCard": "Legal technologists on top", "finalScenarioId": "s4-human-judgment-on-top" }
+  ],
+  "convening1ScenarioPitches": [
+    { "title": "Law Firms Own Platform, Data, and Control Legal Services", "headline2040": "Goldman Sachs has a legal department of five people, none with law degrees, managed by former air traffic controllers", "topVoted": true },
+    { "title": "In-House Rulez", "headline2040": "CLO/GC becomes the leader of an army of AI agents rather than a team of lawyers", "topVoted": false },
+    { "title": "Build Your Own Legal", "headline2040": "All remaining lawyers at Acme report to the Chief Information Officer; the GC role is eliminated", "topVoted": true },
+    { "title": "Legal Technologists on Top", "headline2040": "All major tech companies pool resources and appoint a unified CEO for a new entity called 'X Plus'", "topVoted": true },
+    { "title": "CLO at the Top of Their Game", "headline2040": "Global legal spend reduced by $400 billion through AI adoption", "topVoted": false },
+    { "title": "Merger of Legal and Tech and Business Operations", "headline2040": "PE sells the last AmLaw roll-up conglomerate; a billion-dollar Ford/DHL dispute is resolved in four minutes", "topVoted": true }
+  ],
+  "cube": {
+    "axes": ["techLayer: Integrated|Fragmented", "corporateLegal: Buyer disruption|Status quo", "lawTechFirstWorld: Algocracy|Human supremacy"],
+    "cells": [
+      { "n": 1, "coords": { "tech": "Integrated", "role": "Buyer disruption", "law": "Algocracy" }, "status": "developed", "scenarioId": "s1-clo-coo" },
+      { "n": 2, "coords": { "tech": "Fragmented", "role": "Buyer disruption", "law": "Algocracy" }, "status": "developed", "scenarioId": "s2-gc-chief-legal-strategist" },
+      { "n": 3, "coords": { "tech": "Integrated", "role": "Status quo", "law": "Algocracy" }, "status": "developed", "scenarioId": "s3-default-judgment" },
+      { "n": 7, "coords": { "tech": "Integrated", "role": "Status quo", "law": "Human supremacy" }, "status": "developed", "scenarioId": "s4-human-judgment-on-top" },
+      { "n": 4, "coords": { "tech": "Fragmented", "role": "Status quo", "law": "Algocracy" }, "status": "empty", "emptyCellId": "legal-exhaust" },
+      { "n": 5, "coords": { "tech": "Integrated", "role": "Buyer disruption", "law": "Human supremacy" }, "status": "empty", "emptyCellId": "inhouse-on-top" },
+      { "n": 6, "coords": { "tech": "Fragmented", "role": "Buyer disruption", "law": "Human supremacy" }, "status": "empty", "emptyCellId": "frustrated-clo" },
+      { "n": 8, "coords": { "tech": "Fragmented", "role": "Status quo", "law": "Human supremacy" }, "status": "empty", "emptyCellId": "status-quo" }
+    ]
+  },
+  "emptyCells": [
+    { "id": "legal-exhaust", "c1Name": "The Legal Exhaust", "oneLine": "The system decays into its data trail. Agents keep acting and agreements keep firing, but no one is steering.", "whyUndeveloped": "Named and highlighted on the Convening 1 matrix, then developed by nobody. The most uncomfortable cell (fragmented plus inertia plus machine-executed law) had no in-room advocate. The clearest in-room consequence of who was not at the table.", "provenance": "S" },
+    { "id": "inhouse-on-top", "c1Name": "In-house on top", "oneLine": "The in-house function drives a centralized stack but human judgment stays decisive.", "whyUndeveloped": "Named at Convening 1 but not carried into the developed four. One of three human-supremacy cells left dark.", "provenance": "S" },
+    { "id": "frustrated-clo", "c1Name": "Frustrated CLO", "oneLine": "The CLO sues platforms and startups over agentic harms; legal pulls control back through litigation, not infrastructure.", "whyUndeveloped": "Named at Convening 1 with a board, but not selected for development. The litigation-led route to human control was left unbuilt.", "provenance": "S" },
+    { "id": "status-quo", "c1Name": "Status quo", "oneLine": "The cell closest to 2026. Continuity.", "whyUndeveloped": "Named, assigned, and worked by nobody. Read as a soft rejection of the null hypothesis: the cohort declined to treat continuity as plausible.", "provenance": "S" }
+  ],
+  "signals": [
+    { "id": "oregonParalegals", "label": "Oregon licenses paralegals to provide limited legal help", "horizon": "H3", "kind": "regulatory", "realWorld": true, "leansToward": ["s2-gc-chief-legal-strategist"], "provenance": "S" },
+    { "id": "arizonaABS", "label": "Arizona authorizes alternative business structures for legal services", "horizon": "H3", "kind": "regulatory", "realWorld": true, "leansToward": ["s2-gc-chief-legal-strategist", "s3-default-judgment"], "provenance": "S" },
+    { "id": "utahSandbox", "label": "Utah tests a regulatory sandbox for legal services", "horizon": "H3", "kind": "regulatory", "realWorld": true, "leansToward": ["s2-gc-chief-legal-strategist"], "provenance": "S" },
+    { "id": "kpmgArizona", "label": "KPMG Law enters the US market via Arizona's non-lawyer ownership model", "horizon": "H3", "kind": "market", "realWorld": true, "leansToward": ["s3-default-judgment"], "provenance": "S" },
+    { "id": "coloradoAI", "label": "Colorado regulates high-risk AI affecting legal services", "horizon": "H2", "kind": "regulatory", "realWorld": true, "leansToward": ["s4-human-judgment-on-top"], "provenance": "S", "note": "Colorado SB24-205 was repealed/replaced before taking effect; verify before public use." },
+    { "id": "berkeleyAI", "label": "Berkeley Law restricts AI use in exams and coursework", "horizon": "H1", "kind": "profession", "realWorld": true, "leansToward": ["s4-human-judgment-on-top"], "provenance": "S" },
+    { "id": "californiaAI", "label": "California requires frontier AI developers to publish safety information", "horizon": "H2", "kind": "regulatory", "realWorld": true, "leansToward": ["s4-human-judgment-on-top"], "provenance": "S" },
+    { "id": "claudeEcosystem", "label": "Anthropic makes Claude an interface for legaltech tools (20+ vendors, 12 plugins)", "horizon": "H3", "kind": "ai", "realWorld": true, "leansToward": ["s3-default-judgment", "s1-clo-coo"], "provenance": "S" },
+    { "id": "msWord", "label": "Microsoft launches a Legal Agent in Word (deterministic resolution over LLM)", "horizon": "H3", "kind": "ai", "realWorld": true, "leansToward": ["s3-default-judgment", "s1-clo-coo"], "provenance": "S" },
+    { "id": "harveyScale", "label": "Harvey reaches 1,500 customers in 60+ countries", "horizon": "H2", "kind": "market", "realWorld": true, "leansToward": ["s3-default-judgment"], "provenance": "S" },
+    { "id": "legalQuants", "label": "Legal Quants share AI-built legal workflow tools (lawyers building their own)", "horizon": "H3", "kind": "market", "realWorld": true, "leansToward": ["s2-gc-chief-legal-strategist"], "provenance": "S" },
+    { "id": "redlineLawyers", "label": "A Clifford Chance associate vibe-codes a legal AI workflow in hours", "horizon": "H3", "kind": "market", "realWorld": true, "leansToward": ["s2-gc-chief-legal-strategist"], "provenance": "S" },
+    { "id": "mataAvianca", "label": "Mata v. Avianca: lawyers sanctioned for fake AI-generated citations", "horizon": "H1", "kind": "litigation", "realWorld": true, "leansToward": ["s4-human-judgment-on-top"], "provenance": "S" },
+    { "id": "ukFakeAuth", "label": "UK courts warn lawyers about AI-generated fake authorities", "horizon": "H1", "kind": "litigation", "realWorld": true, "leansToward": ["s4-human-judgment-on-top"], "provenance": "S" },
+    { "id": "msoCapital", "label": "MSOs open a route for outside capital into law firm operations", "horizon": "H3", "kind": "capital", "realWorld": true, "leansToward": ["s3-default-judgment", "s2-gc-chief-legal-strategist"], "provenance": "S" },
+    { "id": "peRollup", "label": "Private equity rolls up and sells an Am Law conglomerate", "horizon": "H3", "kind": "capital", "realWorld": false, "leansToward": ["s3-default-judgment"], "provenance": "S", "note": "Scenario headline, not yet real." },
+    { "id": "kirklandAI", "label": "Kirkland announces a 500 million dollar proprietary AI investment", "horizon": "H2", "kind": "market", "realWorld": true, "leansToward": ["s3-default-judgment"], "provenance": "S" },
+    { "id": "kpmg10", "label": "KPMG: the traditional GC role has passed; legal owns the contracts and data; COO/CTO/CDO emerge", "horizon": "H3", "kind": "prediction", "realWorld": true, "leansToward": ["s1-clo-coo"], "provenance": "S" },
+    { "id": "trustReputation", "label": "Legal trust rests on reputation (the declining incumbent norm)", "horizon": "H1", "kind": "norm", "realWorld": true, "leansToward": [], "provenance": "S", "note": "The H1 baseline the project says is being replaced by evidence-based trust (predetermined factor 3)." }
+  ],
+  "c3Convergence": {
+    "method": ["Place real-world signals on a Three Horizons curve", "A four-scenario DO THIS matrix: one action and one failure mode per world", "A Robust / Contingent / Resilient strategic-stance stress test"],
+    "headlineFinding": "Across all four cohorts, unprompted, the shared instinct was that human authority is only real if it is provable: build an override switch you can trace and pull. It surfaced in the in-house group, not Ken's S4 group, and S4's own questions lead with 'Can anyone switch off the machine?'",
+    "stakeholders": [
+      { "id": "inhouse", "name": "In-house / Corporate Legal", "centerStance": "Set the vision of the in-house personas and guide the evolution.", "stances": { "robust": "Map roles by work, judgment and trust to decide proactively what to retain vs outsource.", "contingent": "Build an override switch in case of failure.", "resilient": "Promote legislation for minimum standards of legal engagement." }, "standaloneClaim": "Promote legislation requiring Responsible AI by corporations and designating the CLO as main fiduciary.", "perWorld": [ { "worldId": "s1-clo-coo", "doThis": "Build a machine you can trust and understand accountability.", "failureMode": "A machine can't be accountable." }, { "worldId": "s2-gc-chief-legal-strategist", "doThis": "Continuously assemble legal technology to advance business outcomes with legal judgment.", "failureMode": "Constant justification for spend." }, { "worldId": "s3-default-judgment", "doThis": "Pick partners you can trust who stay aligned with the business.", "failureMode": "Data left is data lost." }, { "worldId": "s4-human-judgment-on-top", "doThis": "Persuade the guild to create new licenses for diverse legal personas.", "failureMode": "Embrace the machine." } ], "provenance": "S" },
+      { "id": "lawfirms", "name": "Law Firms", "centerStance": "A new model as recurring tech services.", "stances": { "robust": "A more streamlined model of delivery.", "contingent": "Strong reliance on having data and technology.", "resilient": "Build on talent and relationships." }, "perWorld": [ { "worldId": "s1-clo-coo", "doThis": "Shift the services model to proactive advisor and counsel.", "failureMode": "Don't discount talent seniority and development." }, { "worldId": "s2-gc-chief-legal-strategist", "doThis": "Add services beyond product; relationships first, then tech.", "failureMode": "" }, { "worldId": "s3-default-judgment", "doThis": "New / combined / utility delivery model.", "failureMode": "Slow adoption; status quo." }, { "worldId": "s4-human-judgment-on-top", "doThis": "Stay agile on judgment.", "failureMode": "Don't die." } ], "provenance": "S" },
+      { "id": "legaltech", "name": "Legal Tech / ALSPs", "centerStance": "Be bold. Implementations, integrations, relationships, results.", "stances": { "robust": "Integrations, demonstrate excellence, excel at implementation and customer success, build advocacy muscle.", "contingent": "Gain access to customer data and systems; solve their workflow and operations problems.", "resilient": "Focus on usage; invest in relationships and branding." }, "perWorld": [ { "worldId": "s1-clo-coo", "doThis": "Embed into the enterprise workflow layer.", "failureMode": "" }, { "worldId": "s2-gc-chief-legal-strategist", "doThis": "Win the build-your-own buyer with integrations.", "failureMode": "" }, { "worldId": "s3-default-judgment", "doThis": "Become essential to the alliance stack.", "failureMode": "" }, { "worldId": "s4-human-judgment-on-top", "doThis": "Compete on trust, explainability and human-supervised design.", "failureMode": "" } ], "note": "This group's per-world actions are partly inferred from its H3 stance; the empty failure modes were not legible on the wall.", "provenance": "S" },
+      { "id": "people", "name": "Consumers & SMBs (People)", "centerStance": "Get organized in a bi-partisan way.", "stances": { "robust": "An organized positive campaign to tech, law and politics. Fairness, due process, access, rights equal trust.", "contingent": "Organized mayhem to pull together separate groups, on the ground and in leadership.", "resilient": "Establish agreed-upon default settings; pre-define key defaults; wins people feel (easier, faster, cheaper); remove legal friction." }, "framing": "Where law touches people and businesses who feel they have no access today. People unhappy, no faith or trust in law.", "perWorld": [ { "worldId": "s1-clo-coo", "doThis": "Campaign: democratizing access to the rule of law is foundational to economic success.", "failureMode": "Revolution and disruption." }, { "worldId": "s2-gc-chief-legal-strategist", "doThis": "Seed and fund a core set of operating principles including consumer/people law.", "failureMode": "Revolution and disruption." }, { "worldId": "s3-default-judgment", "doThis": "Set default settings that are pro-people (due process, fairness, transparency).", "failureMode": "Fire in the streets." }, { "worldId": "s4-human-judgment-on-top", "doThis": "Do everything in worlds 1-3 plus UPL and licensure reform as a foundation for a democratic future.", "failureMode": "Apathy and alienation." } ], "note": "The only group that reframed 2040 as political mobilization rather than a technology problem, and the only one whose failure modes have physical stakes.", "provenance": "S" }
+    ]
+  },
+  "criticalRead": {
+    "contradictions": [
+      { "title": "Eight vs nine predetermined factors", "detail": "The canonical Phase 1 doc and the C2 memo carry nine; the Program Summary carries eight, dropping institutions-keeping-pace.", "provenance": "S" },
+      { "title": "Two conflicting Convening 1 votes", "detail": "The 9-vote show-of-hands winner (law-firm dominance) is absent from the final ranked top three.", "provenance": "S" },
+      { "title": "In-house ascendancy vs in-house elimination", "detail": "Both came from the same cohort (CLO-as-COO vs GC eliminated, Goldman to five). The room did not resolve which.", "provenance": "S" },
+      { "title": "Evidence-based trust vs reputation-led firms", "detail": "Factor 3 says trust moves to evidence, yet the S4 output says law firms become more reputation-led.", "provenance": "S" },
+      { "title": "Scenario titles changed between the C2 pre-read and output", "detail": "Most tellingly, 'Legal technologists on top' became 'Human judgment on top'. No document notes the change.", "provenance": "I" },
+      { "title": "Algocracy tilt vs the human-override finding", "detail": "Three of four worlds are algocracy, yet the one finding that crossed every C3 group was the human override. The room enacted the contradiction but never debated the asymmetry.", "provenance": "I" },
+      { "title": "The pre-reads argue against S4", "detail": "Three of four external signal articles point to algocracy; none champions the human-supremacy world Ken's team built.", "provenance": "I" }
+    ],
+    "blindSpots": [
+      { "title": "The public justice system as an agent", "detail": "Courts and regulators appear only as objects, never as actors with their own scenario. No axis for civic legitimacy.", "provenance": "S" },
+      { "title": "Access to justice", "detail": "A whole Phase 1 cohort evaporates by the scenario stage; it survives only as the C3 People group.", "provenance": "S" },
+      { "title": "The Legal Exhaust", "detail": "The decay cell was named, highlighted, and developed by nobody.", "provenance": "S" },
+      { "title": "The maturation curve of trust", "detail": "Capability is outpacing reliability, but the cohort did not work the gap.", "provenance": "S" },
+      { "title": "Disclosure when you don't know", "detail": "A core governance plank is on no C3 wall.", "provenance": "I" },
+      { "title": "Liability and insurance", "detail": "A machine can't be accountable was written down but never resolved into who pays.", "provenance": "S" },
+      { "title": "The apprenticeship collapse", "detail": "Factor 8 is named in every phase and pulled on by no scenario; nobody on the affected side is in the room.", "provenance": "S" },
+      { "title": "Record integrity as an attack surface", "detail": "If the verifiable record is the core asset, the record is a target. No source raises it.", "provenance": "A" },
+      { "title": "When your agent meets their agent", "detail": "Agreements are bilateral; the scenarios model one organization's stack, never whose record governs.", "provenance": "A" }
+    ],
+    "missingVoices": [
+      "Sitting judges and courts (only a former chief justice now running a private AI-arbitration body)",
+      "Regulators and government",
+      "Plaintiffs', consumer, and public-interest bar (Morgan & Morgan attends via its transformation officer, not a litigator)",
+      "Junior and early-career lawyers (whose pipeline is a named agenda item)",
+      "Non-US and non-common-law systems (the cohort is entirely US-seated)",
+      "Non-lawyer business buyers (the buyer axis is load-bearing, but buyers are represented by in-house lawyers)",
+      "Ethicists, labor, civil society"
+    ],
+    "rootCause": { "text": "The blind spots are the shadow of the guest list: senior, US, enterprise and vendor weighted, selected for people who have already bet on AI transformation, with two of the three hosts being commercial actors holding about five seats. The 3-of-4 algocracy tilt is endogenous to who was invited.", "provenance": "I" }
+  },
+  "cohort": [
+    { "name": "Laurie Basch", "org": "McKinsey", "title": "Associate General Counsel" },
+    { "name": "Wendy Chow", "org": "Cityblock Health", "title": "General Counsel" },
+    { "name": "Vince DiMascio", "org": "Skadden", "title": "Chief Digital and Information Officer" },
+    { "name": "Keith Enright", "org": "Harvey", "title": "Chief Strategy Officer / Legal Innovation Partner" },
+    { "name": "Timothy Fraser", "org": "Toshiba", "title": "Chief Legal Officer" },
+    { "name": "Steve Harber", "org": "Cimplifi", "title": "Executive Chairman" },
+    { "name": "Yath Ithyakumar", "org": "Morgan & Morgan", "title": "Chief Transformation Officer" },
+    { "name": "David Levin", "org": "ALM/LBR", "title": "Chair of the Board" },
+    { "name": "Bridget McCormack", "org": "American Arbitration Association", "title": "President and CEO" },
+    { "name": "Gina Passarella", "org": "ALM/LBR", "title": "SVP / Chief Content Officer" },
+    { "name": "Michael Pastor", "org": "New York Law School", "title": "Dean for Technology Law Programs" },
+    { "name": "Farrah Pepper", "org": "Harvey", "title": "Legal Innovation Partner" },
+    { "name": "Zach Posner", "org": "The LegalTech Fund", "title": "Co-Founder & Managing Partner" },
+    { "name": "Ken Priore", "org": "Docusign", "title": "Deputy General Counsel" },
+    { "name": "Anu Sethee", "org": "LegalZoom", "title": "VP, Legal Practice Leader" },
+    { "name": "Michael Shea", "org": "McDermott Will & Schulte", "title": "Chief Information Officer (host)" },
+    { "name": "Sumeet Singh", "org": "Lighthouse AI", "title": "Founder & CEO" },
+    { "name": "Mark Smolik", "org": "DHL Supply Chain Americas", "title": "General Counsel & Board Director" },
+    { "name": "Whitney Stefko", "org": "Ford", "title": "Director and Senior Counsel, Policy and Legal Ops+" }
+  ]
+};
+
+/* ===================== helpers ===================== */
+function el(tag, attrs){
+  var node = document.createElement(tag);
+  if(attrs){
+    for(var k in attrs){
+      var v = attrs[k];
+      if(v==null || v===false) continue;
+      if(k==='class') node.className=v;
+      else if(k==='text') node.textContent=v;
+      else if(k==='html') node.innerHTML=v;
+      else if(k==='style' && typeof v==='object'){ for(var s in v) node.style.setProperty(s, v[s]); }
+      else if(k.slice(0,2)==='on' && typeof v==='function') node.addEventListener(k.slice(2).toLowerCase(), v);
+      else node.setAttribute(k, v);
+    }
+  }
+  for(var i=2;i<arguments.length;i++){ append(node, arguments[i]); }
+  return node;
+}
+function append(node, kid){
+  if(kid==null || kid===false) return;
+  if(Array.isArray(kid)){ kid.forEach(function(k){ append(node,k); }); return; }
+  node.appendChild(typeof kid==='object' ? kid : document.createTextNode(String(kid)));
+}
+function clear(n){ while(n.firstChild) n.removeChild(n.firstChild); }
+function humanize(k){
+  return k.replace(/([A-Z])/g,' $1').replace(/([0-9]+)/g,' $1').replace(/\s+/g,' ').trim().toLowerCase().replace(/^./,function(c){return c.toUpperCase();});
+}
+
+/* indexes */
+var scenarioById = {}, emptyById = {}, cellByCoords = {};
+DATA.scenarios.forEach(function(s){ scenarioById[s.id]=s; });
+DATA.emptyCells.forEach(function(e){ emptyById[e.id]=e; });
+DATA.cube.cells.forEach(function(c){ cellByCoords[[c.coords.tech,c.coords.role,c.coords.law].join('|')]=c; });
+
+var TECHS=['Integrated','Fragmented'];
+var ROLES=['Buyer disruption','Status quo'];
+var LAWS=['Algocracy','Human supremacy'];
+function cellAt(t,r,l){ return cellByCoords[[t,r,l].join('|')]; }
+
+/* state */
+var EMBED = new URLSearchParams(location.search).has('embed');
+var state = {
+  mode:'navigator', worldId:null,
+  tech:'Integrated', role:'Buyer disruption', law:'Algocracy',
+  fired: {}, cap:78, rec:46, stakeholder:'inhouse', byoCell:'legal-exhaust'
+};
+DATA.signals.forEach(function(s){ state.fired[s.id] = !!s.realWorld; });
+
+var CUSTOM_KEY='pathways_custom_2040';
+function loadCustom(){ try{ return JSON.parse(localStorage.getItem(CUSTOM_KEY)||'{}'); }catch(e){ return {}; } }
+function saveCustom(o){ try{ localStorage.setItem(CUSTOM_KEY, JSON.stringify(o)); }catch(e){} }
+
+/* shared bits */
+function prov(p){
+  if(!p) return null;
+  var names={S:'Sourced',I:'Inference',A:'Assumption'};
+  return el('span',{class:'prov '+p, title:names[p]+': '+(DATA.provenance[p]||'')}, p);
+}
+var SVGNS='http://www.w3.org/2000/svg';
+function ic(id, cls){
+  var svg=document.createElementNS(SVGNS,'svg'); svg.setAttribute('class','icon '+(cls||'')); svg.setAttribute('aria-hidden','true');
+  var use=document.createElementNS(SVGNS,'use'); use.setAttribute('href','#'+id); svg.appendChild(use); return svg;
+}
+function kicker(n,t,icon,iconCls){ return el('div',{class:'kicker'}, icon?ic(icon,'icon-16 '+(iconCls||'')):null, el('span',{},n), el('span',{class:'bar'}), el('b',{},t)); }
+function subkicker(t,extra,icon){ return el('div',{class:'sub-kicker'}, icon?ic(icon,'icon-16'):null, el('span',{},t), extra||null); }
+function axisChips(sc){
+  var lawVal=sc.axes.lawTechFirstWorld;
+  var lawRed=/Human supremacy/.test(lawVal);
+  return el('div',{class:'chips'},
+    el('span',{class:'chip'}, sc.axes.techLayer),
+    el('span',{class:'chip'}, sc.axes.corporateLegal),
+    el('span',{class:'chip'+(lawRed?' red':'')}, lawVal)
+  );
+}
+
+/* ===================== motion graphics (canvas, meaningful, reduced-motion aware) ===================== */
+var MONO="'SFMono-Regular',Menlo,Consolas,monospace";
+var PAL={paper:'#ffffff',ink:'#0a0a0a',ink2:'#3a3a3a',mute:'#6f6f6f',grid:'#e4e4e4',soft:'#f4f4f2',blue:'#0057B8',yellow:'#FFCC00',red:'#FF0000'};
+function lerp(a,b,p){ return a+(b-a)*p; }
+function clamp(v,a,b){ return v<a?a:(v>b?b:v); }
+function easeInOut(p){ p=clamp(p,0,1); return p<0.5?2*p*p:1-Math.pow(-2*p+2,2)/2; }
+var ACTIVE_ANIMS=[];
+function stopAllAnims(){ for(var i=0;i<ACTIVE_ANIMS.length;i++){ try{ ACTIVE_ANIMS[i](); }catch(e){} } ACTIVE_ANIMS=[]; }
+function makeCanvas(height, drawFn){
+  var wrap=el('div',{class:'mg'}); wrap.style.height=height+'px';
+  var canvas=document.createElement('canvas'); canvas.className='mg-canvas';
+  wrap.appendChild(canvas);
+  var ctx=canvas.getContext('2d'); if(!ctx) return wrap;
+  var reduced=!!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  var W=0,H=height,dpr=window.devicePixelRatio||1,raf=null,start=null,stopped=false;
+  function size(){
+    var w=Math.round(wrap.clientWidth || (wrap.getBoundingClientRect().width) || 0);
+    if(w===0||w===W) return;
+    W=w; canvas.width=Math.round(W*dpr); canvas.height=Math.round(H*dpr);
+    canvas.style.width=W+'px'; canvas.style.height=H+'px'; ctx.setTransform(dpr,0,0,dpr,0,0);
+  }
+  function frame(ts){
+    if(stopped) return;
+    if(start==null) start=ts;
+    size();
+    var t=(ts-start)/1000;
+    try{ ctx.clearRect(0,0,W,H); drawFn(ctx,W,H,t,false); }catch(e){ stopped=true; return; }
+    raf=requestAnimationFrame(frame);
+  }
+  function stop(){ stopped=true; if(raf) cancelAnimationFrame(raf); }
+  ACTIVE_ANIMS.push(stop);
+  setTimeout(function(){
+    if(stopped) return;
+    size();
+    if(W===0){ W=600; canvas.width=Math.round(W*dpr); canvas.height=Math.round(H*dpr); canvas.style.width=W+'px'; canvas.style.height=H+'px'; ctx.setTransform(dpr,0,0,dpr,0,0); }
+    if(reduced){ try{ ctx.clearRect(0,0,W,H); drawFn(ctx,W,H,9999,true); }catch(e){} }
+    else raf=requestAnimationFrame(frame);
+  },0);
+  return wrap;
+}
+function mgFigure(height, factory, caption){
+  var fig=el('figure',{class:'mg-fig'});
+  fig.appendChild(makeCanvas(height, factory));
+  if(caption) fig.appendChild(el('figcaption',{class:'mg-cap'}, caption));
+  return fig;
+}
+/* Hero: 3 binary questions branch into 8 worlds, 4 lit / 4 dark */
+function makeTreeHero(){
+  var tokens=[], spawnT=0, count=0, leaves=null;
+  function build(){
+    var arr=[];
+    for(var i=0;i<8;i++){
+      var q1=(i>>2)&1, q2=(i>>1)&1, q3=i&1;
+      var cell=cellAt(TECHS[q1], ROLES[q2], LAWS[q3]);
+      var dev=cell.status==='developed';
+      arr.push({dev:dev, color:dev?scenarioById[cell.scenarioId].color:PAL.mute, num:dev?scenarioById[cell.scenarioId].number:null});
+    }
+    return arr;
+  }
+  return function(ctx,W,H,t,reduced){
+    if(!leaves) leaves=build();
+    var mT=28,mB=14, leftX=42, leafX=W-150;
+    var x1=lerp(leftX,leafX,0.34), x2=lerp(leftX,leafX,0.67), x3=leafX;
+    var topY=mT, botY=H-mB;
+    var ly=[]; for(var i=0;i<8;i++) ly.push(lerp(topY,botY,(i+0.5)/8));
+    var l2y=[]; for(var k=0;k<4;k++) l2y.push((ly[2*k]+ly[2*k+1])/2);
+    var l1y=[]; for(var k=0;k<2;k++) l1y.push((l2y[2*k]+l2y[2*k+1])/2);
+    var rootY=(l1y[0]+l1y[1])/2;
+    ctx.strokeStyle=PAL.grid; ctx.lineWidth=1.4;
+    function edge(ax,ay,bx,by){ ctx.beginPath(); ctx.moveTo(ax,ay); ctx.lineTo(bx,by); ctx.stroke(); }
+    for(var k=0;k<2;k++) edge(leftX,rootY,x1,l1y[k]);
+    for(var k=0;k<4;k++) edge(x1,l1y[k>>1],x2,l2y[k]);
+    for(var i=0;i<8;i++) edge(x2,l2y[i>>1],x3,ly[i]);
+    ctx.fillStyle=PAL.mute; ctx.font='700 9px '+MONO; ctx.textAlign='center'; ctx.textBaseline='alphabetic';
+    ctx.fillText('TECH', x1, topY-13); ctx.fillText('LEGAL', x2, topY-13); ctx.fillText('MACHINE', x3, topY-13);
+    ctx.textAlign='left';
+    for(var i=0;i<8;i++){
+      var L=leaves[i], yy=ly[i];
+      if(L.dev){ ctx.fillStyle=L.color; ctx.fillRect(x3-5,yy-5,10,10); ctx.fillStyle=PAL.ink; ctx.font='800 11px '+MONO; ctx.textBaseline='middle'; ctx.fillText('World '+L.num, x3+12, yy); }
+      else { ctx.strokeStyle=PAL.mute; ctx.lineWidth=1.4; ctx.setLineDash([3,3]); ctx.strokeRect(x3-5,yy-5,10,10); ctx.setLineDash([]); ctx.fillStyle=PAL.mute; ctx.font='600 10px '+MONO; ctx.textBaseline='middle'; ctx.fillText('dark', x3+12, yy); }
+    }
+    ctx.fillStyle=PAL.ink; ctx.fillRect(leftX-4,rootY-4,8,8);
+    var dur=2.4;
+    if(!reduced){ if(t-spawnT>0.3){ spawnT=t; tokens.push({leaf:count%8, birth:t}); count++; } tokens=tokens.filter(function(tk){ return (t-tk.birth)/dur<1.05; }); }
+    else if(tokens.length===0){ for(var i=0;i<8;i++) tokens.push({leaf:i, birth:-dur}); }
+    for(var ti=0;ti<tokens.length;ti++){
+      var tok=tokens[ti], e=easeInOut(clamp((t-tok.birth)/dur,0,1)), li=tok.leaf, seg=e*3, px,py;
+      if(seg<1){ px=lerp(leftX,x1,seg); py=lerp(rootY,l1y[li>>2],seg); }
+      else if(seg<2){ px=lerp(x1,x2,seg-1); py=lerp(l1y[li>>2],l2y[li>>1],seg-1); }
+      else { px=lerp(x2,x3,seg-2); py=lerp(l2y[li>>1],ly[li],seg-2); }
+      ctx.fillStyle=leaves[li].color; ctx.fillRect(px-3,py-3,6,6);
+    }
+  };
+}
+/* Three Horizons: full curves + sweeping time playhead */
+function make3H(){
+  return function(ctx,W,H,t,reduced){
+    var mL=44,mR=48,mT=20,mB=26, x0=mL,x1=W-mR,yB=H-mB,yT=mT;
+    function X(u){ return lerp(x0,x1,u); } function Y(v){ return lerp(yB,yT,clamp(v,0,1)); }
+    ctx.strokeStyle=PAL.grid; ctx.lineWidth=1;
+    ctx.beginPath(); ctx.moveTo(x0,yB); ctx.lineTo(x1,yB); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(x0,yB); ctx.lineTo(x0,yT); ctx.stroke();
+    function h1(u){ return 0.80*Math.pow(1-u,1.8)+0.05; }
+    function h3(u){ return 0.05+0.86/(1+Math.exp(-11*(u-0.56))); }
+    function h2(u){ return 0.06+0.66*Math.exp(-Math.pow((u-0.44)/0.20,2)); }
+    function curve(fn,color){ ctx.strokeStyle=color; ctx.lineWidth=2.6; ctx.beginPath(); for(var i=0;i<=90;i++){ var u=i/90,px=X(u),py=Y(fn(u)); i?ctx.lineTo(px,py):ctx.moveTo(px,py); } ctx.stroke(); }
+    curve(h1,PAL.mute); curve(h2,PAL.yellow); curve(h3,PAL.blue);
+    var p=reduced?1:clamp((t%4.6)/3.6,0,1);
+    if(!reduced){ ctx.strokeStyle=PAL.grid; ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(X(p),yT); ctx.lineTo(X(p),yB); ctx.stroke(); }
+    [[h1,PAL.mute],[h2,PAL.yellow],[h3,PAL.blue]].forEach(function(pr){ ctx.fillStyle=pr[1]; ctx.beginPath(); ctx.arc(X(p),Y(pr[0](p)),3.4,0,Math.PI*2); ctx.fill(); });
+    ctx.font='700 11px '+MONO; ctx.textBaseline='middle';
+    ctx.fillStyle=PAL.mute; ctx.textAlign='left'; ctx.fillText('H1', X(0.06)+4, Y(h1(0.06))-2);
+    ctx.fillStyle='#8a6d00'; ctx.textAlign='center'; ctx.fillText('H2', X(0.44), Y(h2(0.44))-12);
+    ctx.fillStyle=PAL.blue; ctx.textAlign='right'; ctx.fillText('H3', X(0.96), Y(h3(0.96))-4);
+    ctx.fillStyle=PAL.mute; ctx.font='600 10px '+MONO; ctx.textBaseline='top'; ctx.textAlign='left'; ctx.fillText('2026', x0, yB+6);
+    ctx.textAlign='right'; ctx.fillText('2040', x1, yB+6); ctx.textAlign='left';
+    if(!reduced){ var yr=Math.round(lerp(2026,2040,p)); ctx.fillStyle=PAL.ink; ctx.font='800 11px '+MONO; ctx.textBaseline='bottom'; ctx.textAlign='center'; ctx.fillText(String(yr), clamp(X(p),x0+14,x1-14), yT+13); ctx.textAlign='left'; }
+  };
+}
+/* Convergence funnel: 8 emerge, 4 build, 4 strategies; empties never converge */
+function makeFunnel(){
+  var parts=[], spawnT=0;
+  return function(ctx,W,H,t,reduced){
+    var mT=24,mB=16, ax=64, bx=W/2, cx=W-64, topY=mT, botY=H-mB;
+    function yA(i){ return lerp(topY,botY,(i+0.5)/8); }
+    function yQ(i){ return lerp(topY,botY,(i+0.5)/4); }
+    var src=DATA.cube.cells.slice().sort(function(a,b){ return a.n-b.n; });
+    var A=[]; for(var i=0;i<8;i++){ var c=src[i], dev=c.status==='developed'; A.push({y:yA(i),dev:dev,color:dev?scenarioById[c.scenarioId].color:PAL.mute,world:dev?c.scenarioId:null}); }
+    var B=[]; for(var i=0;i<4;i++) B.push({y:yQ(i),color:DATA.scenarios[i].color,id:DATA.scenarios[i].id});
+    var C=[]; for(var i=0;i<4;i++) C.push({y:yQ(i)});
+    function wIdx(id){ for(var i=0;i<4;i++) if(B[i].id===id) return i; return 0; }
+    ctx.lineWidth=1;
+    A.forEach(function(a){ if(a.dev){ ctx.strokeStyle=PAL.grid; ctx.beginPath(); ctx.moveTo(ax,a.y); ctx.lineTo(bx,B[wIdx(a.world)].y); ctx.stroke(); } else { ctx.strokeStyle='#ededed'; ctx.setLineDash([3,3]); ctx.beginPath(); ctx.moveTo(ax,a.y); ctx.lineTo(lerp(ax,bx,0.4),a.y); ctx.stroke(); ctx.setLineDash([]); } });
+    ctx.strokeStyle='#efefef'; B.forEach(function(b){ C.forEach(function(c){ ctx.beginPath(); ctx.moveTo(bx,b.y); ctx.lineTo(cx,c.y); ctx.stroke(); }); });
+    A.forEach(function(a){ if(a.dev){ ctx.fillStyle=a.color; ctx.fillRect(ax-5,a.y-5,10,10); } else { ctx.strokeStyle=PAL.mute; ctx.setLineDash([3,3]); ctx.strokeRect(ax-5,a.y-5,10,10); ctx.setLineDash([]); } });
+    B.forEach(function(b){ ctx.fillStyle=b.color; ctx.fillRect(bx-6,b.y-6,12,12); });
+    C.forEach(function(c){ ctx.fillStyle=PAL.ink; ctx.fillRect(cx-5,c.y-5,10,10); });
+    ctx.fillStyle=PAL.mute; ctx.font='700 9px '+MONO; ctx.textBaseline='alphabetic'; ctx.textAlign='center';
+    ctx.fillText('8 EMERGED', ax, topY-11); ctx.fillText('4 BUILT', bx, topY-11); ctx.fillText('4 STRATEGIES', cx, topY-11); ctx.textAlign='left';
+    var devs=A.filter(function(a){ return a.dev; }), emps=A.filter(function(a){ return !a.dev; });
+    if(!reduced){
+      if(t-spawnT>0.14){ spawnT=t;
+        var a=devs[Math.floor(Math.random()*devs.length)]; parts.push({x0:ax,y0:a.y,x1:bx,y1:B[wIdx(a.world)].y,color:a.color,birth:t,dur:1.2});
+        if(Math.random()<0.5){ var e=emps[Math.floor(Math.random()*emps.length)]; parts.push({x0:ax,y0:e.y,x1:lerp(ax,bx,0.45),y1:e.y,color:PAL.mute,birth:t,dur:1.0,fade:true}); }
+        var b=B[Math.floor(Math.random()*4)], c=C[Math.floor(Math.random()*4)]; parts.push({x0:bx,y0:b.y,x1:cx,y1:c.y,color:b.color,birth:t,dur:1.2,light:true});
+      }
+      parts=parts.filter(function(pp){ return (t-pp.birth)/pp.dur<1; });
+    } else if(parts.length===0){ devs.forEach(function(a){ parts.push({x0:ax,y0:a.y,x1:bx,y1:B[wIdx(a.world)].y,color:a.color,fix:0.5}); }); B.forEach(function(b,i){ parts.push({x0:bx,y0:b.y,x1:cx,y1:C[i].y,color:b.color,fix:0.5,light:true}); }); }
+    parts.forEach(function(pp){ var p=pp.fix!=null?pp.fix:clamp((t-pp.birth)/pp.dur,0,1); var px=lerp(pp.x0,pp.x1,p), py=lerp(pp.y0,pp.y1,p); ctx.globalAlpha=pp.fade?(1-p):(pp.light?0.5:0.9); ctx.fillStyle=pp.color; ctx.fillRect(px-2.5,py-2.5,5,5); ctx.globalAlpha=1; });
+  };
+}
+
+/* ===================== MODE 1: NAVIGATOR ===================== */
+function cubeMap(onPick){
+  var wrap=el('div',{class:'cube-wrap'});
+  LAWS.forEach(function(law){
+    var active = state.law===law;
+    var plane=el('div',{class:'plane '+(active?'active':'dim')});
+    var lab=el('div',{class:'plane-label'},
+      el('span',{class: law==='Human supremacy'?'hs':''}, law),
+      el('span',{class:'plane-sub'}, law==='Algocracy'?'the machine rules' : 'humans stay on top')
+    );
+    plane.appendChild(lab);
+    var grid=el('div',{class:'grid'});
+    grid.appendChild(el('div',{class:'corner'}));
+    ROLES.forEach(function(r){ grid.appendChild(el('div',{class:'col-h'}, r)); });
+    TECHS.forEach(function(tech){
+      grid.appendChild(el('div',{class:'row-h'}, tech));
+      ROLES.forEach(function(role){
+        var c=cellAt(tech,role,law);
+        var dev=c.status==='developed';
+        var selected = state.tech===tech && state.role===role && state.law===law;
+        var cls='cell '+(dev?'developed':'empty')+(selected?' selected':'');
+        var btn;
+        if(dev){
+          var sc=scenarioById[c.scenarioId];
+          btn=el('button',{class:cls, style:{'--accent':sc.color}, 'aria-label':sc.title, onclick:function(){ onPick(tech,role,law); }},
+            el('span',{class:'cell-num'}, 'World '+sc.number),
+            el('span',{class:'cell-title'}, sc.shortTitle),
+            el('span',{class:'cell-foot'}, 'Developed')
+          );
+        } else {
+          var ec=emptyById[c.emptyCellId];
+          btn=el('button',{class:cls, 'aria-label':ec.c1Name+' (not built)', onclick:function(){ onPick(tech,role,law); }},
+            el('span',{class:'cell-num'}, 'Not built'),
+            el('span',{class:'cell-title'}, ec.c1Name),
+            el('span',{class:'cell-foot'}, 'Empty cell')
+          );
+        }
+        grid.appendChild(btn);
+      });
+    });
+    plane.appendChild(grid);
+    wrap.appendChild(plane);
+  });
+  return wrap;
+}
+function navReadout(){
+  var c=cellAt(state.tech,state.role,state.law);
+  var box=el('div',{class:'readout'});
+  box.appendChild(el('div',{class:'readout-coords'}, state.tech+' · '+state.role+' · '+state.law));
+  if(c.status==='developed'){
+    var sc=scenarioById[c.scenarioId];
+    box.appendChild(el('div',{class:'readout-tag', style:{'--accent':sc.color}}, 'World '+sc.number+' · Developed'));
+    box.appendChild(el('h3',{class:'readout-title'}, sc.title));
+    box.appendChild(el('p',{class:'readout-glance'}, sc.glance));
+    box.appendChild(el('button',{class:'btn', onclick:function(){ go('world/'+sc.id); }}, 'Step into this world →'));
+  } else {
+    var ec=emptyById[c.emptyCellId];
+    if(ec.id==='legal-exhaust') box.className='readout exhaust';
+    box.appendChild(el('div',{class:'readout-tag empty'}, 'Not built'));
+    box.appendChild(el('h3',{class:'readout-title'}, ec.c1Name, prov(ec.provenance)));
+    box.appendChild(el('p',{class:'readout-glance'}, ec.oneLine));
+    box.appendChild(el('p',{class:'readout-why'}, el('strong',{},'Why it stayed dark. '), ec.whyUndeveloped));
+  }
+  return box;
+}
+function navParts(){
+  var controls=el('div',{class:'controls', id:'navControls'},
+    toggleGroup('Question 1: the tech layer', TECHS, state.tech, function(v){ state.tech=v; rerenderNav(); }, null, 'Integrated: one connected system. Fragmented: many competing tools.'),
+    toggleGroup('Question 2: who drives change', ROLES, state.role, function(v){ state.role=v; rerenderNav(); }, null, 'Buyer disruption: in-house legal forces new models. Status quo: it sits back while others set the pace.'),
+    toggleGroup('Question 3: who decides', LAWS, state.law, function(v){ state.law=v; rerenderNav(); }, 'Human supremacy', 'Algocracy: software makes the call. Human supremacy: people keep the final say.')
+  );
+  var map=el('div',{class:'nav-map', id:'navMap'});
+  map.appendChild(cubeMap(function(t,r,l){ state.tech=t; state.role=r; state.law=l; rerenderNav(); }));
+  map.appendChild(el('p',{class:'skew-note'}, prov('I'), el('span',{}, 'The built worlds cluster on the Algocracy side, and three of the four Human supremacy corners stayed dark. What the cohort skipped shows up here as empty cells.')));
+  var side=el('div',{class:'nav-side', id:'navSide'}, navReadout());
+  return {controls:controls, map:map, side:side};
+}
+function toggleGroup(label, options, current, onChange, redOn, hint){
+  var seg=el('div',{class:'seg'});
+  options.forEach(function(o){
+    seg.appendChild(el('button',{class:'seg-btn'+(current===o?' on':'')+(redOn===o?' red':''), onclick:function(){ onChange(o); }}, o));
+  });
+  return el('div',{class:'toggle'}, el('div',{class:'toggle-label'}, label), seg, hint?el('div',{class:'toggle-hint'}, hint):null);
+}
+function rerenderNav(){
+  var p=navParts();
+  var c=document.getElementById('navControls'); if(c) c.parentNode.replaceChild(p.controls, c);
+  var m=document.getElementById('navMap'); if(m) m.parentNode.replaceChild(p.map, m);
+  var s=document.getElementById('navSide'); if(s) s.parentNode.replaceChild(p.side, s);
+}
+function renderNavigator(){
+  var p=navParts();
+  return el('div',{class:'mode'},
+    kicker('Mode 01','The world navigator','e-node'),
+    el('h1',{class:'big'}, 'Three questions. Eight possible worlds.'),
+    el('p',{class:'lede'}, 'The cohort answered three yes-or-no questions and built four of the eight possible worlds. Flip the three switches below to land on any of the eight. The four they built are solid and clickable; the four they skipped stay empty.'),
+    mgFigure(188, makeTreeHero(), 'Three yes or no questions branch into eight possible worlds. The cohort built four, in color, and left four dark.'),
+    p.controls,
+    el('div',{class:'nav-layout'}, p.map, p.side)
+  );
+}
+
+/* ===================== MODE 2: WORLDS ===================== */
+function renderWorldsIndex(){
+  var root=el('div',{class:'mode'},
+    kicker('Mode 02','The worlds','d-architecture'),
+    el('h1',{class:'big'}, 'Four worlds, built in detail.'),
+    el('p',{class:'lede'}, 'Each scenario is a full 2040: a scene to step into, the path that got there from today, how the world runs, and the questions it leaves open.')
+  );
+  var grid=el('div',{class:'world-grid m-build'});
+  DATA.scenarios.forEach(function(sc){
+    grid.appendChild(el('div',{class:'wcard', style:{'--accent':sc.color}, onclick:function(){ go('world/'+sc.id); }},
+      el('span',{class:'wn'}, 'World '+sc.number),
+      el('h3',{}, sc.shortTitle),
+      axisChips(sc),
+      el('p',{class:'wglance'}, sc.glance),
+      el('span',{class:'btn ghost sm'}, 'Step in →')
+    ));
+  });
+  root.appendChild(grid);
+  root.appendChild(subkicker('The four worlds left dark', prov('S')));
+  var er=el('div',{class:'empty-row m-build'});
+  DATA.emptyCells.forEach(function(ec){
+    er.appendChild(el('div',{class:'ecard'+(ec.id==='legal-exhaust'?' exhaust':''), onclick:function(){ var c=findCellByEmpty(ec.id); state.tech=c.coords.tech; state.role=c.coords.role; state.law=c.coords.law; go('navigator'); }, title:'See on the navigator'},
+      el('div',{class:'et'}, ec.c1Name),
+      el('div',{class:'eo'}, ec.oneLine)
+    ));
+  });
+  root.appendChild(er);
+  return root;
+}
+function findCellByEmpty(id){ for(var k in cellByCoords){ if(cellByCoords[k].emptyCellId===id) return cellByCoords[k]; } return null; }
+
+/* ===================== WORLD DETAIL ===================== */
+function renderWorld(id){
+  var sc=scenarioById[id];
+  if(!sc) return renderWorldsIndex();
+  var accent={'--accent':sc.color};
+  var root=el('div',{class:'mode', style:accent});
+  root.appendChild(el('button',{class:'backlink', onclick:function(){ go('worlds'); }}, '← All worlds'));
+  root.appendChild(el('div',{class:'w-head'},
+    el('div',{class:'w-num'}, 'World '+sc.number),
+    el('h1',{class:'w-title'}, sc.title),
+    axisChips(sc),
+    el('p',{class:'w-glance'}, sc.glance)
+  ));
+
+  root.appendChild(el('div',{class:'section'}, subkicker('The world in brief'), el('p',{class:'prose'}, sc.summary)));
+
+  // profile
+  var pr=sc.profile;
+  root.appendChild(el('div',{class:'section'},
+    subkicker('Postcard from 2040'),
+    el('div',{class:'profile-grid'},
+      el('div',{class:'pcell'}, el('div',{class:'pl'},'Built by'), el('div',{class:'pv'}, pr.team.join(', '))),
+      el('div',{class:'pcell'}, el('div',{class:'pl'},'Soundtrack'), el('div',{class:'pv'}, pr.soundtrack)),
+      el('div',{class:'pcell'}, el('div',{class:'pl'},'Artifact from the future'), el('div',{class:'pv'}, pr.artifactFromFuture)),
+      el('div',{class:'pcell'}, el('div',{class:'pl'},'The scene'), el('div',{class:'pv'}, pr.image2040))
+    )
+  ));
+
+  // step into world
+  var siw=sc.stepIntoWorld;
+  var quotes=el('div',{class:'quotes'});
+  siw.pullQuotes.forEach(function(q){ quotes.appendChild(el('blockquote',{style:accent}, q)); });
+  root.appendChild(el('div',{class:'section'},
+    subkicker('Step into the world: '+siw.title),
+    quotes,
+    el('p',{class:'prose'}, siw.narrative)
+  ));
+
+  // timeline
+  var tl=el('div',{class:'timeline'});
+  Object.keys(sc.timeline).sort(function(a,b){ return parseInt(a,10)-parseInt(b,10); }).forEach(function(yr){
+    var col=el('div',{class:'tcol'}, el('div',{class:'tyear', style:accent}, yr));
+    var ul=el('ul',{});
+    sc.timeline[yr].forEach(function(it){ ul.appendChild(el('li',{}, it)); });
+    col.appendChild(ul);
+    tl.appendChild(col);
+  });
+  root.appendChild(el('div',{class:'section'}, subkicker('The path from here to 2040'), tl));
+
+  // how it works
+  var hiw=el('div',{class:'hiw'});
+  Object.keys(sc.howItWorks).forEach(function(key){
+    if(key==='valuePyramid'){
+      var pyr=el('div',{class:'pyramid'});
+      var widths=[58,80,100];
+      sc.howItWorks.valuePyramid.forEach(function(t,i){
+        pyr.appendChild(el('div',{class:'ptier', style:{'width':widths[i]+'%','background':sc.color}},
+          el('div',{class:'pt-t'}, t.tier),
+          el('div',{class:'pt-l'}, t.label),
+          el('div',{class:'pt-p'}, t.price)
+        ));
+      });
+      hiw.appendChild(el('div',{class:'hiw-block'}, el('div',{class:'hb-t'}, 'Value pyramid'), pyr));
+    } else {
+      var blk=el('div',{class:'hiw-block'}, el('div',{class:'hb-t'}, humanize(key)));
+      var ul=el('ul',{});
+      sc.howItWorks[key].forEach(function(it){ ul.appendChild(el('li',{style:accent}, it)); });
+      blk.appendChild(ul);
+      hiw.appendChild(blk);
+    }
+  });
+  root.appendChild(el('div',{class:'section'}, subkicker('How it works'), hiw));
+
+  // questions
+  var qg=el('div',{class:'qgrid'});
+  Object.keys(sc.questionsThisWorldRaises).forEach(function(key){
+    qg.appendChild(el('div',{class:'qcard'},
+      el('div',{class:'ql'}, humanize(key)),
+      el('div',{class:'qv'}, sc.questionsThisWorldRaises[key])
+    ));
+  });
+  root.appendChild(el('div',{class:'section'}, subkicker('Questions this world raises'), qg));
+
+  // prev/next
+  var idx=DATA.scenarios.indexOf(sc);
+  var prevS=DATA.scenarios[(idx+DATA.scenarios.length-1)%DATA.scenarios.length];
+  var nextS=DATA.scenarios[(idx+1)%DATA.scenarios.length];
+  root.appendChild(el('div',{class:'w-foot'},
+    el('button',{class:'btn ghost sm', onclick:function(){ go('world/'+prevS.id); }}, '← '+prevS.shortTitle),
+    el('button',{class:'btn ghost sm', onclick:function(){ go('world/'+nextS.id); }}, nextS.shortTitle+' →')
+  ));
+  return root;
+}
+
+/* ===================== MODE 3: THE ARC ===================== */
+function renderArc(){
+  var conv=DATA.program.phase2.convenings;
+  function cv(id){ for(var i=0;i<conv.length;i++){ if(conv[i].id===id) return conv[i]; } return {}; }
+  var root=el('div',{class:'mode'},
+    kicker('Mode 03','The arc','e-throughput'),
+    el('h1',{class:'big'}, 'Eight worlds, to four, to four strategies.'),
+    el('p',{class:'lede'}, 'Three convenings narrowed the field. Emergence opened the space, Divergence developed four worlds, Convergence turned them into stakeholder strategy.')
+  );
+
+  root.appendChild(mgFigure(186, makeFunnel(), 'Eight worlds emerged, four were built in detail, four stakeholder strategies came out. The four empty cells never converge.'));
+
+  var emergence=el('div',{class:'stage'},
+    el('div',{class:'stage-h'}, el('div',{class:'sm'}, cv('c1').mode+' · '+fmtDate(cv('c1').date)), el('div',{class:'st'}, 'Convening 1'), el('div',{class:'sd'}, 'Seven pitches, eight cube corners'))
+  );
+  var eb=el('div',{class:'stage-b'});
+  DATA.convening1ScenarioPitches.forEach(function(p){
+    eb.appendChild(el('div',{class:'item'}, el('b',{}, p.title+(p.topVoted?'  ★':'')), el('div',{}, p.headline2040)));
+  });
+  emergence.appendChild(eb);
+
+  var divergence=el('div',{class:'stage'},
+    el('div',{class:'stage-h'}, el('div',{class:'sm'}, cv('c2').mode+' · '+fmtDate(cv('c2').date)), el('div',{class:'st'}, 'Convening 2'), el('div',{class:'sd'}, 'Four worlds, built in detail'))
+  );
+  var db=el('div',{class:'stage-b'});
+  DATA.scenarios.forEach(function(sc){
+    db.appendChild(el('div',{class:'item', style:{'cursor':'pointer','border-left':'4px solid '+sc.color,'padding-left':'9px'}, onclick:function(){ go('world/'+sc.id); }},
+      el('b',{}, 'World '+sc.number+': '+sc.shortTitle), el('div',{}, sc.axes.techLayer+' · '+sc.axes.corporateLegal+' · '+sc.axes.lawTechFirstWorld)));
+  });
+  divergence.appendChild(db);
+
+  var convergence=el('div',{class:'stage'},
+    el('div',{class:'stage-h'}, el('div',{class:'sm'}, cv('c3').mode+' · '+fmtDate(cv('c3').date)), el('div',{class:'st'}, 'Convening 3'), el('div',{class:'sd'}, 'Four stakeholder strategies'))
+  );
+  var cb=el('div',{class:'stage-b'});
+  DATA.c3Convergence.stakeholders.forEach(function(st){
+    cb.appendChild(el('div',{class:'item', style:{'cursor':'pointer'}, onclick:function(){ state.stakeholder=st.id; go('sandbox'); }}, el('b',{}, st.name), el('div',{}, st.centerStance)));
+  });
+  convergence.appendChild(cb);
+
+  root.appendChild(el('div',{class:'funnel'}, emergence, divergence, convergence));
+
+  // the override finding
+  root.appendChild(el('div',{class:'rootcause', style:{'margin-bottom':'30px','border-color':'var(--red)'}},
+    el('div',{class:'rc-l'}, 'The Convergence finding'),
+    el('div',{class:'rc-t'}, DATA.c3Convergence.headlineFinding)
+  ));
+
+  // through-line
+  root.appendChild(subkicker('How each world got its name, first pitch to final'));
+  var tlb=el('div',{class:'throughline'});
+  tlb.appendChild(el('div',{class:'tl-row head'}, el('div',{},'First pitch'), el('div',{},'Working title'), el('div',{},'Final world')));
+  DATA.scenarioThroughLine.forEach(function(t){
+    var sc=scenarioById[t.finalScenarioId];
+    tlb.appendChild(el('div',{class:'tl-row'},
+      el('div',{}, t.c1Pitch),
+      el('div',{}, t.c3PreSeedCard),
+      el('div',{class:'fin', onclick:function(){ go('world/'+sc.id); }}, el('span',{class:'dotc', style:{'background':sc.color}}), sc.shortTitle)
+    ));
+  });
+  root.appendChild(tlb);
+
+  // the floor: predetermined factors
+  root.appendChild(el('div',{class:'section', style:{'margin-top':'34px'}},
+    subkicker('The floor: nine predetermined factors', prov('S'), 'd-foundation'),
+    el('p',{class:'panel-lede'}, 'Carried in from Phase 1 and treated as already underway. The cohort argued about the eight worlds, never about these. A 2040 that still treats any of them as an open question is reading the board wrong.'),
+    pfGrid()
+  ));
+  return root;
+}
+function pfGrid(){
+  var g=el('div',{class:'pf-grid'});
+  DATA.predeterminedFactors.forEach(function(f,i){
+    g.appendChild(el('div',{class:'pf'}, el('span',{class:'pf-n'}, (i+1<10?'0':'')+(i+1)), el('span',{class:'pf-t'}, f)));
+  });
+  return g;
+}
+function fmtDate(d){
+  if(!d) return '';
+  var months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var m=d.match(/^(\d{4})-(\d{2})/);
+  if(!m) return d;
+  return months[parseInt(m[2],10)-1]+' '+m[1];
+}
+
+/* ===================== MODE 4: SIGNALS ===================== */
+function leanScores(){
+  var s={}; DATA.scenarios.forEach(function(x){ s[x.id]=0; });
+  DATA.signals.forEach(function(sig){
+    if(state.fired[sig.id]){ (sig.leansToward||[]).forEach(function(w){ if(s[w]!=null) s[w]++; }); }
+  });
+  return s;
+}
+function driftBars(){
+  var scores=leanScores();
+  var max=1; for(var k in scores){ if(scores[k]>max) max=scores[k]; }
+  var box=el('div',{class:'drift', id:'driftBox'});
+  box.appendChild(subkicker('Where the signals point', el('span',{style:{'font-weight':'400','letter-spacing':'0','text-transform':'none','font-family':'var(--sans)','font-size':'12px','color':'var(--mute)'}}, 'how many point at each world')));
+  DATA.scenarios.forEach(function(sc){
+    var v=scores[sc.id];
+    box.appendChild(el('div',{class:'drift-row'},
+      el('div',{class:'drift-name'}, el('span',{class:'dotc', style:{'background':sc.color}}), 'World '+sc.number+' · '+sc.shortTitle),
+      el('div',{class:'drift-track'}, el('div',{class:'drift-fill', style:{'--accent':sc.color,'width':Math.round(v/max*100)+'%'}})),
+      el('div',{class:'drift-val'}, v)
+    ));
+  });
+  return box;
+}
+function renderSignals(){
+  var root=el('div',{class:'mode'},
+    kicker('Mode 04','Signals on three horizons','e-signal','m-beat'),
+    el('h1',{class:'big'}, 'What is already happening.'),
+    el('p',{class:'lede'}, 'Each card is something already happening in the real world. Switch off any you do not buy. The meter at the top counts how many switched-on signals point toward each of the four built worlds. Everything real starts on; the one invented headline starts off.'),
+    mgFigure(158, make3H(), 'Three Horizons: today\'s system declines, the transition peaks then fades, the 2040 cube rises.'),
+    driftBars()
+  );
+  var cols={H1:[],H2:[],H3:[]};
+  DATA.signals.forEach(function(s){ (cols[s.horizon]||cols.H3).push(s); });
+  var hmeta={
+    H1:{t:'Horizon 1',s:"Today's system, in decline"},
+    H2:{t:'Horizon 2',s:'The transition, happening now'},
+    H3:{t:'Horizon 3',s:'Early signs of 2040'}
+  };
+  var hz=el('div',{class:'horizons'});
+  ['H1','H2','H3'].forEach(function(h){
+    var col=el('div',{class:'hcol'}, el('div',{class:'hcol-h'}, el('div',{class:'hh'}, hmeta[h].t), el('div',{class:'hs'}, hmeta[h].s)));
+    var body=el('div',{class:'hcol-b'});
+    cols[h].forEach(function(sig){ body.appendChild(signalCard(sig)); });
+    col.appendChild(body);
+    hz.appendChild(col);
+  });
+  root.appendChild(hz);
+  return root;
+}
+function signalCard(sig){
+  var on=!!state.fired[sig.id];
+  var leans=el('span',{class:'smeta'});
+  leans.appendChild(el('span',{}, sig.kind));
+  if(!sig.realWorld) leans.appendChild(el('span',{style:{'color':'var(--red)'}}, 'scenario only'));
+  (sig.leansToward||[]).forEach(function(w){ var sc=scenarioById[w]; if(sc) leans.appendChild(el('span',{class:'lean', style:{'background':sc.color}, title:'Leans to World '+sc.number})); });
+  var card=el('button',{class:'sig'+(on?' on':''),
+    onclick:function(){
+      state.fired[sig.id]=!state.fired[sig.id];
+      card.className='sig'+(state.fired[sig.id]?' on':'');
+      var old=document.getElementById('driftBox'); if(old) old.parentNode.replaceChild(driftBars(), old);
+    }},
+    el('span',{class:'box'}),
+    el('span',{},
+      el('span',{class:'stext'}, sig.label),
+      leans,
+      sig.note?el('span',{class:'note-line'}, sig.note):null
+    )
+  );
+  return card;
+}
+
+/* ===================== MODE 5: SANDBOX ===================== */
+function renderSandbox(){
+  var root=el('div',{class:'mode'},
+    kicker('Mode 05','Sandbox','e-eval'),
+    el('h1',{class:'big'}, 'Play with the outcomes.'),
+    el('p',{class:'lede'}, 'Five things to try: drop into any world, switch the real-world signals on and off, test where authority actually sits, run a group against all four worlds, and name a world of your own.')
+  );
+
+  // (a) compact navigator
+  var navPanel=el('div',{class:'panel'}, subkicker('A. Land in a world'));
+  var controls=el('div',{class:'controls'},
+    toggleGroup('Tech layer', TECHS, state.tech, function(v){ state.tech=v; refreshSandboxNav(); }),
+    toggleGroup('Corporate legal', ROLES, state.role, function(v){ state.role=v; refreshSandboxNav(); }),
+    toggleGroup('The machine', LAWS, state.law, function(v){ state.law=v; refreshSandboxNav(); }, 'Human supremacy')
+  );
+  navPanel.appendChild(controls);
+  navPanel.appendChild(el('div',{id:'sbResult'}, sandboxResult()));
+  root.appendChild(navPanel);
+
+  // (b) signals drift mini
+  var sigPanel=el('div',{class:'panel'}, subkicker('B. Switch the signals'),
+    el('p',{class:'panel-lede'}, 'Switch signals on or off and watch the count move. The full set lives in Signals.'));
+  sigPanel.appendChild(driftBars());
+  var chipWrap=el('div',{style:{'display':'flex','flex-wrap':'wrap','gap':'6px','margin-top':'14px'}});
+  DATA.signals.forEach(function(sig){
+    var b=el('button',{class:'chip', style:{'cursor':'pointer','background':state.fired[sig.id]?'var(--ink)':'#fff','color':state.fired[sig.id]?'#fff':'var(--ink2)','border-color':'var(--ink)'}, onclick:function(){
+      state.fired[sig.id]=!state.fired[sig.id];
+      b.style.setProperty('background', state.fired[sig.id]?'var(--ink)':'#fff');
+      b.style.setProperty('color', state.fired[sig.id]?'#fff':'var(--ink2)');
+      var old=sigPanel.querySelector('#driftBox'); if(old) old.parentNode.replaceChild(driftBars(), old);
+    }}, shortLabel(sig.label));
+    chipWrap.appendChild(b);
+  });
+  sigPanel.appendChild(chipWrap);
+  root.appendChild(sigPanel);
+
+  // (c) override dial
+  root.appendChild(overridePanel());
+
+  // (d) stakeholder stress test
+  root.appendChild(stakeholderPanel());
+
+  // (e) build your own
+  root.appendChild(byoPanel());
+
+  return root;
+}
+function shortLabel(s){ return s.length>34? s.slice(0,32)+'…' : s; }
+function sandboxResult(){
+  var c=cellAt(state.tech,state.role,state.law);
+  if(c.status==='developed'){
+    var sc=scenarioById[c.scenarioId];
+    return el('div',{class:'stake-center', style:{'border-color':sc.color}},
+      el('strong',{}, 'World '+sc.number+': '+sc.shortTitle+'. '), sc.glance+' ',
+      el('button',{class:'btn ghost sm', style:{'margin-top':'8px'}, onclick:function(){ go('world/'+sc.id); }}, 'Open →'));
+  }
+  var ec=emptyById[c.emptyCellId];
+  return el('div',{class:'stake-center', style:{'border-color':'var(--red)'}},
+    el('strong',{}, ec.c1Name+' (not built). '), ec.oneLine);
+}
+function refreshSandboxNav(){
+  stopAllAnims();
+  var y=window.scrollY; mount(renderSandbox()); window.scrollTo(0,y);
+}
+function overridePanel(){
+  var p=el('div',{class:'panel'}, subkicker('C. The override dial', null, 'e-override'));
+  p.appendChild(el('p',{class:'panel-lede'}, 'Authority is only as real as the record behind it. The most a human actually controls is the smaller of two things: what the machine can do, and what you can prove it did and undo. Once capability runs ahead of the record, the person signs off without being in charge.'));
+  var wrap=el('div',{class:'ov-wrap'});
+  var left=el('div',{});
+
+  var capVal=el('span',{class:'sl-val', id:'capVal'}, state.cap);
+  var capIn=el('input',{type:'range',min:'0',max:'100',value:state.cap,class:'cap'});
+  left.appendChild(el('div',{class:'slider-row'}, el('div',{class:'sl-top'}, el('span',{},'Machine capability'), capVal), capIn));
+
+  var recVal=el('span',{class:'sl-val', id:'recVal'}, state.rec);
+  var recIn=el('input',{type:'range',min:'0',max:'100',value:state.rec,class:'rec'});
+  left.appendChild(el('div',{class:'slider-row'}, el('div',{class:'sl-top'}, el('span',{},'Provable record'), recVal), recIn));
+
+  var verdict=el('div',{class:'ov-verdict'});
+  left.appendChild(verdict);
+
+  var capBar=el('div',{class:'ov-bar cap'});
+  var recBar=el('div',{class:'ov-bar rec'});
+  var effBar=el('div',{class:'ov-bar eff'});
+  var viz=el('div',{class:'ov-viz'},
+    el('div',{class:'ov-col'}, capBar, el('div',{class:'ov-cap-l'}, 'Capability')),
+    el('div',{class:'ov-col'}, recBar, el('div',{class:'ov-cap-l'}, 'Record')),
+    el('div',{class:'ov-col'}, effBar, el('div',{class:'ov-cap-l'}, 'Authority'))
+  );
+
+  function update(){
+    var cap=state.cap, rec=state.rec, eff=Math.min(cap,rec);
+    capBar.style.height=cap+'%'; recBar.style.height=rec+'%'; effBar.style.height=eff+'%';
+    var iface = cap>rec;
+    effBar.className='ov-bar eff'+(iface?' danger':'');
+    verdict.className='ov-verdict '+(iface?'danger':'ok');
+    verdict.textContent = iface
+      ? 'Capability has outrun the record. The machine can do more than you can prove or undo, so the human signs off without real control.'
+      : 'The record keeps pace with what the machine can do. The override is real here: you can show what happened and reverse it.';
+  }
+  capIn.addEventListener('input', function(e){ state.cap=parseInt(e.target.value,10); capVal.textContent=state.cap; update(); });
+  recIn.addEventListener('input', function(e){ state.rec=parseInt(e.target.value,10); recVal.textContent=state.rec; update(); });
+  wrap.appendChild(left); wrap.appendChild(viz);
+  p.appendChild(wrap);
+  update();
+  return p;
+}
+function stakeholderPanel(){
+  var p=el('div',{class:'panel'}, subkicker('D. Run a group against the worlds', prov('S')));
+  p.appendChild(el('p',{class:'panel-lede'}, 'Pick one of the four groups the room split into at the final session. You will see its main play, what it should do inside each of the four worlds, where that move backfires, and its three-part game plan.'));
+  var pick=el('div',{class:'stake-pick'});
+  DATA.c3Convergence.stakeholders.forEach(function(st){
+    pick.appendChild(el('button',{class: state.stakeholder===st.id?'on':'', onclick:function(){ state.stakeholder=st.id; var box=document.getElementById('stakeBox'); if(box){ clear(box); box.appendChild(stakeDetail()); } pick.querySelectorAll('button').forEach(function(b){ b.className=''; }); this.className='on'; }}, st.name));
+  });
+  p.appendChild(pick);
+  p.appendChild(el('div',{id:'stakeBox'}, stakeDetail()));
+  return p;
+}
+function stakeDetail(){
+  var st=null; DATA.c3Convergence.stakeholders.forEach(function(x){ if(x.id===state.stakeholder) st=x; });
+  if(!st) return el('div',{});
+  var box=el('div',{});
+  box.appendChild(el('div',{class:'stake-center'}, el('strong',{}, 'The main play. '), st.centerStance));
+  if(st.framing) box.appendChild(el('p',{class:'panel-lede', style:{'margin-top':'4px'}}, st.framing));
+  box.appendChild(el('div',{class:'stance-grid'},
+    el('div',{class:'stance'}, el('div',{class:'sl'}, 'Robust', el('span',{class:'sgloss'}, 'good across all four worlds')), el('div',{class:'sv'}, st.stances.robust)),
+    el('div',{class:'stance'}, el('div',{class:'sl'}, 'Contingent', el('span',{class:'sgloss'}, 'a bet on one world')), el('div',{class:'sv'}, st.stances.contingent)),
+    el('div',{class:'stance'}, el('div',{class:'sl'}, 'Resilient', el('span',{class:'sgloss'}, 'holds up when things go wrong')), el('div',{class:'sv'}, st.stances.resilient))
+  ));
+  if(st.standaloneClaim) box.appendChild(el('div',{class:'stake-center', style:{'border-color':'var(--red)'}}, el('strong',{}, 'Going further. '), st.standaloneClaim));
+  var tbl=el('div',{class:'pw-table'});
+  tbl.appendChild(el('div',{class:'pw-row head'}, el('div',{},'World'), el('div',{},'Do this'), el('div',{},'Failure mode')));
+  st.perWorld.forEach(function(pw){
+    var sc=scenarioById[pw.worldId];
+    tbl.appendChild(el('div',{class:'pw-row'},
+      el('div',{class:'pw-world'}, el('span',{class:'dotc', style:{'background':sc.color}}), 'W'+sc.number),
+      el('div',{}, pw.doThis||'—'),
+      el('div',{class:'fm'}, pw.failureMode||'—')
+    ));
+  });
+  box.appendChild(tbl);
+  if(st.note) box.appendChild(el('p',{class:'note-line'}, st.note));
+  return box;
+}
+function byoPanel(){
+  var p=el('div',{class:'panel'}, subkicker('E. Build your own 2040'));
+  p.appendChild(el('p',{class:'panel-lede'}, 'The four worlds nobody built are still open. Pick one, give it a name, and say what happens there. It saves to this browser, and you can copy a link to share your version.'));
+  var custom=loadCustom();
+  var sel=el('select',{});
+  DATA.emptyCells.forEach(function(ec){ var o=el('option',{value:ec.id}, ec.c1Name); if(ec.id===state.byoCell) o.selected=true; sel.appendChild(o); });
+  sel.addEventListener('change', function(e){ state.byoCell=e.target.value; });
+  var titleIn=el('input',{type:'text',placeholder:'Your title for this world',maxlength:'80'});
+  var oneIn=el('textarea',{placeholder:'One line: what happens in this corner of 2040?',maxlength:'320'});
+  var left=el('div',{},
+    el('label',{}, 'Which empty cell'), sel,
+    el('label',{}, 'Title'), titleIn,
+    el('label',{}, 'One line'), oneIn,
+    el('div',{style:{'display':'flex','gap':'8px'}},
+      el('button',{class:'btn sm', onclick:function(){
+        var c=loadCustom(); c[state.byoCell]={title:titleIn.value.trim(), oneLine:oneIn.value.trim(), at:Date.now()};
+        saveCustom(c); titleIn.value=''; oneIn.value='';
+        var l=document.getElementById('byoList'); if(l){ clear(l); l.appendChild(savedList()); }
+      }}, 'Save'),
+      el('button',{class:'btn ghost sm', onclick:function(){ shareCustom(); }}, 'Copy share link')
+    )
+  );
+  var right=el('div',{}, el('label',{}, 'Your worlds'), el('div',{id:'byoList'}, savedList()));
+  p.appendChild(el('div',{class:'byo'}, left, right));
+  return p;
+}
+function savedList(){
+  var custom=loadCustom();
+  var wrap=el('div',{class:'saved-list'});
+  var any=false;
+  DATA.emptyCells.forEach(function(ec){
+    var v=custom[ec.id];
+    if(!v || (!v.title && !v.oneLine)) return;
+    any=true;
+    var c=findCellByEmpty(ec.id);
+    wrap.appendChild(el('div',{class:'saved-item'},
+      el('button',{class:'si-x', title:'Remove', onclick:function(){ var cc=loadCustom(); delete cc[ec.id]; saveCustom(cc); var l=document.getElementById('byoList'); if(l){ clear(l); l.appendChild(savedList()); } }}, '✕'),
+      el('div',{class:'si-t'}, v.title||'(untitled)'),
+      el('div',{class:'si-c'}, ec.c1Name+' · '+c.coords.tech+' / '+c.coords.role+' / '+c.coords.law),
+      el('div',{class:'si-o'}, v.oneLine||'')
+    ));
+  });
+  if(!any) wrap.appendChild(el('p',{class:'note-line'}, 'Nothing saved yet. Name one of the four dark cells.'));
+  return wrap;
+}
+function shareCustom(){
+  var custom=loadCustom();
+  var enc;
+  try{ enc=btoa(unescape(encodeURIComponent(JSON.stringify(custom)))); }catch(e){ enc=''; }
+  var url=location.href.split('#')[0]+'#/sandbox?own='+enc;
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(url).then(function(){ flash('Link copied'); }, function(){ prompt('Copy your share link:', url); });
+  } else { prompt('Copy your share link:', url); }
+}
+function flash(msg){
+  var f=el('div',{style:{'position':'fixed','bottom':'20px','left':'50%','transform':'translateX(-50%)','background':'var(--ink)','color':'#fff','padding':'10px 16px','font':'700 12px/1 var(--mono)','z-index':'99','letter-spacing':'0.06em','text-transform':'uppercase'}}, msg);
+  document.body.appendChild(f); setTimeout(function(){ f.remove(); }, 1600);
+}
+
+/* ===================== MODE 6: CRITICAL READ ===================== */
+function renderCritical(){
+  var cr=DATA.criticalRead;
+  var root=el('div',{class:'mode'},
+    kicker('Mode 06','The critical read','a-audit'),
+    el('h1',{class:'big'}, 'What the cohort missed.'),
+    el('p',{class:'lede'}, 'This is not a knock on the cohort. It runs the same scrutiny the room ran on itself: where the four scenarios contradict each other, what the group could not see, and who never had a seat. Four of the eight cells stayed empty, and which four says a lot about who was in the room.')
+  );
+
+  root.appendChild(subkicker('Contradictions the cohort never resolved'));
+  var c1=el('div',{class:'cr-list'});
+  cr.contradictions.forEach(function(it){
+    c1.appendChild(el('div',{class:'cr-item'}, el('div',{class:'cr-x'}, '×'),
+      el('div',{}, el('div',{class:'cr-t'}, it.title, prov(it.provenance)), el('div',{class:'cr-d'}, it.detail))));
+  });
+  root.appendChild(c1);
+
+  root.appendChild(subkicker('Blind spots'));
+  var c2=el('div',{class:'cr-list'});
+  cr.blindSpots.forEach(function(it){
+    c2.appendChild(el('div',{class:'cr-item'}, el('div',{class:'cr-x'}, '○'),
+      el('div',{}, el('div',{class:'cr-t'}, it.title, prov(it.provenance)), el('div',{class:'cr-d'}, it.detail))));
+  });
+  root.appendChild(c2);
+
+  root.appendChild(subkicker('The voices not in the room', null, 'e-agent'));
+  var v=el('div',{class:'voices'});
+  cr.missingVoices.forEach(function(x){ v.appendChild(el('div',{}, x)); });
+  root.appendChild(v);
+
+  root.appendChild(el('div',{class:'rootcause'},
+    el('div',{class:'rc-l'}, 'Root cause', prov(cr.rootCause.provenance)),
+    el('div',{class:'rc-t'}, cr.rootCause.text)
+  ));
+  return root;
+}
+
+/* ===================== router + shell ===================== */
+var MODES=[
+  {id:'navigator', label:'Navigator'},
+  {id:'worlds', label:'Worlds'},
+  {id:'arc', label:'The Arc'},
+  {id:'signals', label:'Signals'},
+  {id:'sandbox', label:'Sandbox'},
+  {id:'critical', label:'Critical Read'}
+];
+var currentPath='';
+function stripHash(h){ return String(h==null?'':h).replace(/^#\/?/,''); }
+function go(path){
+  renderPath(path);                         // render immediately; do not wait on hashchange
+  try{ location.hash='#/'+path; }catch(e){}  // best-effort deep link / back-button support
+}
+function mount(node){ var app=document.getElementById('app'); clear(app); app.appendChild(node); }
+
+function applyOwnParam(query){
+  if(!query) return;
+  var m=query.match(/own=([^&]*)/);
+  if(!m) return;
+  try{
+    var obj=JSON.parse(decodeURIComponent(escape(atob(m[1]))));
+    var cur=loadCustom();
+    for(var k in obj){ cur[k]=obj[k]; }
+    saveCustom(cur);
+  }catch(e){}
+}
+function renderPath(raw){
+  stopAllAnims();
+  var h=stripHash(raw);
+  var qi=h.indexOf('?'); var query=''; if(qi>=0){ query=h.slice(qi+1); h=h.slice(0,qi); }
+  currentPath=h;
+  var parts=h.split('/').filter(Boolean);
+  applyOwnParam(query);
+  var mode=parts[0]||'navigator';
+  var node;
+  if(mode==='world'){ state.mode='worlds'; state.worldId=parts[1]; node=renderWorld(parts[1]); }
+  else if(mode==='worlds'){ state.mode='worlds'; node=renderWorldsIndex(); }
+  else if(mode==='arc'){ state.mode='arc'; node=renderArc(); }
+  else if(mode==='signals'){ state.mode='signals'; node=renderSignals(); }
+  else if(mode==='sandbox'){ state.mode='sandbox'; node=renderSandbox(); }
+  else if(mode==='critical'){ state.mode='critical'; node=renderCritical(); }
+  else { state.mode='navigator'; node=renderNavigator(); }
+  mount(node);
+  updateNav();
+  try{ window.scrollTo(0,0); }catch(e){}
+}
+function route(){
+  var h=''; try{ h=location.hash; }catch(e){}
+  var p=stripHash(h); var qi=p.indexOf('?'); if(qi>=0) p=p.slice(0,qi);
+  if(!p) p='navigator';
+  if(p===currentPath) return;   // already rendered by go(); avoids double render
+  renderPath(h||'navigator');
+}
+function updateNav(){
+  var nav=document.getElementById('modeNav'); clear(nav);
+  MODES.forEach(function(m,i){
+    nav.appendChild(el('button',{class: state.mode===m.id?'active':'', onclick:function(){ go(m.id); }},
+      el('span',{class:'n'}, '0'+(i+1)), m.label));
+  });
+}
+function buildFooter(){
+  var lg=document.getElementById('legend');
+  ['S','I','A'].forEach(function(k){ lg.appendChild(el('div',{class:'lg'}, prov(k), DATA.provenance[k])); });
+  document.getElementById('footMeta').textContent =
+    'Convened by '+DATA.meta.conveners.join(', ')+'  ·  Facilitation: '+DATA.meta.facilitation+'  ·  '+DATA.meta.method+'  ·  Updated '+DATA.meta.lastUpdated;
+}
+
+/* keyboard: 1-6 switch modes */
+document.addEventListener('keydown', function(e){
+  if(e.target && /^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)) return;
+  var n=parseInt(e.key,10);
+  if(n>=1 && n<=MODES.length){ go(MODES[n-1].id); }
+});
+
+/* init */
+if(EMBED) document.body.classList.add('embed');
+buildFooter();
+window.addEventListener('hashchange', route);
+var startRaw='navigator';
+try{ if(location.hash) startRaw=location.hash; }catch(e){}
+renderPath(startRaw);
+try{ if(!location.hash) location.hash='#/navigator'; }catch(e){}
+</script>
+</body>
+</html>
