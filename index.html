@@ -1000,7 +1000,6 @@ function navParts(){
   );
   var map=el('div',{class:'nav-map', id:'navMap'});
   map.appendChild(cubeMap(function(t,r,l){ state.tech=t; state.role=r; state.law=l; rerenderNav(); }));
-  map.appendChild(el('p',{class:'skew-note'}, prov('I'), el('span',{}, 'The built worlds cluster on the Algocracy side, and three of the four Human supremacy corners stayed dark. What the cohort skipped shows up here as empty cells.')));
   var side=el('div',{class:'nav-side', id:'navSide'}, navReadout());
   return {controls:controls, map:map, side:side};
 }
