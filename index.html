@@ -305,6 +305,22 @@
   .ov-eq-note{font:400 12px/1.45 var(--sans);color:var(--ink2);margin:9px 0 2px}
   .ov-cap-n{display:block;font:700 14px/1.1 var(--mono);font-variant-numeric:tabular-nums;color:var(--ink);margin-top:3px}
   .ov-cap-n.danger{color:var(--red)}
+  .ov-result{margin-top:12px;font:700 18px/1.25 var(--sans);font-variant-numeric:tabular-nums;color:var(--ink)}
+  .ov-result.danger{color:var(--red)}
+  .ov-result-sub{margin-top:6px;font:400 13px/1.45 var(--sans);color:var(--ink2)}
+  .ov-viz2{display:flex;flex-direction:column;align-items:center;gap:16px;padding-top:20px}
+  .ov-stack{position:relative;width:84px;height:200px;display:flex;flex-direction:column;justify-content:flex-end;border-left:2px solid var(--ink);border-bottom:2px solid var(--ink)}
+  .ov-seg{width:100%;transition:height .2s ease;display:flex;align-items:center;justify-content:center;font:700 12px/1 var(--mono);font-variant-numeric:tabular-nums;color:#fff;overflow:hidden}
+  .ov-seg.ctl{background:var(--ink)}
+  .ov-seg.gap{background:var(--red)}
+  .ov-recline{position:absolute;left:-5px;right:-5px;border-top:2px dashed var(--blue);pointer-events:none}
+  .ov-recline .rl-lab{position:absolute;right:-2px;top:-15px;font:700 9px/1 var(--mono);letter-spacing:.04em;color:var(--blue);white-space:nowrap}
+  .ov-machline{position:absolute;left:-5px;right:-5px;pointer-events:none}
+  .ov-machline .ml-lab{position:absolute;left:-2px;top:-15px;font:700 9px/1 var(--mono);letter-spacing:.04em;color:var(--mute);white-space:nowrap}
+  .ov-legend{align-self:stretch;display:flex;flex-direction:column;gap:6px;font:600 11px/1.3 var(--sans);color:var(--ink2)}
+  .ov-legend .sw{display:inline-block;width:11px;height:11px;margin-right:7px;vertical-align:-1px}
+  .ov-legend .sw.ink{background:var(--ink)}
+  .ov-legend .sw.red{background:var(--red)}
   .stake-pick{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
   .stake-pick button{border:2px solid var(--ink);background:#fff;padding:10px 14px;font:700 12px/1 var(--sans);cursor:pointer}
   .stake-pick button.on{background:var(--ink);color:#fff}
@@ -1433,8 +1449,8 @@ function refreshSandboxNav(){
 }
 function overridePanel(){
   var p=el('div',{class:'panel'}, subkicker('C. The override dial', null, 'e-override'));
-  p.appendChild(el('p',{class:'panel-lede'}, 'Authority is only as real as the record behind it. The most a human actually controls is the smaller of two things: what the machine can do, and what you can prove it did and undo. Once capability runs ahead of the record, the person signs off without being in charge.'));
-  p.appendChild(el('div',{class:'ov-howto'}, 'Drag both sliders: how capable the machine is, and how much of what it does you can prove and reverse. Your real authority is whichever number is lower.'));
+  p.appendChild(el('p',{class:'panel-lede'}, 'A human is only in charge of a machine if they can see what it did and undo it. So your authority is capped by the record: the share of the machine\'s work you can prove and reverse. Whatever the machine does beyond that still happens, just outside your control.'));
+  p.appendChild(el('div',{class:'ov-howto'}, 'Set how much the machine can do, then how much of that you can prove and undo. The red is the part you cannot reach.'));
   var wrap=el('div',{class:'ov-wrap'});
   var left=el('div',{});
 
@@ -1452,49 +1468,41 @@ function overridePanel(){
     el('div',{class:'sl-gloss'}, 'How much of that you can prove it did, and reverse.'),
     recIn));
 
-  var eqCap=el('span',{class:'eq-cap'}, state.cap);
-  var eqRec=el('span',{class:'eq-rec'}, state.rec);
-  var eqEff=el('span',{class:'eq-eff'}, Math.min(state.cap,state.rec));
-  var eq=el('div',{class:'ov-eq'},
-    el('span',{class:'eq-lab'}, 'Human authority'),
-    el('span',{class:'eq-body'}, 'min ( ', eqCap, ' , ', eqRec, ' ) = ', eqEff));
-  left.appendChild(eq);
-  var eqNote=el('div',{class:'ov-eq-note'});
-  left.appendChild(eqNote);
+  var resultH=el('div',{class:'ov-result'});
+  var resultS=el('div',{class:'ov-result-sub'});
+  left.appendChild(resultH); left.appendChild(resultS);
 
-  var verdict=el('div',{class:'ov-verdict'});
-  left.appendChild(verdict);
-
-  var capBar=el('div',{class:'ov-bar cap'});
-  var recBar=el('div',{class:'ov-bar rec'});
-  var effBar=el('div',{class:'ov-bar eff'});
-  var capN=el('span',{class:'ov-cap-n'}, state.cap);
-  var recN=el('span',{class:'ov-cap-n'}, state.rec);
-  var effN=el('span',{class:'ov-cap-n'}, Math.min(state.cap,state.rec));
-  var viz=el('div',{class:'ov-viz'},
-    el('div',{class:'ov-col'}, capBar, el('div',{class:'ov-cap-l'}, 'Capability', capN)),
-    el('div',{class:'ov-col'}, recBar, el('div',{class:'ov-cap-l'}, 'Record', recN)),
-    el('div',{class:'ov-col'}, effBar, el('div',{class:'ov-cap-l'}, 'Authority', effN))
-  );
+  var gapSeg=el('div',{class:'ov-seg gap'});
+  var ctlSeg=el('div',{class:'ov-seg ctl'});
+  var recLab=el('span',{class:'rl-lab'});
+  var machLab=el('span',{class:'ml-lab'});
+  var recLine=el('div',{class:'ov-recline'}, recLab);
+  var machLine=el('div',{class:'ov-machline'}, machLab);
+  var stack=el('div',{class:'ov-stack'}, gapSeg, ctlSeg, recLine, machLine);
+  var viz=el('div',{class:'ov-viz2'}, stack,
+    el('div',{class:'ov-legend'},
+      el('div',{}, el('span',{class:'sw ink'}), 'Under your control'),
+      el('div',{}, el('span',{class:'sw red'}), 'Beyond your record')));
 
   function update(){
-    var cap=state.cap, rec=state.rec, eff=Math.min(cap,rec);
-    capBar.style.height=cap+'%'; recBar.style.height=rec+'%'; effBar.style.height=eff+'%';
-    capN.textContent=cap; recN.textContent=rec; effN.textContent=eff;
-    eqCap.textContent=cap; eqRec.textContent=rec; eqEff.textContent=eff;
-    var iface = cap>rec;
-    effBar.className='ov-bar eff'+(iface?' danger':'');
-    effN.className='ov-cap-n'+(iface?' danger':'');
-    eq.className='ov-eq'+(iface?' danger':'');
-    eqNote.textContent = cap===rec
-      ? 'Capability and record are matched, so the record fully covers what the machine can do.'
-      : (iface
-        ? 'The record is the limit. Capability is higher, but you only control what you can prove, so authority stops at '+rec+'.'
-        : 'Capability is the limit. The record can already account for everything the machine does, so authority reaches '+cap+'.');
-    verdict.className='ov-verdict '+(iface?'danger':'ok');
-    verdict.textContent = iface
-      ? 'Capability has outrun the record. The machine can do more than you can prove or undo, so the human signs off without real control.'
-      : 'The record keeps pace with what the machine can do. The override is real here: you can show what happened and reverse it.';
+    var cap=state.cap, rec=state.rec, auth=Math.min(cap,rec), gap=cap-auth, H=200;
+    ctlSeg.style.height=(auth/100*H)+'px';
+    gapSeg.style.height=(gap/100*H)+'px';
+    ctlSeg.textContent=(auth/100*H>20)?auth:'';
+    gapSeg.textContent=(gap/100*H>20)?gap:'';
+    recLine.style.bottom=(rec/100*H)+'px';
+    machLine.style.bottom=(cap/100*H)+'px';
+    recLab.textContent='Record '+rec;
+    machLab.textContent='Machine '+cap;
+    var danger=gap>0;
+    resultH.className='ov-result'+(danger?' danger':'');
+    resultS.className='ov-result-sub'+(danger?' danger':'');
+    resultH.textContent=danger
+      ? 'You control '+auth+' of the machine\'s '+cap+'.'
+      : 'You control all '+cap+' of what the machine does.';
+    resultS.textContent=danger
+      ? 'The other '+gap+' is beyond your record. The machine can do it, but you cannot prove or undo it, so signing off there is a formality.'
+      : 'Nothing is beyond your record. You can prove and undo everything the machine does, so the override is real.';
   }
   capIn.addEventListener('input', function(e){ state.cap=parseInt(e.target.value,10); capVal.textContent=state.cap; update(); });
   recIn.addEventListener('input', function(e){ state.rec=parseInt(e.target.value,10); recVal.textContent=state.rec; update(); });
