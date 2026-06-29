@@ -923,25 +923,42 @@ function drawS3Icon(ctx, kind, x, y, col){
 function makeWorldS4(color){
   var toks=null, spawn=0;
   return function(ctx,W,H,t,reduced){
-    var trackY=H*0.62, x0=20, x1=W-20, gateX=W*0.62, topY=H*0.26;
+    var trackY=H*0.66, x0=20, x1=W-20, topY=H*0.20, span=x1-x0, N=4;
+    function depth(i){
+      if(reduced) return [0.15,1,0.5,0.85][i];
+      var cyc=2.8, ph=((t-i*(cyc/N))%cyc+cyc)%cyc, d=ph/cyc;
+      if(d<0.22) return easeInOut(d/0.22);
+      if(d<0.48) return 1;
+      if(d<0.66) return 1-easeInOut((d-0.48)/0.18);
+      return 0;
+    }
+    var leverX=[], deps=[];
+    for(var i=0;i<N;i++){ leverX.push(x0+span*(i+1)/(N+1)); deps.push(depth(i)); }
     ctx.strokeStyle=PAL.ink; ctx.lineWidth=2.5; ctx.beginPath(); ctx.moveTo(x0,topY); ctx.lineTo(x1,topY); ctx.stroke();
     ctx.strokeStyle=PAL.grid; ctx.lineWidth=1.5; ctx.beginPath(); ctx.moveTo(x0,trackY); ctx.lineTo(x1,trackY); ctx.stroke();
-    var cyc=reduced?0.5:(t%2.0)/2.0, gateActive=reduced?true:(cyc>0.45&&cyc<0.72);
-    var gateDrop=reduced?1:(gateActive?(clamp((cyc-0.45)/0.1,0,1)-clamp((cyc-0.62)/0.1,0,1)):0);
     if(!toks) toks=[];
-    if(!reduced){ if(t-spawn>0.22){ spawn=t; toks.push({born:t}); } toks=toks.filter(function(tk){ return x0+(t-tk.born)*((x1-x0)/2.6)<x1+10; }); }
-    else if(toks.length===0){ for(var i=0;i<6;i++) toks.push({born:-i*0.35}); }
-    var speed=(x1-x0)/2.6;
-    toks.forEach(function(tk){ var tx=reduced?lerp(x0,gateX-6,(toks.indexOf(tk)+1)/7):x0+(t-tk.born)*speed; if(gateActive&&tx>gateX-6)tx=gateX-6; ctx.fillStyle=color; ctx.fillRect(tx-3,trackY-3,6,6); });
-    if(gateDrop>0){ var gy=lerp(topY,trackY,gateDrop); ctx.strokeStyle=PAL.red; ctx.lineWidth=4; ctx.beginPath(); ctx.moveTo(gateX,topY); ctx.lineTo(gateX,gy); ctx.stroke(); ctx.fillStyle=PAL.red; ctx.fillRect(gateX-5,gy-2,10,4); }
-    else { ctx.fillStyle=PAL.ink; ctx.fillRect(gateX-4,topY-4,8,8); }
+    var speed=span/2.8;
+    if(!reduced){ if(t-spawn>0.24){ spawn=t; toks.push({born:t}); } toks=toks.filter(function(tk){ return x0+(t-tk.born)*speed<x1+10; }); }
+    else if(toks.length===0){ for(var j=0;j<7;j++) toks.push({born:-j*0.34}); }
+    toks.forEach(function(tk){
+      var tx=reduced? x0+(toks.indexOf(tk)+0.5)*span/7 : x0+(t-tk.born)*speed;
+      for(var k=0;k<N;k++){ if(deps[k]>0.85 && tx>leverX[k]-6 && tx<leverX[k]+22){ tx=leverX[k]-6; break; } }
+      ctx.fillStyle=color; ctx.fillRect(tx-3,trackY-3,6,6);
+    });
+    ctx.lineCap='butt';
+    for(var m=0;m<N;m++){
+      var lx=leverX[m], ry=lerp(topY+6, trackY+4, deps[m]);
+      ctx.strokeStyle=PAL.red; ctx.lineWidth=4; ctx.beginPath(); ctx.moveTo(lx,topY); ctx.lineTo(lx,ry); ctx.stroke();
+      ctx.fillStyle=PAL.red; ctx.fillRect(lx-6, topY-5, 12, 6);
+      ctx.fillRect(lx-4, ry-3, 8, 5);
+    }
   };
 }
 var WORLD_MOTION={
   's1-clo-coo':{make:makeWorldS1, cap:'Legal stops being a department and threads into the whole business.'},
   's2-gc-chief-legal-strategist':{make:makeWorldS2, cap:'One control tower sets the standards. A scattered market of tools and agents plugs into it.'},
   's3-default-judgment':{make:makeWorldS3, cap:'The fragmented market consolidates into three owners: law firms, legal tech, and big tech.'},
-  's4-human-judgment-on-top':{make:makeWorldS4, cap:'The machine does most of the work, fast. A human still holds the switch.'}
+  's4-human-judgment-on-top':{make:makeWorldS4, cap:'The machine does most of the work, fast. Humans hold the levers that come down into the flow to override it.'}
 };
 
 /* ===================== MODE 1: NAVIGATOR ===================== */
