@@ -680,11 +680,7 @@ function loadCustom(){ try{ return JSON.parse(localStorage.getItem(CUSTOM_KEY)||
 function saveCustom(o){ try{ localStorage.setItem(CUSTOM_KEY, JSON.stringify(o)); }catch(e){} }
 
 /* shared bits */
-function prov(p){
-  if(!p) return null;
-  var names={S:'Sourced',I:'Inference',A:'Assumption'};
-  return el('span',{class:'prov '+p, title:names[p]+': '+(DATA.provenance[p]||'')}, p);
-}
+function prov(p){ return null; } /* S/I/A provenance tags dropped 2026-06-28 (footer legend removed); to re-enable, restore: if(!p) return null; var names={S:'Sourced',I:'Inference',A:'Assumption'}; return el('span',{class:'prov '+p, title:names[p]+': '+(DATA.provenance[p]||'')}, p); */
 var SVGNS='http://www.w3.org/2000/svg';
 function ic(id, cls){
   var svg=document.createElementNS(SVGNS,'svg'); svg.setAttribute('class','icon '+(cls||'')); svg.setAttribute('aria-hidden','true');
