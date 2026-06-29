@@ -248,7 +248,8 @@
   /* ---------- signals ---------- */
   .drift{border:2px solid var(--ink);padding:18px;margin-bottom:28px}
   .drift-row{display:flex;align-items:center;gap:12px;margin:9px 0}
-  .drift-name{width:190px;flex:0 0 auto;font-size:13px;font-weight:700;display:flex;align-items:center;gap:8px}
+  .drift-name{width:264px;flex:0 0 auto;white-space:nowrap;font-size:12px;font-weight:700;display:flex;align-items:center;gap:8px}
+  @media (max-width:760px){ .drift-name{width:140px;white-space:normal;font-size:11px} }
   .drift-track{flex:1;height:22px;background:var(--soft);position:relative;overflow:hidden}
   .drift-fill{height:100%;width:0;background:var(--accent);transition:width .5s cubic-bezier(.2,.7,.2,1)}
   .drift-val{width:30px;text-align:right;font:800 13px/1 var(--mono)}
@@ -1263,7 +1264,7 @@ function renderArc(){
   // the floor: predetermined factors
   root.appendChild(el('div',{class:'section', style:{'margin-top':'34px'}},
     subkicker('The floor: nine predetermined factors', prov('S'), 'd-foundation'),
-    el('p',{class:'panel-lede'}, 'Carried in from Phase 1 and treated as already underway. The cohort argued about the eight worlds, never about these. A 2040 that still treats any of them as an open question is reading the board wrong.'),
+    el('p',{class:'panel-lede'}, 'These nine are the trends the cohort treated as settled, not as open questions. They hold underneath all eight worlds, so whichever future arrives, these come with it. The room spent its time arguing the eight scenarios on top; this floor was just assumed. A 2040 plan that still treats any of these as a maybe is already behind.'),
     pfGrid()
   ));
   return root;
