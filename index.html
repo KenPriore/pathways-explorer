@@ -96,7 +96,8 @@
   .kicker{font:700 11px/1 var(--sans);text-transform:uppercase;letter-spacing:var(--tr-kicker);color:var(--muted);display:flex;align-items:center;gap:10px;margin-bottom:14px}
   .kicker .bar{height:1px;background:var(--line);flex:1}
   .kicker b{color:var(--ink)}
-  h1.big{font-size:clamp(30px,5vw,52px);margin:0 0 14px;max-width:18ch}
+  h1.big{font-size:clamp(30px,5vw,52px);line-height:1.04;margin:0 0 14px}
+  h1.big .hl{color:var(--blue)}
   .lede{font-size:clamp(17px,2.2vw,21px);line-height:1.4;color:var(--ink2);margin:0 0 26px}
   .sub-kicker{font:800 13px/1 var(--sans);text-transform:uppercase;letter-spacing:var(--tr-caps);border-bottom:var(--rule-firm) solid var(--line);padding-bottom:8px;margin:0 0 18px;display:flex;align-items:center;gap:10px}
   /* tabular numerals on every figure (Signal) */
@@ -117,7 +118,10 @@
   /* ---------- toggles ---------- */
   .controls{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:0 0 30px}
   .toggle .toggle-label{font:700 11px/1 var(--mono);text-transform:uppercase;letter-spacing:0.1em;color:var(--mute);margin-bottom:7px}
-  .toggle-hint{font:400 12px/1.35 var(--sans);color:var(--muted);margin-top:8px}
+  .toggle-hint{font:400 15px/1.55 var(--sans);color:var(--ink);margin-top:13px}
+  .toggle-hint strong{font-weight:700}
+  .controls.nav-q{gap:16px}
+  .nav-q .toggle{border:2px solid var(--ink);padding:16px 16px 18px;background:var(--paper)}
   .seg{display:flex;border:2px solid var(--ink)}
   .seg-btn{flex:1;background:var(--paper);border:0;border-left:2px solid var(--ink);padding:12px 8px;font:700 12px/1.2 var(--sans);letter-spacing:0.01em;cursor:pointer;color:var(--ink2);transition:background var(--beat-half) var(--ease-cut),color var(--beat-half) var(--ease-cut)}
   .seg-btn:first-child{border-left:0}
@@ -986,10 +990,13 @@ function navReadout(){
   return box;
 }
 function navParts(){
-  var controls=el('div',{class:'controls', id:'navControls'},
-    toggleGroup('Question 1: the tech layer', TECHS, state.tech, function(v){ state.tech=v; rerenderNav(); }, null, 'Integrated: one connected system. Fragmented: many competing tools.'),
-    toggleGroup('Question 2: who drives change', ROLES, state.role, function(v){ state.role=v; rerenderNav(); }, null, 'Buyer disruption: in-house legal forces new models. Status quo: it sits back while others set the pace.'),
-    toggleGroup('Question 3: who decides', LAWS, state.law, function(v){ state.law=v; rerenderNav(); }, 'Human supremacy', 'Algocracy: software makes the call. Human supremacy: people keep the final say.')
+  var controls=el('div',{class:'controls nav-q', id:'navControls'},
+    toggleGroup('Question 1: the tech layer', TECHS, state.tech, function(v){ state.tech=v; rerenderNav(); }, null,
+      el('div',{class:'toggle-hint'}, 'How the technology under legal work gets organized. ', el('strong',{},'Integrated'), ' is one connected system: shared data, common standards, and agents that reach across legal and the rest of the business. ', el('strong',{},'Fragmented'), ' is a crowded market of specialist tools that never settle on a standard, with data trapped inside each app. The cohort treated this as the choice that shapes all the others.')),
+    toggleGroup('Question 2: who drives change', ROLES, state.role, function(v){ state.role=v; rerenderNav(); }, null,
+      el('div',{class:'toggle-hint'}, 'Who actually forces legal to change. ', el('strong',{},'Buyer disruption'), ' means in-house legal uses its budget, its data, and its authority to set the terms and make firms and vendors adapt. ', el('strong',{},'Status quo'), ' means in-house legal stays in its lane and lets law firms, vendors, regulators, or the market lead. It decides whether corporate legal drives the transition or just rides it.')),
+    toggleGroup('Question 3: who decides', LAWS, state.law, function(v){ state.law=v; rerenderNav(); }, 'Human supremacy',
+      el('div',{class:'toggle-hint'}, 'Where final authority sits once the tech is in place. ', el('strong',{},'Algocracy'), ' means algorithms and agents increasingly make and run the legal call, at machine speed. ', el('strong',{},'Human supremacy'), ' means people keep the judgment and the accountability, and can challenge or shut off the machine. It is the question of whether software runs the law or people stay on top of it.'))
   );
   var map=el('div',{class:'nav-map', id:'navMap'});
   map.appendChild(cubeMap(function(t,r,l){ state.tech=t; state.role=r; state.law=l; rerenderNav(); }));
@@ -1002,7 +1009,7 @@ function toggleGroup(label, options, current, onChange, redOn, hint){
   options.forEach(function(o){
     seg.appendChild(el('button',{class:'seg-btn'+(current===o?' on':'')+(redOn===o?' red':''), onclick:function(){ onChange(o); }}, o));
   });
-  return el('div',{class:'toggle'}, el('div',{class:'toggle-label'}, label), seg, hint?el('div',{class:'toggle-hint'}, hint):null);
+  return el('div',{class:'toggle'}, el('div',{class:'toggle-label'}, label), seg, hint||null);
 }
 function rerenderNav(){
   var p=navParts();
@@ -1014,9 +1021,9 @@ function renderNavigator(){
   var p=navParts();
   return el('div',{class:'mode'},
     kicker('Mode 01','The world navigator','e-node'),
-    el('h1',{class:'big'}, 'Three questions. Eight possible worlds.'),
-    el('p',{class:'lede'}, 'The cohort answered three yes-or-no questions and built four of the eight possible worlds. Flip the three switches below to land on any of the eight. The four they built are solid and clickable; the four they skipped stay empty.'),
-    mgFigure(188, makeTreeHero(), 'Three yes or no questions branch into eight possible worlds. The cohort built four, in color, and left four dark.'),
+    el('h1',{class:'big'}, 'Three questions. ', el('span',{class:'hl'}, 'Eight possible worlds.')),
+    el('p',{class:'lede'}, 'The cohort framed the future as three questions, each with two possible answers. Together those answers pick one of eight worlds. They built four in detail and left four dark. Set the three switches below to land on any of the eight; the built worlds are solid and clickable, the four they skipped stay empty.'),
+    mgFigure(188, makeTreeHero(), 'Three questions, each with two answers, branch into eight possible worlds. The cohort built four, in color, and left four dark.'),
     p.controls,
     el('div',{class:'nav-layout'}, p.map, p.side)
   );
