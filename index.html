@@ -193,7 +193,7 @@
   .backlink:hover{color:var(--ink)}
   .w-head{border-bottom:3px solid var(--line);padding-bottom:22px;margin-bottom:26px}
   .w-num{font:800 13px/1 var(--mono);letter-spacing:0.12em;text-transform:uppercase;color:var(--accent)}
-  .w-title{font-size:clamp(26px,4vw,40px);margin:10px 0 16px;max-width:24ch}
+  .w-title{font-size:clamp(26px,4vw,40px);line-height:1.1;margin:10px 0 16px}
   .w-glance{font-size:18px;line-height:1.4;color:var(--ink2)}
   .section{margin:0 0 40px}
   .prose{font-size:16px;line-height:1.6;color:var(--ink2)}
@@ -1056,6 +1056,13 @@ function renderWorldsIndex(){
 function findCellByEmpty(id){ for(var k in cellByCoords){ if(cellByCoords[k].emptyCellId===id) return cellByCoords[k]; } return null; }
 
 /* ===================== WORLD DETAIL ===================== */
+function titleColor(title, accent){
+  var ci=title.indexOf(':'), bi=title.indexOf('becomes '), parts;
+  if(ci>=0) parts=[[title.slice(0,ci), accent],[title.slice(ci), null]];
+  else if(bi>=0) parts=[[title.slice(0,bi), null],[title.slice(bi), accent]];
+  else parts=[[title, null]];
+  return parts.map(function(p){ return el('span', p[1]?{style:{'color':p[1]}}:{}, p[0]); });
+}
 function renderWorld(id){
   var sc=scenarioById[id];
   if(!sc) return renderWorldsIndex();
@@ -1064,7 +1071,7 @@ function renderWorld(id){
   root.appendChild(el('button',{class:'backlink', onclick:function(){ go('worlds'); }}, '← All worlds'));
   root.appendChild(el('div',{class:'w-head'},
     el('div',{class:'w-num'}, 'World '+sc.number),
-    el('h1',{class:'w-title'}, sc.title),
+    el('h1',{class:'w-title'}, titleColor(sc.title, sc.color)),
     axisChips(sc),
     el('p',{class:'w-glance'}, sc.glance)
   ));
