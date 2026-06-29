@@ -617,7 +617,7 @@ const DATA = {
   ],
   "c3Convergence": {
     "method": ["Place real-world signals on a Three Horizons curve", "A four-scenario DO THIS matrix: one action and one failure mode per world", "A Robust / Contingent / Resilient strategic-stance stress test"],
-    "headlineFinding": "Across all four cohorts, unprompted, the shared instinct was that human authority is only real if it is provable: build an override switch you can trace and pull. It surfaced in the in-house group, not the human-supremacy group, and S4's own questions lead with 'Can anyone switch off the machine?'",
+    "headlineFinding": "At the final convening the room split into four groups: in-house legal, law firms, legal tech, and people. Each one, on its own, landed on the same instinct: human control only counts if you can prove it, so build an override switch you can trace and pull. The twist: it came loudest from the in-house group, not from the human-judgment world (World 4), whose own opening question is already 'Can anyone switch off the machine?'",
     "stakeholders": [
       { "id": "inhouse", "name": "In-house / Corporate Legal", "centerStance": "Set the vision of the in-house personas and guide the evolution.", "stances": { "robust": "Map roles by work, judgment and trust to decide proactively what to retain vs outsource.", "contingent": "Build an override switch in case of failure.", "resilient": "Promote legislation for minimum standards of legal engagement." }, "standaloneClaim": "Promote legislation requiring Responsible AI by corporations and designating the CLO as main fiduciary.", "perWorld": [ { "worldId": "s1-clo-coo", "doThis": "Build a machine you can trust and understand accountability.", "failureMode": "A machine can't be accountable." }, { "worldId": "s2-gc-chief-legal-strategist", "doThis": "Continuously assemble legal technology to advance business outcomes with legal judgment.", "failureMode": "Constant justification for spend." }, { "worldId": "s3-default-judgment", "doThis": "Pick partners you can trust who stay aligned with the business.", "failureMode": "Data left is data lost." }, { "worldId": "s4-human-judgment-on-top", "doThis": "Persuade the guild to create new licenses for diverse legal personas.", "failureMode": "Embrace the machine." } ], "provenance": "S" },
       { "id": "lawfirms", "name": "Law Firms", "centerStance": "A new model as recurring tech services.", "stances": { "robust": "A more streamlined model of delivery.", "contingent": "Strong reliance on having data and technology.", "resilient": "Build on talent and relationships." }, "perWorld": [ { "worldId": "s1-clo-coo", "doThis": "Shift the services model to proactive advisor and counsel.", "failureMode": "Don't discount talent seniority and development." }, { "worldId": "s2-gc-chief-legal-strategist", "doThis": "Add services beyond product; relationships first, then tech.", "failureMode": "" }, { "worldId": "s3-default-judgment", "doThis": "New / combined / utility delivery model.", "failureMode": "Slow adoption; status quo." }, { "worldId": "s4-human-judgment-on-top", "doThis": "Stay agile on judgment.", "failureMode": "Don't die." } ], "provenance": "S" },
@@ -1225,7 +1225,7 @@ function renderArc(){
 
   // the override finding
   root.appendChild(el('div',{class:'rootcause', style:{'margin-bottom':'30px','border-color':'var(--red)'}},
-    el('div',{class:'rc-l'}, 'The Convergence finding'),
+    el('div',{class:'rc-l'}, 'What all four groups landed on'),
     el('div',{class:'rc-t'}, DATA.c3Convergence.headlineFinding)
   ));
 
