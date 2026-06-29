@@ -884,17 +884,41 @@ function makeWorldS2(color){
   };
 }
 function makeWorldS3(color){
-  var nodes=null, clusters=null;
+  var nodes=null, targets=null;
   return function(ctx,W,H,t,reduced){
-    var pad=22;
-    if(!nodes){ clusters=[]; var K=4; for(var k=0;k<K;k++) clusters.push({x:pad+(k+0.5)*(W-2*pad)/K, y:H*0.46});
-      nodes=[]; for(var i=0;i<18;i++) nodes.push({sx:pad+((i*53)%100)/100*(W-2*pad), sy:pad+((i*29)%100)/100*(H-2*pad-20), k:i%4}); }
-    var p=reduced?1:easeInOut(clamp((t%5.2)/3.4,0,1));
-    nodes.forEach(function(nd){ var x=lerp(nd.sx,clusters[nd.k].x,p), y=lerp(nd.sy,clusters[nd.k].y,p);
-      ctx.globalAlpha=lerp(0.85,0,clamp((p-0.7)/0.3,0,1)); ctx.fillStyle=color; ctx.fillRect(x-3,y-3,6,6); ctx.globalAlpha=1; });
-    clusters.forEach(function(cl){ var s=6+clamp((p-0.4)/0.6,0,1)*16; ctx.fillStyle=color; ctx.fillRect(cl.x-s/2,cl.y-s/2,s,s); ctx.fillStyle='#fff'; ctx.fillRect(cl.x-2,cl.y-2,4,4); });
-    var sh=lerp(9,2.5,p); ctx.fillStyle=PAL.ink; ctx.fillRect(W*0.5-sh,H-20-sh,sh*2,sh*2);
+    if(!targets){
+      var px=Math.max(64, W*0.17), ty=H*0.40;
+      targets=[{x:px, label:'LAW FIRMS', kind:'firm'},{x:W/2, label:'LEGAL TECH', kind:'chip'},{x:W-px, label:'BIG TECH', kind:'server'}];
+      targets.forEach(function(g){ g.y=ty; });
+      nodes=[]; for(var i=0;i<18;i++) nodes.push({sx:18+((i*61)%100)/100*(W-36), sy:16+((i*37)%100)/100*(H-34), k:i%3});
+    }
+    var p=reduced?1:easeInOut(clamp((t%5.6)/3.8,0,1));
+    nodes.forEach(function(nd){ var g=targets[nd.k], x=lerp(nd.sx,g.x,p), y=lerp(nd.sy,g.y,p);
+      ctx.globalAlpha=lerp(0.8,0,clamp((p-0.6)/0.4,0,1)); ctx.fillStyle=color; ctx.fillRect(x-3,y-3,6,6); ctx.globalAlpha=1; });
+    targets.forEach(function(g){
+      drawS3Icon(ctx, g.kind, g.x, g.y, color);
+      ctx.fillStyle=PAL.ink; ctx.font='700 9px '+MONO; ctx.textAlign='center'; ctx.textBaseline='top'; ctx.fillText(g.label, g.x, g.y+18);
+    });
+    ctx.textAlign='left';
   };
+}
+function drawS3Icon(ctx, kind, x, y, col){
+  ctx.strokeStyle=col; ctx.fillStyle=col; ctx.lineWidth=2; ctx.lineJoin='miter'; ctx.lineCap='butt';
+  if(kind==='firm'){
+    ctx.beginPath(); ctx.moveTo(x-12,y-4); ctx.lineTo(x,y-13); ctx.lineTo(x+12,y-4); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(x-13,y-4); ctx.lineTo(x+13,y-4); ctx.stroke();
+    for(var i=-2;i<=2;i++){ ctx.beginPath(); ctx.moveTo(x+i*5.5,y-3); ctx.lineTo(x+i*5.5,y+8); ctx.stroke(); }
+    ctx.beginPath(); ctx.moveTo(x-13,y+9); ctx.lineTo(x+13,y+9); ctx.stroke();
+  } else if(kind==='chip'){
+    var s=8; ctx.strokeRect(x-s,y-s,2*s,2*s); ctx.strokeRect(x-3.5,y-3.5,7,7);
+    for(var j=-1;j<=1;j++){ var q=j*4.5;
+      ctx.beginPath(); ctx.moveTo(x-s,y+q); ctx.lineTo(x-s-3,y+q); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(x+s,y+q); ctx.lineTo(x+s+3,y+q); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(x+q,y-s); ctx.lineTo(x+q,y-s-3); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(x+q,y+s); ctx.lineTo(x+q,y+s+3); ctx.stroke(); }
+  } else {
+    for(var k=0;k<3;k++){ var yy=y-11+k*8; ctx.strokeRect(x-11,yy,22,6); ctx.fillRect(x-8,yy+2,2.5,2.5); }
+  }
 }
 function makeWorldS4(color){
   var toks=null, spawn=0;
@@ -916,7 +940,7 @@ function makeWorldS4(color){
 var WORLD_MOTION={
   's1-clo-coo':{make:makeWorldS1, cap:'Legal stops being a department and threads into the whole business.'},
   's2-gc-chief-legal-strategist':{make:makeWorldS2, cap:'One control tower sets the standards. A scattered market of tools and agents plugs into it.'},
-  's3-default-judgment':{make:makeWorldS3, cap:'The market consolidates into a few owners as corporate legal shrinks to its last lawyer.'},
+  's3-default-judgment':{make:makeWorldS3, cap:'The fragmented market consolidates into three owners: law firms, legal tech, and big tech.'},
   's4-human-judgment-on-top':{make:makeWorldS4, cap:'The machine does most of the work, fast. A human still holds the switch.'}
 };
 
