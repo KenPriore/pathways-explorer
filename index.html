@@ -193,7 +193,7 @@
   .w-glance{font-size:18px;line-height:1.4;color:var(--ink2)}
   .section{margin:0 0 40px}
   .prose{font-size:16px;line-height:1.6;color:var(--ink2)}
-  .profile-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--grid);border:1px solid var(--grid)}
+  .profile-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--grid);border:1px solid var(--grid)}
   .pcell{background:var(--paper);padding:14px}
   .pcell .pl{font:700 9px/1 var(--mono);text-transform:uppercase;letter-spacing:0.08em;color:var(--mute);margin-bottom:7px}
   .pcell .pv{font-size:14px;font-weight:600}
@@ -383,11 +383,7 @@
   <nav class="modes" id="modeNav"></nav>
 </header>
 <main id="app"></main>
-<footer class="site">
-  <div class="legend" id="legend"></div>
-  <div class="foot-meta" id="footMeta"></div>
-  <p class="foot-disc">Nineteen senior legal leaders mapped where the business of law could land by 2040. They are plausible worlds, not predictions. The cohort built four of the eight and left four dark. The drift meter shows how many real-world signals point at each world, which reads as a lean rather than odds. Every claim carries a source tag.</p>
-</footer>
+<!-- footer removed 2026-06-28; HTML + populator + CSS parked in saved/footer.md, re-add per its instructions -->
 
 <script>
 /* =====================================================================
@@ -440,7 +436,7 @@ const DATA = {
       "axes": { "techLayer": "Integrated", "corporateLegal": "Buyer disruption", "lawTechFirstWorld": "Algocracy" },
       "glance": "Corporate legal leads the shift early, moving legal capability out of a standalone legal tech stack and into shared enterprise systems. Legal judgment is built into the flow of work until legal's influence expands into a broader COO mandate across the enterprise.",
       "summary": "By 2040, the CLO has become a COO-like enterprise operator. Corporate legal led the shift early, first by automating legal work, then by building legal and risk judgment into daily workflows across HR, marketing, finance, procurement, product, sales and operations. The CLO moved legal tools, agents and expertise out of a separate legal tech stack and into the company's enterprise systems, shared data layer and business workflows. Lawyers, operators, technologists and governance experts turned legal know-how into agents, playbooks and risk controls at the point where decisions are made. Legal no longer appears as advice after the fact. It becomes an ambient governance layer that sits inside decisions, blocks risk and prevents legal problems before humans name them. Law firms no longer control the knowledge infrastructure; they plug into the corporation's systems when external expertise is needed. The promise is speed, consistency and legal problems prevented at source. The danger is ambient intelligence: this model works only if the risk layer can learn from emails, chats, documents, decisions and interactions across the enterprise.",
-      "profile": { "team": ["Tim", "Sumeet", "Michael Shea", "Anu"], "soundtrack": "Mr. Roboto, Styx", "artifactFromFuture": "Sharpie product launch meeting, 2040", "image2040": "A Chief Risk and Operations Strategist meets the agentic team preparing a space-age pen launch" },
+      "profile": { "soundtrack": "Mr. Roboto, Styx", "artifactFromFuture": "Sharpie product launch meeting, 2040", "image2040": "A Chief Risk and Operations Strategist meets the agentic team preparing a space-age pen launch" },
       "stepIntoWorld": {
         "title": "Sharpie, 2040",
         "pullQuotes": ["Legal problems are prevented at the source, not cleaned up after the fact.", "Legal is no longer a separate service function. It is threaded through HR, marketing, contracts, risk, governance, product launch, business workflows and escalation protocols.", "Legal's biggest power move was not getting bigger. It was building the plumbing into the walls of the business."],
@@ -471,7 +467,7 @@ const DATA = {
       "axes": { "techLayer": "Fragmented", "corporateLegal": "Buyer disruption", "lawTechFirstWorld": "Algocracy" },
       "glance": "Corporate legal is a visible control tower as legal tech flourishes around it: specialist tools, agents, firms and providers compete in a fragmented market, while the GC uses budget, data and accountability to set the rules.",
       "summary": "By 2040, corporate legal buyers have seized control of the legal market. The GC has evolved into a Chief Legal Strategist, holding the budget, accountability and legal knowledge assets: data, documents, matter history, playbooks and outside counsel memory. Legal remains a distinct strategic function because privilege, confidentiality, regulatory risk and board accountability still matter, while CEOs and CFOs want one throat to choke. Legal tech has flourished, but not through one dominant enterprise platform. Instead, a rich ecosystem of specialist legal tools, agents, firms and providers competes on the buyer's terms. The GC's power is not that they make every legal call directly. It is that they orchestrate the fragmented legal tech ecosystem: setting standards, granting access and deciding which systems enter the control tower, even as more legal decisions and processes are shaped by agents and automation. Corporate legal imposes interoperability standards, pulls knowledge back from firms and vendors, and grants access through the control tower. The result is not a smaller or weaker legal function, but a more powerful buyer-led function that turns a fragmented market into a coherent system.",
-      "profile": { "team": ["Steve", "Mark", "Farrah", "Gina", "Zach"], "soundtrack": "It's My Life, Bon Jovi", "artifactFromFuture": "The Chief Legal Strategist control tower", "image2040": "A Chief Legal Strategist answers CEO and CFO questions instantly because data, workflows and outside counsel history are visible in one system" },
+      "profile": { "soundtrack": "It's My Life, Bon Jovi", "artifactFromFuture": "The Chief Legal Strategist control tower", "image2040": "A Chief Legal Strategist answers CEO and CFO questions instantly because data, workflows and outside counsel history are visible in one system" },
       "stepIntoWorld": {
         "title": "the legal control tower, 2040",
         "pullQuotes": ["They want one throat to choke.", "The information is literally now at your fingertips.", "It's our data, documents and know-how."],
@@ -502,7 +498,7 @@ const DATA = {
       "axes": { "techLayer": "Integrated", "corporateLegal": "Status quo", "lawTechFirstWorld": "Algocracy" },
       "glance": "By 2040, law firms, legal tech and big tech have built the operating layer around corporate legal. In-house lawyers set risk appetite and handle exceptional judgment, but operate inside systems others have built.",
       "summary": "By 2040, law firms, legal tech and big tech have built the operating layer around corporate legal. Corporates wanted speed, efficiency and predictability, but most legal teams could not match the capital, technical capability or scale of the firms and platforms building the infrastructure. A period of consolidation reshaped the market: leading firms bought, built or partnered with technology providers, while big tech and legal tech became essential to the stack. Agreements, disputes and compliance now run through living contracts, predictive settlement, algorithmic arbitration and ambient guardrails. Much of the data, documents, workflows and legal knowledge sits inside the external infrastructure corporates depend on. The legal professional has not disappeared, but the role has changed. In-house lawyers become risk setters, relationship managers and strategic decision makers. Law firm lawyers become architects, engineers, governors of infrastructure and trusted counsel at the 'cream' of the work. The promise is speed and scale. The danger is that corporates knowingly trade sovereignty for efficiency.",
-      "profile": { "team": ["Laurie", "David", "Richard", "Whitney"], "soundtrack": "Mad World, Gary Jules", "artifactFromFuture": "Documentary premiere of The Last In-House Lawyer", "image2040": "The premiere of The Last In-House Lawyer, presented by Kirkland Infrastructure Group" },
+      "profile": { "soundtrack": "Mad World, Gary Jules", "artifactFromFuture": "Documentary premiere of The Last In-House Lawyer", "image2040": "The premiere of The Last In-House Lawyer, presented by Kirkland Infrastructure Group" },
       "stepIntoWorld": {
         "title": "The Last In-House Lawyer, 2040",
         "pullQuotes": ["The algorithm's making the judgment. That's the essence of it.", "By not joining the game, corporate legal lost the game.", "Once you push the button, the process is shockingly quick."],
@@ -535,7 +531,7 @@ const DATA = {
       "axes": { "techLayer": "Integrated", "corporateLegal": "Status quo", "lawTechFirstWorld": "Human supremacy (contested)" },
       "glance": "By 2040, legal technology is deeply integrated, but after trust breaches, jagged-edge failures and public pushback, humans remain the judgment and accountability layer. The legal guild reinvents itself into a wider licensing ecosystem focused on knowing when to trust, challenge or override the machine.",
       "summary": "By 2040, human judgment sits above a deeply integrated legal technology system. Legal work across business, courts, regulators and everyday workflows is faster, cheaper and more automated. But humans still set values, own accountability and override the machine where trust, fairness, fiduciary judgment and legitimacy are at stake. This model emerged through disruption, not design. Technology and market demand moved faster than the legal system could control. The old guild tried to defend the boundaries of legal work, but users routed around anything that simply blocked speed, access or usefulness. Then the technology hit its own limits: jagged-edge failures, trust breaches and high-stakes judgment calls exposed the need for humans who could grab the stick. By 2040, corporate legal does not own the legal operating layer, but it has held onto the judgment, permissions and business context that matter most. Legal teams are smaller and more senior, focused on escalation, risk ownership and human decision making, while the guild has reinvented itself around licensed legal engineers, legal intelligence orchestrators, rule of law strategists and human translators. The promise is legal capability embedded everywhere. The tension is whether the humans on top have the skill, trust and independence to challenge the systems they rely on.",
-      "profile": { "team": ["Bridget", "Ken", "Mike Pastor", "Carly"], "soundtrack": "Viva La Vida, Coldplay", "artifactFromFuture": "Procter & Gamble shareholder meeting, 2040", "image2040": "A P&G shareholder meeting where a smaller, more senior legal team explains when it trusts, challenges or overrides the system" },
+      "profile": { "soundtrack": "Viva La Vida, Coldplay", "artifactFromFuture": "Procter & Gamble shareholder meeting, 2040", "image2040": "A P&G shareholder meeting where a smaller, more senior legal team explains when it trusts, challenges or overrides the system" },
       "stepIntoWorld": {
         "title": "Procter & Gamble shareholder meeting, 2040",
         "pullQuotes": ["Human judgment sits on top.", "The system gets most of the way. The human still has to sign off.", "When the weather goes sideways, someone has to grab the stick."],
@@ -617,7 +613,7 @@ const DATA = {
   ],
   "c3Convergence": {
     "method": ["Place real-world signals on a Three Horizons curve", "A four-scenario DO THIS matrix: one action and one failure mode per world", "A Robust / Contingent / Resilient strategic-stance stress test"],
-    "headlineFinding": "Across all four cohorts, unprompted, the shared instinct was that human authority is only real if it is provable: build an override switch you can trace and pull. It surfaced in the in-house group, not Ken's S4 group, and S4's own questions lead with 'Can anyone switch off the machine?'",
+    "headlineFinding": "Across all four cohorts, unprompted, the shared instinct was that human authority is only real if it is provable: build an override switch you can trace and pull. It surfaced in the in-house group, not the human-supremacy group, and S4's own questions lead with 'Can anyone switch off the machine?'",
     "stakeholders": [
       { "id": "inhouse", "name": "In-house / Corporate Legal", "centerStance": "Set the vision of the in-house personas and guide the evolution.", "stances": { "robust": "Map roles by work, judgment and trust to decide proactively what to retain vs outsource.", "contingent": "Build an override switch in case of failure.", "resilient": "Promote legislation for minimum standards of legal engagement." }, "standaloneClaim": "Promote legislation requiring Responsible AI by corporations and designating the CLO as main fiduciary.", "perWorld": [ { "worldId": "s1-clo-coo", "doThis": "Build a machine you can trust and understand accountability.", "failureMode": "A machine can't be accountable." }, { "worldId": "s2-gc-chief-legal-strategist", "doThis": "Continuously assemble legal technology to advance business outcomes with legal judgment.", "failureMode": "Constant justification for spend." }, { "worldId": "s3-default-judgment", "doThis": "Pick partners you can trust who stay aligned with the business.", "failureMode": "Data left is data lost." }, { "worldId": "s4-human-judgment-on-top", "doThis": "Persuade the guild to create new licenses for diverse legal personas.", "failureMode": "Embrace the machine." } ], "provenance": "S" },
       { "id": "lawfirms", "name": "Law Firms", "centerStance": "A new model as recurring tech services.", "stances": { "robust": "A more streamlined model of delivery.", "contingent": "Strong reliance on having data and technology.", "resilient": "Build on talent and relationships." }, "perWorld": [ { "worldId": "s1-clo-coo", "doThis": "Shift the services model to proactive advisor and counsel.", "failureMode": "Don't discount talent seniority and development." }, { "worldId": "s2-gc-chief-legal-strategist", "doThis": "Add services beyond product; relationships first, then tech.", "failureMode": "" }, { "worldId": "s3-default-judgment", "doThis": "New / combined / utility delivery model.", "failureMode": "Slow adoption; status quo." }, { "worldId": "s4-human-judgment-on-top", "doThis": "Stay agile on judgment.", "failureMode": "Don't die." } ], "provenance": "S" },
@@ -657,27 +653,6 @@ const DATA = {
     ],
     "rootCause": { "text": "The blind spots are the shadow of the guest list: senior, US, enterprise and vendor weighted, selected for people who have already bet on AI transformation, with two of the three hosts being commercial actors holding about five seats. The 3-of-4 algocracy tilt is endogenous to who was invited.", "provenance": "I" }
   },
-  "cohort": [
-    { "name": "Laurie Basch", "org": "McKinsey", "title": "Associate General Counsel" },
-    { "name": "Wendy Chow", "org": "Cityblock Health", "title": "General Counsel" },
-    { "name": "Vince DiMascio", "org": "Skadden", "title": "Chief Digital and Information Officer" },
-    { "name": "Keith Enright", "org": "Harvey", "title": "Chief Strategy Officer / Legal Innovation Partner" },
-    { "name": "Timothy Fraser", "org": "Toshiba", "title": "Chief Legal Officer" },
-    { "name": "Steve Harber", "org": "Cimplifi", "title": "Executive Chairman" },
-    { "name": "Yath Ithyakumar", "org": "Morgan & Morgan", "title": "Chief Transformation Officer" },
-    { "name": "David Levin", "org": "ALM/LBR", "title": "Chair of the Board" },
-    { "name": "Bridget McCormack", "org": "American Arbitration Association", "title": "President and CEO" },
-    { "name": "Gina Passarella", "org": "ALM/LBR", "title": "SVP / Chief Content Officer" },
-    { "name": "Michael Pastor", "org": "New York Law School", "title": "Dean for Technology Law Programs" },
-    { "name": "Farrah Pepper", "org": "Harvey", "title": "Legal Innovation Partner" },
-    { "name": "Zach Posner", "org": "The LegalTech Fund", "title": "Co-Founder & Managing Partner" },
-    { "name": "Ken Priore", "org": "Docusign", "title": "Deputy General Counsel" },
-    { "name": "Anu Sethee", "org": "LegalZoom", "title": "VP, Legal Practice Leader" },
-    { "name": "Michael Shea", "org": "McDermott Will & Schulte", "title": "Chief Information Officer (host)" },
-    { "name": "Sumeet Singh", "org": "Lighthouse AI", "title": "Founder & CEO" },
-    { "name": "Mark Smolik", "org": "DHL Supply Chain Americas", "title": "General Counsel & Board Director" },
-    { "name": "Whitney Stefko", "org": "Ford", "title": "Director and Senior Counsel, Policy and Legal Ops+" }
-  ]
 };
 
 /* ===================== helpers ===================== */
@@ -1133,7 +1108,6 @@ function renderWorld(id){
   root.appendChild(el('div',{class:'section'},
     subkicker('Postcard from 2040'),
     el('div',{class:'profile-grid'},
-      el('div',{class:'pcell'}, el('div',{class:'pl'},'Built by'), el('div',{class:'pv'}, pr.team.join(', '))),
       el('div',{class:'pcell'}, el('div',{class:'pl'},'Soundtrack'), el('div',{class:'pv'}, pr.soundtrack)),
       el('div',{class:'pcell'}, el('div',{class:'pl'},'Artifact from the future'), el('div',{class:'pv'}, pr.artifactFromFuture)),
       el('div',{class:'pcell'}, el('div',{class:'pl'},'The scene'), el('div',{class:'pv'}, pr.image2040))
@@ -1664,12 +1638,7 @@ function updateNav(){
       el('span',{class:'n'}, '0'+(i+1)), m.label));
   });
 }
-function buildFooter(){
-  var lg=document.getElementById('legend');
-  ['S','I','A'].forEach(function(k){ lg.appendChild(el('div',{class:'lg'}, prov(k), DATA.provenance[k])); });
-  document.getElementById('footMeta').textContent =
-    'Convened by '+DATA.meta.conveners.join(', ')+'  ·  Facilitation: '+DATA.meta.facilitation+'  ·  '+DATA.meta.method+'  ·  Updated '+DATA.meta.lastUpdated;
-}
+/* buildFooter() removed 2026-06-28; footer + populator parked in saved/footer.md */
 
 /* keyboard: 1-6 switch modes */
 document.addEventListener('keydown', function(e){
@@ -1680,7 +1649,6 @@ document.addEventListener('keydown', function(e){
 
 /* init */
 if(EMBED) document.body.classList.add('embed');
-buildFooter();
 window.addEventListener('hashchange', route);
 var startRaw='navigator';
 try{ if(location.hash) startRaw=location.hash; }catch(e){}
