@@ -621,38 +621,6 @@ const DATA = {
       { "id": "people", "name": "Consumers & SMBs (People)", "centerStance": "Get organized in a bi-partisan way.", "stances": { "robust": "An organized positive campaign to tech, law and politics. Fairness, due process, access, rights equal trust.", "contingent": "Organized mayhem to pull together separate groups, on the ground and in leadership.", "resilient": "Establish agreed-upon default settings; pre-define key defaults; wins people feel (easier, faster, cheaper); remove legal friction." }, "framing": "Where law touches people and businesses who feel they have no access today. People unhappy, no faith or trust in law.", "perWorld": [ { "worldId": "s1-clo-coo", "doThis": "Campaign: democratizing access to the rule of law is foundational to economic success.", "failureMode": "Revolution and disruption." }, { "worldId": "s2-gc-chief-legal-strategist", "doThis": "Seed and fund a core set of operating principles including consumer/people law.", "failureMode": "Revolution and disruption." }, { "worldId": "s3-default-judgment", "doThis": "Set default settings that are pro-people (due process, fairness, transparency).", "failureMode": "Fire in the streets." }, { "worldId": "s4-human-judgment-on-top", "doThis": "Do everything in worlds 1-3 plus UPL and licensure reform as a foundation for a democratic future.", "failureMode": "Apathy and alienation." } ], "note": "The only group that reframed 2040 as political mobilization rather than a technology problem, and the only one whose failure modes have physical stakes.", "provenance": "S" }
     ]
   },
-  "criticalRead": {
-    "contradictions": [
-      { "title": "Eight vs nine predetermined factors", "detail": "The canonical Phase 1 doc and the C2 memo carry nine; the Program Summary carries eight, dropping institutions-keeping-pace.", "provenance": "S" },
-      { "title": "Two conflicting Convening 1 votes", "detail": "The 9-vote show-of-hands winner (law-firm dominance) is absent from the final ranked top three.", "provenance": "S" },
-      { "title": "In-house ascendancy vs in-house elimination", "detail": "Both came from the same cohort (CLO-as-COO vs GC eliminated, Goldman to five). The room did not resolve which.", "provenance": "S" },
-      { "title": "Evidence-based trust vs reputation-led firms", "detail": "Factor 3 says trust moves to evidence, yet the S4 output says law firms become more reputation-led.", "provenance": "S" },
-      { "title": "Scenario titles changed between the C2 pre-read and output", "detail": "Most tellingly, 'Legal technologists on top' became 'Human judgment on top'. No document notes the change.", "provenance": "I" },
-      { "title": "Algocracy tilt vs the human-override finding", "detail": "Three of four worlds are algocracy, yet the one finding that crossed every C3 group was the human override. The room enacted the contradiction but never debated the asymmetry.", "provenance": "I" },
-      { "title": "The pre-reads argue against S4", "detail": "Three of four external signal articles point to algocracy; none champions the human-supremacy world Ken's team built.", "provenance": "I" }
-    ],
-    "blindSpots": [
-      { "title": "The public justice system as an agent", "detail": "Courts and regulators appear only as objects, never as actors with their own scenario. No axis for civic legitimacy.", "provenance": "S" },
-      { "title": "Access to justice", "detail": "A whole Phase 1 cohort evaporates by the scenario stage; it survives only as the C3 People group.", "provenance": "S" },
-      { "title": "The Legal Exhaust", "detail": "The decay cell was named, highlighted, and developed by nobody.", "provenance": "S" },
-      { "title": "The maturation curve of trust", "detail": "Capability is outpacing reliability, but the cohort did not work the gap.", "provenance": "S" },
-      { "title": "Disclosure when you don't know", "detail": "A core governance plank is on no C3 wall.", "provenance": "I" },
-      { "title": "Liability and insurance", "detail": "A machine can't be accountable was written down but never resolved into who pays.", "provenance": "S" },
-      { "title": "The apprenticeship collapse", "detail": "Factor 8 is named in every phase and pulled on by no scenario; nobody on the affected side is in the room.", "provenance": "S" },
-      { "title": "Record integrity as an attack surface", "detail": "If the verifiable record is the core asset, the record is a target. No source raises it.", "provenance": "A" },
-      { "title": "When your agent meets their agent", "detail": "Agreements are bilateral; the scenarios model one organization's stack, never whose record governs.", "provenance": "A" }
-    ],
-    "missingVoices": [
-      "Sitting judges and courts (only a former chief justice now running a private AI-arbitration body)",
-      "Regulators and government",
-      "Plaintiffs', consumer, and public-interest bar (Morgan & Morgan attends via its transformation officer, not a litigator)",
-      "Junior and early-career lawyers (whose pipeline is a named agenda item)",
-      "Non-US and non-common-law systems (the cohort is entirely US-seated)",
-      "Non-lawyer business buyers (the buyer axis is load-bearing, but buyers are represented by in-house lawyers)",
-      "Ethicists, labor, civil society"
-    ],
-    "rootCause": { "text": "The blind spots are the shadow of the guest list: senior, US, enterprise and vendor weighted, selected for people who have already bet on AI transformation, with two of the three hosts being commercial actors holding about five seats. The 3-of-4 algocracy tilt is endogenous to who was invited.", "provenance": "I" }
-  },
 };
 
 /* ===================== helpers ===================== */
@@ -1540,41 +1508,7 @@ function flash(msg){
 }
 
 /* ===================== MODE 6: CRITICAL READ ===================== */
-function renderCritical(){
-  var cr=DATA.criticalRead;
-  var root=el('div',{class:'mode'},
-    kicker('Mode 06','The critical read','a-audit'),
-    el('h1',{class:'big'}, 'What the cohort missed.'),
-    el('p',{class:'lede'}, 'This is not a knock on the cohort. It runs the same scrutiny the room ran on itself: where the four scenarios contradict each other, what the group could not see, and who never had a seat. Four of the eight cells stayed empty, and which four says a lot about who was in the room.')
-  );
-
-  root.appendChild(subkicker('Contradictions the cohort never resolved'));
-  var c1=el('div',{class:'cr-list'});
-  cr.contradictions.forEach(function(it){
-    c1.appendChild(el('div',{class:'cr-item'}, el('div',{class:'cr-x'}, '×'),
-      el('div',{}, el('div',{class:'cr-t'}, it.title, prov(it.provenance)), el('div',{class:'cr-d'}, it.detail))));
-  });
-  root.appendChild(c1);
-
-  root.appendChild(subkicker('Blind spots'));
-  var c2=el('div',{class:'cr-list'});
-  cr.blindSpots.forEach(function(it){
-    c2.appendChild(el('div',{class:'cr-item'}, el('div',{class:'cr-x'}, '○'),
-      el('div',{}, el('div',{class:'cr-t'}, it.title, prov(it.provenance)), el('div',{class:'cr-d'}, it.detail))));
-  });
-  root.appendChild(c2);
-
-  root.appendChild(subkicker('The voices not in the room', null, 'e-agent'));
-  var v=el('div',{class:'voices'});
-  cr.missingVoices.forEach(function(x){ v.appendChild(el('div',{}, x)); });
-  root.appendChild(v);
-
-  root.appendChild(el('div',{class:'rootcause'},
-    el('div',{class:'rc-l'}, 'Root cause', prov(cr.rootCause.provenance)),
-    el('div',{class:'rc-t'}, cr.rootCause.text)
-  ));
-  return root;
-}
+/* renderCritical() removed 2026-06-28; mode parked in saved/critical-read.md (re-inline DATA.criticalRead from data/pathways-2040.json to restore) */
 
 /* ===================== router + shell ===================== */
 var MODES=[
@@ -1582,8 +1516,7 @@ var MODES=[
   {id:'worlds', label:'Worlds'},
   {id:'arc', label:'The Arc'},
   {id:'signals', label:'Signals'},
-  {id:'sandbox', label:'Sandbox'},
-  {id:'critical', label:'Critical Read'}
+  {id:'sandbox', label:'Sandbox'}
 ];
 var currentPath='';
 function stripHash(h){ return String(h==null?'':h).replace(/^#\/?/,''); }
@@ -1618,7 +1551,6 @@ function renderPath(raw){
   else if(mode==='arc'){ state.mode='arc'; node=renderArc(); }
   else if(mode==='signals'){ state.mode='signals'; node=renderSignals(); }
   else if(mode==='sandbox'){ state.mode='sandbox'; node=renderSandbox(); }
-  else if(mode==='critical'){ state.mode='critical'; node=renderCritical(); }
   else { state.mode='navigator'; node=renderNavigator(); }
   mount(node);
   updateNav();
