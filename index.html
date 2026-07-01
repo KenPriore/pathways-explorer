@@ -444,9 +444,9 @@ const DATA = {
     "phase2": {
       "name": "Phase 2: curated 19-person group",
       "convenings": [
-        { "id": "c1", "name": "Convening 1", "mode": "Emergence", "date": "2026-04-28/29", "purpose": "Surface a wide range of possible futures: scope, predetermineds, uncertainty clusters, scenario pitches, voting.", "output": "7 scenario pitches narrowed to 4; the uncertainty clusters; documented in the Convening 1 readout." },
-        { "id": "c2", "name": "Convening 2", "mode": "Divergence", "location": "New York City, McDermott Will & Schulte", "date": "2026-05-27/28", "purpose": "Test, stretch and develop the surviving scenarios into full worlds.", "output": "The C2 feedback deck: 4 developed scenarios + 3 critical uncertainties." },
-        { "id": "c3", "name": "Convening 3", "mode": "Convergence", "status": "completed", "date": "2026-06-23/24", "purpose": "Bring the scenarios into participants' organizations and identify the tools and resources to act on them.", "output": "Four stakeholder strategies and the shared 'build an override switch' finding. See c3Convergence." }
+        { "id": "c1", "name": "Working session 1", "mode": "Emergence", "date": "2026-04-28/29", "purpose": "Surface a wide range of possible futures: scope, predetermineds, uncertainty clusters, scenario pitches, voting.", "output": "7 scenario pitches narrowed to 4; the uncertainty clusters; documented in the first working session's readout." },
+        { "id": "c2", "name": "Working session 2", "mode": "Divergence", "location": "New York City, McDermott Will & Schulte", "date": "2026-05-27/28", "purpose": "Test, stretch and develop the surviving scenarios into full worlds.", "output": "The C2 feedback deck: 4 developed scenarios + 3 critical uncertainties." },
+        { "id": "c3", "name": "Working session 3", "mode": "Convergence", "status": "completed", "date": "2026-06-23/24", "purpose": "Bring the scenarios into participants' organizations and identify the tools and resources to act on them.", "output": "Four stakeholder strategies and the shared 'build an override switch' finding. See c3Convergence." }
       ]
     }
   },
@@ -618,9 +618,9 @@ const DATA = {
     ]
   },
   "emptyCells": [
-    { "id": "legal-exhaust", "c1Name": "The Legal Exhaust", "oneLine": "The system decays into its data trail. Agents keep acting and agreements keep firing, but no one is steering.", "whyUndeveloped": "Named and highlighted on the Convening 1 matrix, then developed by nobody. The most uncomfortable cell (fragmented plus inertia plus machine-executed law) had no in-room advocate. The clearest in-room consequence of who was not at the table.", "provenance": "S" },
-    { "id": "inhouse-on-top", "c1Name": "In-house on top", "oneLine": "The in-house function drives a centralized stack but human judgment stays decisive.", "whyUndeveloped": "Named at Convening 1 but not carried into the developed four. One of three human-supremacy cells left dark.", "provenance": "S" },
-    { "id": "frustrated-clo", "c1Name": "Frustrated CLO", "oneLine": "The CLO sues platforms and startups over agentic harms; legal pulls control back through litigation, not infrastructure.", "whyUndeveloped": "Named at Convening 1 with a board, but not selected for development. The litigation-led route to human control was left unbuilt.", "provenance": "S" },
+    { "id": "legal-exhaust", "c1Name": "The Legal Exhaust", "oneLine": "The system decays into its data trail. Agents keep acting and agreements keep firing, but no one is steering.", "whyUndeveloped": "Named and highlighted on the first working session's matrix, then developed by nobody. The most uncomfortable cell (fragmented plus inertia plus machine-executed law) had no in-room advocate. The clearest in-room consequence of who was not at the table.", "provenance": "S" },
+    { "id": "inhouse-on-top", "c1Name": "In-house on top", "oneLine": "The in-house function drives a centralized stack but human judgment stays decisive.", "whyUndeveloped": "Named at the first working session but not carried into the developed four. One of three human-supremacy cells left dark.", "provenance": "S" },
+    { "id": "frustrated-clo", "c1Name": "Frustrated CLO", "oneLine": "The CLO sues platforms and startups over agentic harms; legal pulls control back through litigation, not infrastructure.", "whyUndeveloped": "Named at the first working session with a board, but not selected for development. The litigation-led route to human control was left unbuilt.", "provenance": "S" },
     { "id": "status-quo", "c1Name": "Status quo", "oneLine": "The cell closest to 2026. Continuity.", "whyUndeveloped": "Named, assigned, and worked by nobody. Read as a soft rejection of the null hypothesis: the group declined to treat continuity as plausible.", "provenance": "S" }
   ],
   "signals": [
@@ -646,7 +646,7 @@ const DATA = {
   ],
   "c3Convergence": {
     "method": ["Place real-world signals on a Three Horizons curve", "A four-scenario DO THIS matrix: one action and one failure mode per world", "A Robust / Contingent / Resilient strategic-stance stress test"],
-    "headlineFinding": "At the final convening the room split into four groups: in-house legal, law firms, legal tech, and people. Each one, on its own, landed on the same instinct: human control only counts if you can prove it, so build an override switch you can trace and pull. The twist: it came loudest from the in-house group, not from the human-judgment world (World 4), whose own opening question is already 'Can anyone switch off the machine?'",
+    "headlineFinding": "At the final working session the room split into four groups: in-house legal, law firms, legal tech, and people. Each one, on its own, landed on the same instinct: human control only counts if you can prove it, so build an override switch you can trace and pull. The twist: it came loudest from the in-house group, not from the human-judgment world (World 4), whose own opening question is already 'Can anyone switch off the machine?'",
     "stakeholders": [
       { "id": "inhouse", "name": "In-house / Corporate Legal", "centerStance": "Set the vision of the in-house personas and guide the evolution.", "stances": { "robust": "Map roles by work, judgment and trust to decide proactively what to retain vs outsource.", "contingent": "Build an override switch in case of failure.", "resilient": "Promote legislation for minimum standards of legal engagement." }, "standaloneClaim": "Promote legislation requiring Responsible AI by corporations and designating the CLO as main fiduciary.", "perWorld": [ { "worldId": "s1-clo-coo", "doThis": "Build a machine you can trust and understand accountability.", "failureMode": "A machine can't be accountable." }, { "worldId": "s2-gc-chief-legal-strategist", "doThis": "Continuously assemble legal technology to advance business outcomes with legal judgment.", "failureMode": "Constant justification for spend." }, { "worldId": "s3-default-judgment", "doThis": "Pick partners you can trust who stay aligned with the business.", "failureMode": "Data left is data lost." }, { "worldId": "s4-human-judgment-on-top", "doThis": "Persuade the guild to create new licenses for diverse legal personas.", "failureMode": "Embrace the machine." } ], "provenance": "S" },
       { "id": "lawfirms", "name": "Law Firms", "centerStance": "A new model as recurring tech services.", "stances": { "robust": "A more streamlined model of delivery.", "contingent": "Strong reliance on having data and technology.", "resilient": "Build on talent and relationships." }, "perWorld": [ { "worldId": "s1-clo-coo", "doThis": "Shift the services model to proactive advisor and counsel.", "failureMode": "Don't discount talent seniority and development." }, { "worldId": "s2-gc-chief-legal-strategist", "doThis": "Add services beyond product; relationships first, then tech.", "failureMode": "" }, { "worldId": "s3-default-judgment", "doThis": "New / combined / utility delivery model.", "failureMode": "Slow adoption; status quo." }, { "worldId": "s4-human-judgment-on-top", "doThis": "Stay agile on judgment.", "failureMode": "Don't die." } ], "provenance": "S" },
@@ -1233,14 +1233,14 @@ function renderArc(){
   function cv(id){ for(var i=0;i<conv.length;i++){ if(conv[i].id===id) return conv[i]; } return {}; }
   var root=el('div',{class:'mode'},
     kicker('Mode 03','The arc','e-throughput'),
-    el('h1',{class:'big'}, 'Eight worlds, to four, to four strategies.'),
-    el('p',{class:'lede'}, 'The four worlds came out of three convenings, traced below as a funnel from eight possibilities down to four strategies. In Emergence, the group opened up the space of what 2040 could hold. In Divergence, they pushed the options apart and built four worlds out in full. In Convergence, they pulled those four back into strategy, working out what each group should do inside them.')
+    el('h1',{class:'big'}, 'Where the four worlds came from.'),
+    el('p',{class:'lede'}, 'The group met three times to put this together. The first session was a wide-open brainstorm: every direction 2040 might take. In the second, they narrowed to four of those futures and built each one out in detail. In the third, they got practical and asked what you should actually do if you land in each world. The funnel below is that whole arc, from a crowded field of possibilities down to four worlds and a strategy for each.')
   );
 
   root.appendChild(mgFigure(186, makeFunnel(), 'Eight worlds emerged, four were built in detail, four stakeholder strategies came out. The four empty cells never converge.'));
 
   var emergence=el('div',{class:'stage'},
-    el('div',{class:'stage-h'}, el('div',{class:'sm'}, cv('c1').mode+' · '+fmtDate(cv('c1').date)), el('div',{class:'st'}, 'Convening 1'), el('div',{class:'sd'}, 'Seven pitches, eight cube corners'))
+    el('div',{class:'stage-h'}, el('div',{class:'sm'}, cv('c1').mode+' · '+fmtDate(cv('c1').date)), el('div',{class:'st'}, 'Working session 1'), el('div',{class:'sd'}, 'Seven pitches, eight cube corners'))
   );
   var eb=el('div',{class:'stage-b'});
   DATA.convening1ScenarioPitches.forEach(function(p){
@@ -1249,7 +1249,7 @@ function renderArc(){
   emergence.appendChild(eb);
 
   var divergence=el('div',{class:'stage'},
-    el('div',{class:'stage-h'}, el('div',{class:'sm'}, cv('c2').mode+' · '+fmtDate(cv('c2').date)), el('div',{class:'st'}, 'Convening 2'), el('div',{class:'sd'}, 'Four worlds, built in detail'))
+    el('div',{class:'stage-h'}, el('div',{class:'sm'}, cv('c2').mode+' · '+fmtDate(cv('c2').date)), el('div',{class:'st'}, 'Working session 2'), el('div',{class:'sd'}, 'Four worlds, built in detail'))
   );
   var db=el('div',{class:'stage-b'});
   DATA.scenarios.forEach(function(sc){
@@ -1259,7 +1259,7 @@ function renderArc(){
   divergence.appendChild(db);
 
   var convergence=el('div',{class:'stage'},
-    el('div',{class:'stage-h'}, el('div',{class:'sm'}, cv('c3').mode+' · '+fmtDate(cv('c3').date)), el('div',{class:'st'}, 'Convening 3'), el('div',{class:'sd'}, 'Four stakeholder strategies'))
+    el('div',{class:'stage-h'}, el('div',{class:'sm'}, cv('c3').mode+' · '+fmtDate(cv('c3').date)), el('div',{class:'st'}, 'Working session 3'), el('div',{class:'sd'}, 'Four stakeholder strategies'))
   );
   var cb=el('div',{class:'stage-b'});
   DATA.c3Convergence.stakeholders.forEach(function(st){
