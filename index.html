@@ -1338,17 +1338,17 @@ function driftBars(){
 function renderSignals(){
   var root=el('div',{class:'mode'},
     kicker('Mode 04','Signals on three horizons','e-signal','m-beat'),
-    el('h1',{class:'big'}, 'What is already happening.'),
-    el('p',{class:'lede'}, 'Each card is something already happening in the real world. Switch off any you do not buy. The meter at the top counts how many switched-on signals point toward each of the four built worlds. Everything real starts on; the one invented headline starts off.'),
+    el('h1',{class:'big'}, 'The future is already showing up.'),
+    el('p',{class:'lede'}, 'These are real things happening right now, sorted by how far along they are: today\'s fading norms, the shift underway, and the first hints of 2040. Each one leans toward one or more of the four worlds. Toggle off anything you do not find convincing, and the meter at the top re-tallies which world the live evidence points to.'),
     mgFigure(158, make3H(), 'Three Horizons: today\'s system declines, the transition peaks then fades, the 2040 cube rises.'),
     driftBars()
   );
   var cols={H1:[],H2:[],H3:[]};
   DATA.signals.forEach(function(s){ (cols[s.horizon]||cols.H3).push(s); });
   var hmeta={
-    H1:{t:'Horizon 1',s:"Today's system, in decline"},
-    H2:{t:'Horizon 2',s:'The transition, happening now'},
-    H3:{t:'Horizon 3',s:'Early signs of 2040'}
+    H1:{t:'Horizon 1',s:"Today's rules, fading"},
+    H2:{t:'Horizon 2',s:'The shift, happening now'},
+    H3:{t:'Horizon 3',s:'First signs of 2040'}
   };
   var hz=el('div',{class:'horizons'});
   ['H1','H2','H3'].forEach(function(h){
