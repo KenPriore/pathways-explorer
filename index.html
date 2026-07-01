@@ -442,7 +442,7 @@ const DATA = {
   "program": {
     "phase1": { "name": "Phase 1: TLTF Summit, Austin", "date": "2025-11", "participants": "120+", "output": "Predetermined factors, 2040 visions, four thematic Roadmap reports" },
     "phase2": {
-      "name": "Phase 2: curated 19-person cohort",
+      "name": "Phase 2: curated 19-person group",
       "convenings": [
         { "id": "c1", "name": "Convening 1", "mode": "Emergence", "date": "2026-04-28/29", "purpose": "Surface a wide range of possible futures: scope, predetermineds, uncertainty clusters, scenario pitches, voting.", "output": "7 scenario pitches narrowed to 4; the uncertainty clusters; documented in the Convening 1 readout." },
         { "id": "c2", "name": "Convening 2", "mode": "Divergence", "location": "New York City, McDermott Will & Schulte", "date": "2026-05-27/28", "purpose": "Test, stretch and develop the surviving scenarios into full worlds.", "output": "The C2 feedback deck: 4 developed scenarios + 3 critical uncertainties." },
@@ -621,7 +621,7 @@ const DATA = {
     { "id": "legal-exhaust", "c1Name": "The Legal Exhaust", "oneLine": "The system decays into its data trail. Agents keep acting and agreements keep firing, but no one is steering.", "whyUndeveloped": "Named and highlighted on the Convening 1 matrix, then developed by nobody. The most uncomfortable cell (fragmented plus inertia plus machine-executed law) had no in-room advocate. The clearest in-room consequence of who was not at the table.", "provenance": "S" },
     { "id": "inhouse-on-top", "c1Name": "In-house on top", "oneLine": "The in-house function drives a centralized stack but human judgment stays decisive.", "whyUndeveloped": "Named at Convening 1 but not carried into the developed four. One of three human-supremacy cells left dark.", "provenance": "S" },
     { "id": "frustrated-clo", "c1Name": "Frustrated CLO", "oneLine": "The CLO sues platforms and startups over agentic harms; legal pulls control back through litigation, not infrastructure.", "whyUndeveloped": "Named at Convening 1 with a board, but not selected for development. The litigation-led route to human control was left unbuilt.", "provenance": "S" },
-    { "id": "status-quo", "c1Name": "Status quo", "oneLine": "The cell closest to 2026. Continuity.", "whyUndeveloped": "Named, assigned, and worked by nobody. Read as a soft rejection of the null hypothesis: the cohort declined to treat continuity as plausible.", "provenance": "S" }
+    { "id": "status-quo", "c1Name": "Status quo", "oneLine": "The cell closest to 2026. Continuity.", "whyUndeveloped": "Named, assigned, and worked by nobody. Read as a soft rejection of the null hypothesis: the group declined to treat continuity as plausible.", "provenance": "S" }
   ],
   "signals": [
     { "id": "oregonParalegals", "label": "Oregon licenses paralegals to provide limited legal help", "horizon": "H3", "kind": "regulatory", "realWorld": true, "leansToward": ["s2-gc-chief-legal-strategist"], "provenance": "S" },
@@ -1058,7 +1058,7 @@ function navReadout(){
 function navParts(){
   var controls=el('div',{class:'controls nav-q', id:'navControls'},
     toggleGroup('Question 1: the tech layer', TECHS, state.tech, function(v){ state.tech=v; rerenderNav(); }, null,
-      el('div',{class:'toggle-hint'}, 'How the technology under legal work gets organized. ', el('strong',{},'Integrated'), ' is one connected system: shared data, common standards, and agents that reach across legal and the rest of the business. ', el('strong',{},'Fragmented'), ' is a crowded market of specialist tools that never settle on a standard, with data trapped inside each app. The cohort treated this as the choice that shapes all the others.')),
+      el('div',{class:'toggle-hint'}, 'How the technology under legal work gets organized. ', el('strong',{},'Integrated'), ' is one connected system: shared data, common standards, and agents that reach across legal and the rest of the business. ', el('strong',{},'Fragmented'), ' is a crowded market of specialist tools that never settle on a standard, with data trapped inside each app. The group treated this as the choice that shapes all the others.')),
     toggleGroup('Question 2: who drives change', ROLES, state.role, function(v){ state.role=v; rerenderNav(); }, null,
       el('div',{class:'toggle-hint'}, 'Who actually forces legal to change. ', el('strong',{},'Buyer disruption'), ' means in-house legal uses its budget, its data, and its authority to set the terms and make firms and vendors adapt. ', el('strong',{},'Status quo'), ' means in-house legal stays in its lane and lets law firms, vendors, regulators, or the market lead. It decides whether corporate legal drives the transition or just rides it.')),
     toggleGroup('Question 3: who decides', LAWS, state.law, function(v){ state.law=v; rerenderNav(); }, 'Human supremacy',
@@ -1087,8 +1087,8 @@ function renderNavigator(){
   return el('div',{class:'mode'},
     kicker('Mode 01','The world navigator','e-node'),
     el('h1',{class:'big'}, 'Three questions. ', el('span',{class:'hl'}, 'Eight possible worlds.')),
-    el('p',{class:'lede'}, 'This is the map the cohort used to think about 2040. They turned the future into three yes-or-no questions about how AI, legal work, and the rule of law play out. Three questions with two answers each make eight combinations, so eight possible worlds. The cohort wrote up four of them in full and left the other four dark. The diagram below shows the branching; the three switches let you set each question and land on any of the eight. The four built worlds are solid and open when you click them; the four they skipped stay empty.'),
-    mgFigure(188, makeTreeHero(), 'Three questions, each with two answers, branch into eight possible worlds. The cohort built four, in color, and left four dark.'),
+    el('p',{class:'lede'}, 'The future of legal work will not arrive all at once, and it will not arrive the same way everywhere. It turns on a handful of decisions being made right now: how far AI is allowed to run, what is left for lawyers to do, and whether people still trust a human to hold the line. A group of lawyers and technologists reduced those to three yes-or-no questions. Two answers each gives eight possible worlds, and they built four of them out in full while leaving the other four dark. The diagram below shows the eight branches; the three switches let you set each question and drop into the world your answers make. Click any built world to step inside; the four they passed over stay empty.'),
+    mgFigure(188, makeTreeHero(), 'Three questions, each with two answers, branch into eight possible worlds. The group built four, in color, and left four dark.'),
     p.controls,
     el('div',{class:'nav-layout'}, p.map, p.side)
   );
@@ -1099,7 +1099,7 @@ function renderWorldsIndex(){
   var root=el('div',{class:'mode'},
     kicker('Mode 02','The worlds','d-architecture'),
     el('h1',{class:'big'}, 'Four worlds, built in detail.'),
-    el('p',{class:'lede'}, 'These are the four worlds the cohort built out, the four it chose from the eight on the map. Each is a full picture of 2040: a scene you can step into, the path that led there from today, how the world runs day to day, and the questions it leaves open. Click any card to go inside. The four the cohort named but left dark sit below.')
+    el('p',{class:'lede'}, 'These are the four worlds the group built out, the four it chose from the eight on the map. Each is a full picture of 2040: a scene you can step into, the path that led there from today, how the world runs day to day, and the questions it leaves open. Click any card to go inside. The four the group named but left dark sit below.')
   );
   var grid=el('div',{class:'world-grid m-build'});
   DATA.scenarios.forEach(function(sc){
@@ -1234,7 +1234,7 @@ function renderArc(){
   var root=el('div',{class:'mode'},
     kicker('Mode 03','The arc','e-throughput'),
     el('h1',{class:'big'}, 'Eight worlds, to four, to four strategies.'),
-    el('p',{class:'lede'}, 'The four worlds came out of three convenings, traced below as a funnel from eight possibilities down to four strategies. In Emergence, the cohort opened up the space of what 2040 could hold. In Divergence, they pushed the options apart and built four worlds out in full. In Convergence, they pulled those four back into strategy, working out what each group should do inside them.')
+    el('p',{class:'lede'}, 'The four worlds came out of three convenings, traced below as a funnel from eight possibilities down to four strategies. In Emergence, the group opened up the space of what 2040 could hold. In Divergence, they pushed the options apart and built four worlds out in full. In Convergence, they pulled those four back into strategy, working out what each group should do inside them.')
   );
 
   root.appendChild(mgFigure(186, makeFunnel(), 'Eight worlds emerged, four were built in detail, four stakeholder strategies came out. The four empty cells never converge.'));
@@ -1292,7 +1292,7 @@ function renderArc(){
   // the floor: predetermined factors
   root.appendChild(el('div',{class:'section', style:{'margin-top':'34px'}},
     subkicker('The floor: nine predetermined factors', prov('S'), 'd-foundation'),
-    el('p',{class:'panel-lede'}, 'These nine are the trends the cohort treated as settled, not as open questions. They hold underneath all eight worlds, so whichever future arrives, these come with it. The room spent its time arguing the eight scenarios on top; this floor was just assumed. A 2040 plan that still treats any of these as a maybe is already behind.'),
+    el('p',{class:'panel-lede'}, 'These nine are the trends the group treated as settled, not as open questions. They hold underneath all eight worlds, so whichever future arrives, these come with it. The room spent its time arguing the eight scenarios on top; this floor was just assumed. A 2040 plan that still treats any of these as a maybe is already behind.'),
     pfGrid()
   ));
   return root;
