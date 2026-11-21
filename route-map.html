@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Route map · Pathways</title>
+<!-- Route-map popup (from motion-ideas/03-route.html, Ken's pick 11/21).
+     Loaded in an iframe by the world page's "Route map" dialog: route-map.html?world=N&embed=1
+     embed=1 hides this file's own header and world switcher (the dialog supplies the title). -->
+<style>
+  @font-face{font-family:"Roboto Slab";src:url("fonts/RobotoSlab-variable.ttf") format("truetype");font-weight:100 900;font-display:swap}
+  @font-face{font-family:Archivo;src:url("fonts/Archivo-variable.ttf") format("truetype");font-weight:100 900;font-display:swap}
+  :root{--ink:#17233a;--soft:#4e5b6f;--blue:#2e5aa6;--navy:#162b50;--yellow:#f0c919;--rose:#c0455f;--paper:#f7f6f1;--line:#c8cdd3;--panel:#244d94;--mono:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;--slab:"Roboto Slab",Georgia,serif;--tone:#2e5aa6;--tone-ink:#fff;--track:#aecbff}
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:var(--paper);color:var(--ink);font:400 1rem/1.45 Archivo,Arial,sans-serif;min-height:100vh;display:grid;place-items:center}
+  .pop{width:min(720px,100%);height:100vh;max-height:560px;display:grid;grid-template-rows:auto 1fr auto;gap:8px;padding:8px}
+  .box{background:#fff;border:1px solid var(--line);border-radius:8px}
+  .head{display:flex;align-items:center;gap:14px;padding:10px 14px;border-left:7px solid var(--tone)}
+  .eyebrow{margin:0;font:700 .72rem/1.3 var(--mono);letter-spacing:.09em;text-transform:uppercase;color:var(--soft)}
+  h1{margin:2px 0 0;font:850 1.45rem/1.1 var(--slab);letter-spacing:-.035em}
+  .head .q{margin-left:auto;font:700 .66rem/1.3 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--soft);text-align:right}
+  .stage{background:var(--panel);border:1px solid #91a9d3;border-radius:8px;color:#fff;display:grid;grid-template-rows:auto 1fr;min-height:0;overflow:hidden}
+  .cap{display:flex;justify-content:space-between;gap:8px;padding:7px 12px;border-bottom:1px solid #7898cc;font:700 .66rem/1.3 var(--mono);letter-spacing:.08em;text-transform:uppercase}
+  .cap span:last-child{color:#f9df66}
+  .map{min-height:0;padding:6px 8px;background-image:linear-gradient(90deg,#ffffff12 1px,transparent 1px),linear-gradient(#ffffff12 1px,transparent 1px);background-size:24px 24px;background-position:center;display:flex;align-items:center;justify-content:center}
+  .map svg{display:block;width:100%;height:100%}
+  .foot{display:flex;align-items:center;gap:10px;padding:8px 10px;flex-wrap:wrap}
+  .switch{display:flex;gap:6px}
+  .switch button,.replay{font:700 .8rem/1 var(--mono);border-radius:6px;cursor:pointer;min-height:36px}
+  .switch button{width:36px;border:2px solid transparent;background:var(--c);color:var(--ci)}
+  .switch button[aria-pressed=true]{border-color:var(--ink);box-shadow:inset 0 0 0 2px #fff}
+  .replay{margin-left:auto;padding:0 14px;background:#fff;color:var(--ink);border:1px solid var(--ink);letter-spacing:.06em;text-transform:uppercase}
+  .replay:hover{background:var(--ink);color:#fff}
+  button:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+  .route{flex:1 1 220px;min-width:0;margin:0;font:700 .7rem/1.35 var(--mono);letter-spacing:.05em;text-transform:uppercase;color:var(--soft)}
+  .route b{color:var(--ink)}
+  .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+  /* Embedded in the site's dialog: no own header or switcher, fill the frame */
+  .embed body{display:block;min-height:0;background:transparent}
+  .embed .pop{width:100%;height:100vh;max-height:none;grid-template-rows:1fr auto;padding:0}
+  .embed .head,.embed .switch{display:none}
+
+  /* SVG */
+  .edge{fill:none;stroke:#ffffff8c;stroke-width:1.5;transition:stroke .35s,stroke-width .35s}
+  .edge.off{stroke:#ffffff26;stroke-width:1}
+  .node{fill:var(--panel);stroke:#ffffffb3;stroke-width:1;transition:fill .2s,stroke .2s,opacity .35s}
+  .node.on{fill:var(--track);stroke:var(--track)}
+  .node.off{opacity:.3}
+  .lbl{transition:opacity .35s}
+  .lbl text{font:700 9.5px var(--mono);letter-spacing:.05em;text-transform:uppercase;fill:#ffffffb8;transition:fill .25s}
+  .lbl.v text{font-size:8px;letter-spacing:.03em}
+  .lbl .pill{fill:var(--panel);stroke:#ffffff40;stroke-width:1;transition:stroke .25s}
+  .lbl .arr{opacity:0;transition:opacity .2s}
+  .lbl.on text{fill:var(--track)}
+  .lbl.on .pill{stroke:var(--track)}
+  .lbl.on .arr{opacity:1}
+  .lbl.off{opacity:.3}
+  .today rect{fill:var(--panel);stroke:#afc3e4;stroke-width:1}
+  .today text{font:700 10px var(--mono);letter-spacing:.08em;fill:#fff}
+  .routeline{fill:none;stroke:var(--track);stroke-width:3.5;stroke-linecap:square;stroke-linejoin:miter}
+  .leaf{transition:opacity .35s}
+  .leaf rect{fill:var(--panel);stroke-width:1}
+  .leaf.dev{opacity:.5}
+  .leaf .num{font:700 10px var(--mono);letter-spacing:.04em}
+  .leaf .nm{font:650 11px Archivo,Arial,sans-serif;fill:#fff}
+  .leaf.ne rect{fill:none;stroke:#ffffff59;stroke-dasharray:3 3}
+  .leaf.ne text{font:700 8.5px var(--mono);letter-spacing:.06em;text-transform:uppercase;fill:#ffffff73}
+  .leaf.cur{opacity:1}
+  .leaf.cur rect{fill:var(--tone);stroke:var(--track);stroke-width:2}
+  .leaf.cur .num,.leaf.cur .nm{fill:var(--tone-ink)}
+  .callout{opacity:0;transition:opacity .3s}
+  .callout.show{opacity:1}
+  .callout rect{fill:var(--tone);stroke:var(--track);stroke-width:2}
+  .callout .num{font:700 11px var(--mono);fill:var(--tone-ink)}
+  .callout .nm{font:700 13px Archivo,Arial,sans-serif;fill:var(--tone-ink)}
+  .legend{font:700 8.5px var(--mono);letter-spacing:.06em;text-transform:uppercase;fill:#ffffff8c}
+
+  @media (max-width:560px){
+    body{display:block;min-height:0}
+    .pop{height:auto;max-height:none}
+    .embed .pop{height:100vh}
+    .map svg{height:auto}
+    .head .q{display:none}
+    h1{font-size:1.3rem}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+<script>
+  // Set before first paint so the embedded layout never flashes the standalone header.
+  if (new URLSearchParams(location.search).get("embed") === "1") document.documentElement.classList.add("embed");
+</script>
+</head>
+<body>
+<div class="pop" role="group" aria-labelledby="title" aria-describedby="route">
+  <header class="box head">
+    <div><p class="eyebrow" id="eyebrow">World 01 · 2040</p><h1 id="title">Big Tech Enterprise</h1></div>
+    <p class="q">Three questions<br>Eight routes</p>
+  </header>
+  <section class="stage" aria-label="Route map">
+    <div class="cap"><span>Route map</span><span>Today to 2040</span></div>
+    <div class="map" id="map"></div>
+  </section>
+  <footer class="box foot">
+    <div class="switch" role="group" aria-label="Choose a world" id="switch"></div>
+    <p class="route" id="route" aria-live="polite"></p>
+    <button class="replay" type="button" id="replay">Replay</button>
+  </footer>
+</div>
+<script>
+(() => {
+  const worlds = [
+    {id:1, name:"Big Tech Enterprise", tone:"#2E5AA6", ink:"#fff", track:"#aecbff", bits:[0,0,0]},
+    {id:2, name:"The App Store for Law", tone:"#F0C919", ink:"#17233A", track:"#f0c919", bits:[1,0,0]},
+    {id:3, name:"Big Law Owns the Stack", tone:"#C0455F", ink:"#fff", track:"#ffb0c1", bits:[0,1,0]},
+    {id:4, name:"Hands on the Wheel", tone:"#162B50", ink:"#fff", track:"#e4edf9", bits:[0,1,1], contested:true}
+  ];
+  // Checked against the Pathways book, "Four worlds, shaped by three uncertainties" (11/21):
+  // 01 Tech layer: Integrated ↔ Fragmented (book terms; "one stack" overstated it: integrated = interoperable, shared data, connected systems)
+  // 02 Transformation driver: Enterprise-led ↔ Provider-led ("Does the enterprise drive legal transformation from within, or do providers build the systems that define it?")
+  // 03 Trust and authority: Algorithm ↔ Human. Verbs differ per fork so World 4 reads "Providers build → People decide", not two "-led"s.
+  // "Company drives" (Ken 11/21): the book's "enterprise" = the company (leadership + in-house legal) as buyer; decks said "corporate"/"buyer".
+  const labels = [["Integrated","Fragmented"],["Company drives","Providers build"],["Systems decide","People decide"]];
+  const vLabels = [["Integrated","Fragmented"],["Company","Providers"],["Systems","People"]];
+  const NS = "http://www.w3.org/2000/svg";
+  const num = n => String(n).padStart(2, "0");
+  const leafWorld = {};
+  worlds.forEach(w => leafWorld[w.bits[0]*4 + w.bits[1]*2 + w.bits[2]] = w);
+
+  const map = document.getElementById("map");
+  const routeText = document.getElementById("route");
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)");
+  let current = worlds[0], vertical = null, raf = 0, timers = [], refs = null;
+
+  // Breadth centre (in leaf units) of the node at depth k (1..4) with the given prefix bits.
+  const centre = (k, prefix) => {
+    const count = 2 ** (4 - k);
+    const val = prefix.reduce((a, b) => a * 2 + b, 0);
+    return val * count + (count - 1) / 2;
+  };
+
+  function geometry(v) {
+    if (!v) return {
+      W:640, H:336, vertical:false,
+      D:[64,112,232,356,476], // today right edge, fork1, fork2, fork3, leaf left edge
+      b: i => 35 + i * 38,
+      pt: (d, b) => [d, b]
+    };
+    return {
+      W:352, H:352, vertical:true,
+      D:[30,62,128,194,256],
+      b: i => 22 + i * 44,
+      pt: (d, b) => [b, d]
+    };
+  }
+
+  function el(name, attrs, parent, text) {
+    const n = document.createElementNS(NS, name);
+    for (const k in attrs) n.setAttribute(k, attrs[k]);
+    if (text != null) n.textContent = text;
+    if (parent) parent.appendChild(n);
+    return n;
+  }
+
+  // Orthogonal edge from fork at depth k (breadth pb) to child at depth k+1 (breadth cb): turn at the fork, then run on.
+  function edgeD(g, k, pb, cb) {
+    const d0 = g.D[k], d1 = g.D[k + 1];
+    if (!g.vertical) return `M${d0} ${pb}V${cb}H${d1}`;
+    return `M${pb} ${d0}H${cb}V${d1}`;
+  }
+
+  function build() {
+    const g = geometry(vertical);
+    map.innerHTML = "";
+    const svg = el("svg", {viewBox:`0 0 ${g.W} ${g.H}`, role:"img", "aria-label":"Route map: a line leaves Today and forks three times into eight end stops; four worlds were developed, four were mapped but not developed."}, map);
+    svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
+    const gEdges = el("g", {}, svg), gLabels = el("g", {}, svg), gRoute = el("g", {}, svg), gNodes = el("g", {}, svg), gTop = el("g", {}, svg), gLeaves = el("g", {}, svg);
+    const edges = [], nodes = [], lbls = [];
+    const rootB = g.b(3.5);
+
+    // Today box and trunk
+    const today = el("g", {class:"today"}, svg);
+    if (!g.vertical) {
+      el("rect", {x:4, y:rootB - 13, width:60, height:26, rx:3}, today);
+      el("text", {x:34, y:rootB + 3.5, "text-anchor":"middle"}, today, "TODAY");
+      edges.push({d:`M${g.D[0]} ${rootB}H${g.D[1]}`, prefix:[], k:0});
+    } else {
+      el("rect", {x:rootB - 32, y:4, width:64, height:26, rx:3}, today);
+      el("text", {x:rootB, y:20.5, "text-anchor":"middle"}, today, "TODAY");
+      edges.push({d:`M${rootB} ${g.D[0]}V${g.D[1]}`, prefix:[], k:0});
+    }
+
+    // Forks k = 1..3
+    const walk = (k, prefix) => {
+      if (k > 3) return;
+      const pb = g.b(centre(k, prefix));
+      nodes.push({k, prefix, b:pb});
+      [0, 1].forEach(bit => {
+        const child = prefix.concat(bit);
+        const cb = g.b(centre(k + 1, child));
+        edges.push({d:edgeD(g, k, pb, cb), prefix:child, k});
+        let text = labels[k - 1][bit];
+        let x, y, anchor = "start";
+        if (!g.vertical) { x = g.D[k] + 9; y = cb - 6; }
+        else { text = vLabels[k - 1][bit]; x = cb; y = (g.D[k] + g.D[k + 1]) / 2 + 3; anchor = "middle"; }
+        lbls.push({k, prefix:child, text, x, y});
+        walk(k + 1, child);
+      });
+    };
+    walk(1, []);
+
+    const eNodes = edges.map(e => ({...e, n: el("path", {d:e.d, class:"edge"}, gEdges)}));
+    const lNodes = lbls.map(l => {
+      const grp = el("g", {class:"lbl" + (g.vertical ? " v" : "")}, g.vertical ? gTop : gLabels);
+      if (g.vertical) {
+        const w = l.text.length * 5.1 + 8;
+        el("rect", {class:"pill", x:l.x - w / 2, y:l.y - 9, width:w, height:12, rx:2}, grp);
+      }
+      const t = el("text", {x:l.x, y:l.y, "text-anchor":g.vertical ? "middle" : "start"}, grp);
+      if (!g.vertical) el("tspan", {class:"arr"}, t, "→ ");
+      el("tspan", {}, t, l.text);
+      return {...l, n:grp};
+    });
+    const nNodes = nodes.map(nd => {
+      const [x, y] = g.pt(g.D[nd.k], nd.b);
+      return {...nd, n: el("rect", {x:x - 3.5, y:y - 3.5, width:7, height:7, class:"node"}, gNodes)};
+    });
+
+    // Leaves
+    const leaves = [];
+    for (let i = 0; i < 8; i++) {
+      const w = leafWorld[i];
+      const grp = el("g", {class:"leaf " + (w ? "dev" : "ne")}, gLeaves);
+      const cb = g.b(i);
+      if (!g.vertical) {
+        el("rect", {x:g.D[4], y:cb - 13, width:160, height:26, rx:3, stroke:w ? w.track : null}, grp);
+        if (w) {
+          el("text", {x:g.D[4] + 8, y:cb + 3.5, class:"num", fill:w.track}, grp, num(w.id));
+          el("text", {x:g.D[4] + 30, y:cb + 4, class:"nm"}, grp, w.name);
+        } // Ken 11/21: undeveloped stops stay blank (empty dashed box) so the four worlds stand out.
+      } else {
+        el("rect", {x:cb - 18, y:g.D[4], width:36, height:26, rx:3, stroke:w ? w.track : null}, grp);
+        if (w) el("text", {x:cb, y:g.D[4] + 17, class:"num", fill:w.track, "text-anchor":"middle"}, grp, num(w.id));
+      }
+      if (w) grp.style.setProperty("--track", w.track);
+      leaves.push({i, w, n:grp});
+    }
+
+    let callout = null;
+    if (g.vertical) {
+      callout = el("g", {class:"callout"}, svg);
+    }
+
+    // Route for the current world
+    const bits = current.bits;
+    let rd = edges[0].d, parts = [];
+    const seg = (a, b) => Math.abs(b - a);
+    parts.push(seg(g.D[0], g.D[1])); // trunk length
+    const lightAt = [];
+    let pb = rootB;
+    for (let k = 1; k <= 3; k++) {
+      const cb = g.b(centre(k + 1, bits.slice(0, k)));
+      rd += edgeD(g, k, pb, cb).replace(/^M[^VH]+/, "");
+      const turn = seg(pb, cb), run = seg(g.D[k], g.D[k + 1]);
+      const before = parts.reduce((a, b) => a + b, 0);
+      lightAt.push({atNode: before, atLabel: before + turn + Math.min(14, run * .2)});
+      parts.push(turn + run);
+      pb = cb;
+    }
+    const total = parts.reduce((a, b) => a + b, 0);
+    const line = el("path", {d:rd, class:"routeline", "stroke-dasharray":`${total} ${total}`, "stroke-dashoffset":total}, gRoute);
+    if (callout) {
+      const lb = g.b(bits[0]*4 + bits[1]*2 + bits[2]);
+      const top = g.D[4] + 54;
+      el("path", {d:`M${lb} ${g.D[4] + 26}V${top}`, stroke:current.track, "stroke-width":2, fill:"none"}, callout);
+      el("rect", {x:4, y:top, width:g.W - 8, height:34, rx:4}, callout);
+      el("text", {x:14, y:top + 21.5, class:"num"}, callout, num(current.id));
+      el("text", {x:38, y:top + 22, class:"nm"}, callout, current.name);
+    }
+
+    refs = {g, eNodes, lNodes, nNodes, leaves, line, total, lightAt, callout};
+  }
+
+  const samePrefix = (a, b, len) => { for (let i = 0; i < len; i++) if (a[i] !== b[i]) return false; return true; };
+
+  // Apply the state for "the line has passed fork k" (k = 0..3).
+  function passFork(k) {
+    const bits = current.bits;
+    const chosen = bits.slice(0, k);
+    refs.lNodes.forEach(l => {
+      if (l.k !== k) return;
+      if (samePrefix(l.prefix, bits, k - 1)) l.n.classList.add(l.prefix[k - 1] === bits[k - 1] ? "on" : "off");
+    });
+    refs.eNodes.forEach(e => { if (e.prefix.length >= k && !samePrefix(e.prefix, chosen, k)) e.n.classList.add("off"); });
+    refs.lNodes.forEach(l => { if (l.prefix.length > k && !samePrefix(l.prefix, chosen, k)) l.n.classList.add("off"); });
+    refs.nNodes.forEach(nd => { if (nd.prefix.length >= k && !samePrefix(nd.prefix, chosen, k)) nd.n.classList.add("off"); });
+  }
+  function reachNode(k) {
+    const pre = current.bits.slice(0, k - 1);
+    refs.nNodes.forEach(nd => { if (nd.k === k && samePrefix(nd.prefix, pre, k - 1)) nd.n.classList.add("on"); });
+  }
+  function finish() {
+    const idx = current.bits[0]*4 + current.bits[1]*2 + current.bits[2];
+    refs.leaves[idx].n.classList.add("cur");
+    if (refs.callout) refs.callout.classList.add("show");
+  }
+
+  function finalState() {
+    refs.line.setAttribute("stroke-dashoffset", 0);
+    for (let k = 1; k <= 3; k++) { reachNode(k); passFork(k); }
+    finish();
+  }
+
+  function stop() { cancelAnimationFrame(raf); timers.forEach(clearTimeout); timers = []; }
+
+  function play() {
+    stop();
+    build();
+    if (reduce.matches) { finalState(); return; }
+    const {line, total, lightAt} = refs;
+    const DUR = 2000, t0 = performance.now();
+    const ease = t => t < .5 ? 2 * t * t : 1 - (-2 * t + 2) ** 2 / 2;
+    let stage = 0; // events fired
+    const events = [];
+    lightAt.forEach((l, i) => { events.push({at:l.atNode, fn:() => reachNode(i + 1)}); events.push({at:l.atLabel, fn:() => passFork(i + 1)}); });
+    events.sort((a, b) => a.at - b.at);
+    const tick = now => {
+      const p = Math.min(1, (now - t0) / DUR);
+      const drawn = total * ease(p);
+      line.setAttribute("stroke-dashoffset", total - drawn);
+      while (stage < events.length && drawn >= events[stage].at - .01) events[stage++].fn();
+      if (p < 1) raf = requestAnimationFrame(tick);
+      else { while (stage < events.length) events[stage++].fn(); timers.push(setTimeout(finish, 120)); }
+    };
+    raf = requestAnimationFrame(tick);
+  }
+
+  function setWorld(w, animate = true) {
+    current = w;
+    const root = document.documentElement.style;
+    root.setProperty("--tone", w.tone); root.setProperty("--tone-ink", w.ink); root.setProperty("--track", w.track);
+    document.getElementById("eyebrow").textContent = `World ${num(w.id)} · 2040`;
+    document.getElementById("title").textContent = w.name;
+    document.querySelectorAll("#switch button").forEach(b => b.setAttribute("aria-pressed", String(+b.dataset.id === w.id)));
+    const steps = w.bits.map((b, i) => labels[i][b]);
+    routeText.innerHTML = `<span class="vh">Route to World ${num(w.id)}, ${w.name}: </span><b>${steps[0]}</b> → <b>${steps[1]}</b> → <b>${steps[2]}</b>${w.contested ? " (contested)" : ""}`;
+    if (animate) play(); else { stop(); build(); finalState(); }
+  }
+
+  const sw = document.getElementById("switch");
+  worlds.forEach(w => {
+    const b = document.createElement("button");
+    b.type = "button"; b.dataset.id = w.id; b.textContent = w.id;
+    b.setAttribute("aria-label", `World ${w.id}: ${w.name}`);
+    b.style.setProperty("--c", w.tone); b.style.setProperty("--ci", w.ink);
+    b.addEventListener("click", () => setWorld(w));
+    sw.appendChild(b);
+  });
+  document.getElementById("replay").addEventListener("click", () => play());
+
+  const measure = () => map.clientWidth < 500;
+  vertical = measure();
+  new ResizeObserver(() => {
+    const v = measure();
+    if (v !== vertical) { vertical = v; stop(); build(); finalState(); }
+  }).observe(map);
+
+  // ?world=N picks the starting world (the site's dialog passes the current world).
+  const start = worlds.find(w => w.id === Number(new URLSearchParams(location.search).get("world"))) || worlds[0];
+  setWorld(start);
+})();
+</script>
+</body>
+</html>
