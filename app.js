@@ -22,9 +22,10 @@ const definitions = {
   // Definitions follow the Pathways book's three uncertainty panels (checked 11/21).
   "Integrated": "Connected, standards-based systems share data across the company, law firms, providers, and legal institutions.",
   "Fragmented": "Specialist tools work together through interfaces and shared standards. The value comes from choosing and combining them.",
-  "Enterprise-led": "The company drives the change. Legal takes control of the operating model, building its own systems or directing providers on its terms.",
-  "Provider-led": "Law firms, legal tech companies, ALSPs, and big tech build the systems that deliver the change. Legal depends on what they build.",
-  "Algorithm-led": "Automated systems resolve or execute most legal work. People set the parameters and handle exceptions after the system has shaped the answer.",
+  // Ken 11/21 voice interview: this axis is about who controls how legal work runs, not who built the software.
+  "Enterprise-led": "The company controls how legal work runs: the data, the playbooks, the workflows, and the rules. It builds its own systems or directs providers on its terms. The test: if the company fired the vendor tomorrow, it would keep all of them.",
+  "Provider-led": "Law firms, legal tech companies, ALSPs, and big tech run the systems, and legal depends on them. If the company fired the provider tomorrow, the provider would keep the playbooks, the data, and the workflows. The same tool can sit in either world. What decides it is who runs the tool.",
+  "Algorithm-led": "Automated systems resolve or carry out most legal work. People set the parameters and handle exceptions after the system has shaped the answer.",
   "Human-led": "Technology still does much of the work, but people keep authority over high-stakes judgment and can inspect, challenge, and override the machine."
 };
 
@@ -32,7 +33,7 @@ const definitions = {
 // competing ("Provider-led" + "Human-led"). Tooltips carry the definition only.
 const display = {
   "Integrated": "Integrated", "Fragmented": "Fragmented",
-  "Enterprise-led": "Company drives", "Provider-led": "Providers build",
+  "Enterprise-led": "Company drives", "Provider-led": "Providers run",
   "Algorithm-led": "Systems decide", "Human-led": "People decide"
 };
 function term(label, classes = "") {
@@ -70,7 +71,7 @@ function heroSection({onCompare = false} = {}) {
       <div>
         <p class="eyebrow">Pathways · Scenario explorer</p>
         <h1>The Future<br>of Law to <span>2040</span></h1>
-        <p class="intro">Four possible worlds for legal work to 2040. Each answers three questions differently: connected systems or specialist tools, the company or its providers driving the change, algorithms or people holding the final say.</p>
+        <p class="intro">Four possible worlds for legal work in 2040. Each one gives a different answer to the same three open questions: whether legal technology connects into shared systems or stays a kit of specialist tools, whether the company or its outside providers drive the change, and whether systems or people make the final call.</p>
         ${onCompare ? "" : `<div class="actions">
           <a class="button yellow" href="#four-worlds">Explore the four worlds</a>
           <a class="button outline" href="#compare">Compare worlds</a>
@@ -103,10 +104,10 @@ function renderHome() {
   root.innerHTML = `${heroSection()}
   <section class="wrap orient" aria-label="What this is">
     <p class="eyebrow">What this is</p>
-    <p>These are scenarios. None is a forecast. Three questions with two answers each make eight possible combinations, and four are developed here. In each one, watch who does the work, who owns the systems, and who makes the final call. The 2026 entries draw mostly on real reporting; later years are fiction. Pick a world, follow it to 2040, then compare.</p>
+    <p>In 2025, more than 120 people at the TLTF Summit in Austin mapped the changes already under way in legal work. A smaller group of general counsel, law firm leaders, legal tech founders, and judicial, regulatory, and academic voices then met three times in New York to work out where those changes could lead. They named three questions nobody can answer yet. Two answers to each make eight possible worlds, and the group built four of them out in full. None is a forecast. In each one, watch who does the work, who owns the systems, and who makes the final call. The 2026 entries draw mostly on real reporting; later years are fiction.</p>
   </section>
   <section class="wrap section" id="four-worlds" tabindex="-1">
-    <div class="section-head"><h2>Enter a world</h2><p>Each world follows its own path from 2026 to 2040. Start with the one closest to where your organization is headed.</p></div>
+    <div class="section-head"><h2>Enter a world</h2><p>Every world starts from the same 2026 and takes its own turn at each of the three questions. Start with the one closest to where your organization is headed.</p></div>
     <div class="world-grid">${worlds.map(worldCard).join("")}</div>
   </section>`;
   startMap();
@@ -169,7 +170,7 @@ function renderWorld(world, tab) {
 function renderRoute(world) {
   return `<header class="body-head"><h2 id="section-title">Route map</h2>
       <p>Three uncertainties, two poles each, make eight combinations. The program mapped all eight and developed four. This world’s line takes one turn at every fork; the dashed stops are the four left undeveloped.</p></header>
-    <iframe class="route-frame" title="Route map: the three forks that lead to ${safe(world.name)}" src="route-map.html?world=${world.id}&embed=1&v=20261121f"></iframe>`;
+    <iframe class="route-frame" title="Route map: the three forks that lead to ${safe(world.name)}" src="route-map.html?world=${world.id}&embed=1&v=20261121g"></iframe>`;
 }
 
 function renderOverview(world) {
@@ -184,6 +185,7 @@ function renderOverview(world) {
     <header class="body-head"><h2 id="section-title">How this world works</h2>${world.quote ? quote(world.quote) : worldIcon(world)}</header>
     <article class="panel"><h3>What goes right</h3><p>${safe(world.promise)}</p></article>
     <article class="panel"><h3>What goes wrong</h3><p>${safe(world.danger)}</p></article>
+    ${world.data ? `<article class="panel panel--data"><h3>Where the data sits</h3><p>${safe(world.data)}</p></article>` : ""}
   </div>`;
 }
 
@@ -212,11 +214,11 @@ function renderCompare() {
   <div class="wrap comparison" id="compare-table">
     <div class="section-head title-block compare-head"><h2 class="compare-title">Compare worlds</h2>
       <p class="cmp-cell"><span class="cmp-eyebrow">How to read this</span>Each pair below changes one answer and holds the rest. Worlds 1 and 2 split on technology: connected systems, or a kit of specialist tools. Worlds 1 and 3 split on who drives the change. Worlds 3 and 4 share systems and providers and part on who makes the final call.</p>
-      <p class="cmp-cell cmp-note"><span class="cmp-eyebrow">What’s not here</span>Three questions, two answers each: eight combinations. The first convening mapped all eight and developed four. The other four stayed on the map, among them any fragmented world where providers build and any world where people decide while the company drives. The real 2040 may carry pieces of all eight, the undeveloped four included.</p></div>
+      <p class="cmp-cell cmp-note"><span class="cmp-eyebrow">What’s not here</span>Three questions, two answers each: eight combinations. The first convening mapped all eight and developed four. The other four stayed on the map, among them any fragmented world where providers run the systems and any world where people decide while the company drives. The real 2040 may carry pieces of all eight, the undeveloped four included.</p></div>
     <p class="scroll-note" id="table-hint">Scroll across to see all four worlds.</p>
     <div class="table-scroll" tabindex="0" role="region" aria-label="Compare all four worlds" aria-describedby="table-hint">
       <table class="compare-table" aria-label="Four-world comparison"><thead><tr><th scope="col">Dimension</th>${worlds.map(world => `<th scope="col" ${tone(world)}><a href="${worldLink(world.id)}">${worldIcon(world)}${safe(world.name)}</a></th>`).join("")}</tr></thead>
-      <tbody>${axes.map((axis, i) => row(axis, worlds.map(world => term(world.labels[i])))).join("")}${row("What goes right", worlds.map(world => safe(world.promise)))}${row("What goes wrong", worlds.map(world => safe(world.danger)))}</tbody></table>
+      <tbody>${axes.map((axis, i) => row(axis, worlds.map(world => term(world.labels[i])))).join("")}${["Who runs the work", "What in-house legal does", "Team size", "Where the data sits"].map((label, i) => row(label, worlds.map(world => world.compare?.[i] === "Not in the scenario" ? `<span class="cmp-open">Not in the scenario</span>` : safe(world.compare?.[i] || "")))).join("")}${row("What goes right", worlds.map(world => safe(world.promise)))}${row("What goes wrong", worlds.map(world => safe(world.danger)))}</tbody></table>
     </div>
   </div>`;
   startMap();
