@@ -80,7 +80,7 @@ function heroSection({onCompare = false} = {}) {
         </div>
       </figure>
     </div>
-  </section>`;
+  </section>${onCompare ? "" : window.AssumptionsStrip?.html() ?? ""}`;
 }
 
 function startMap() {
@@ -104,6 +104,7 @@ function renderHome() {
     <div class="world-grid">${worlds.map(worldCard).join("")}</div>
   </section>`;
   startMap();
+  window.AssumptionsStrip?.mount(root);
 }
 
 function drawMap(map) {
@@ -164,7 +165,7 @@ function renderWorld(world, tab) {
 function renderRoute(world) {
   return `<header class="body-head route-cap"><h2 id="section-title">Route map</h2>
       <p><span><span class="route-part">Three questions with two answers each make eight possible worlds.</span> <span class="route-part">Follow the line to this one.</span></span></p></header>
-    <iframe class="route-frame" title="Route map: the three forks that lead to ${safe(world.name)}" src="route-map.html?world=${world.id}&embed=1&joined=1&v=20261122g"></iframe>`;
+    <iframe class="route-frame" title="Route map: the three forks that lead to ${safe(world.name)}" src="route-map.html?world=${world.id}&embed=1&joined=1&v=20261122h"></iframe>`;
 }
 
 function boldFirstSentence(text) {
@@ -296,6 +297,7 @@ function readRoute() {
 function render({scroll = true, focusId = ""} = {}) {
   dismissTerm();
   mapObserver?.disconnect();
+  window.AssumptionsStrip?.unmount();
   const {view, first, tab} = readRoute();
   let current = "worlds";
   let title = "The Future of Law to 2040";

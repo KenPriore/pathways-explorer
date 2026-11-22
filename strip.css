@@ -1,0 +1,125 @@
+/* Assumptions strip (Ken 2026-11-22). A white band under the hero; color alone carries the type.
+   Shift = yellow, To be tested = rose, Frame = blue. Three colors, the site's own (Ken: no navy, no teal). */
+.astrip{
+  --shift:var(--yellow);--test:var(--rose);--frame:var(--blue);
+  /* the only derivations, alphas of tokens: the grid (blue 16%), the panel's dividers (ink 25% on yellow, paper 55% on rose and blue) */
+  --ink-25:rgba(23,23,28,.25);--paper-55:rgba(255,255,255,.55);
+  --edge:calc((100% - var(--wrap))/2);--space:22px;--gap:16px;--link:58px;--grid:rgba(46,90,166,.16);--grid-y:6px;
+  position:relative;background:var(--paper);color:var(--ink);border-bottom:1px solid var(--grey);
+  cursor:pointer;-webkit-tap-highlight-color:transparent;
+}
+.astrip [hidden]{display:none}
+.astrip .shift{--tint:var(--shift);--on:var(--ink);--cell:var(--ink-25)}
+.astrip .test{--tint:var(--test);--on:var(--paper);--cell:var(--paper-55)}
+.astrip .frame{--tint:var(--frame);--on:var(--paper);--cell:var(--paper-55)}
+.astrip button{font:inherit}
+.astrip button:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+
+/* the row: the title takes only the width it needs, from the hero's left text edge */
+.as-row{display:grid;grid-template-columns:var(--edge) max-content minmax(0,1fr)}
+.as-label{grid-column:2;display:flex;align-items:center;padding-block:var(--space);padding-right:28px;border-right:1px solid var(--grey);touch-action:manipulation;user-select:none;-webkit-user-select:none}
+.as-name{margin:0;font:800 clamp(1.75rem,2.5vw,2.25rem)/1 var(--slab);letter-spacing:-.04em;color:var(--ink)}
+.as-name span{display:block}
+
+/* what moves */
+.as-view{
+  grid-column:3;position:relative;min-width:0;overflow:hidden;overflow:clip;touch-action:pan-y pinch-zoom;
+  cursor:grab;
+  /* v1's grid, reversed to blue on white: it belongs to the window, so the cards move over it */
+  background-image:linear-gradient(90deg,var(--grid) 1px,transparent 1px),linear-gradient(var(--grid) 1px,transparent 1px);
+  background-size:24px 24px;background-position:-1px var(--grid-y);
+}
+.as-view.dragging{cursor:grabbing}
+.as-view:focus{outline:none}
+.as-view:focus-visible::after{content:"";position:absolute;inset:8px 4px;border:3px solid var(--blue);border-radius:3px;pointer-events:none;z-index:3}
+.as-track{position:relative;width:max-content;padding-block:var(--space);will-change:transform;user-select:none;-webkit-user-select:none}
+.as-set{display:flex;align-items:stretch;width:max-content;margin:0;padding:0;list-style:none}
+.as-set[aria-hidden]{position:absolute;top:var(--space);bottom:var(--space)}
+.as-set>li{position:relative;display:flex;flex:none;margin-right:var(--gap)}
+.as-box{
+  position:relative;display:flex;flex-direction:column;justify-content:flex-start;align-items:stretch;flex:none;
+  margin:0;padding:14px 15px;border:0;border-radius:3px;background:var(--tint);color:var(--on);text-align:left;cursor:inherit;
+}
+.as-box>span{display:block}
+.as-box .as-tag,.as-head .as-tag{font:700 .75rem/16px var(--mono);letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
+.as-title{margin-top:4px;font-size:1rem;line-height:20px;font-weight:730;text-wrap:balance}
+.as-field{margin-top:11px;font:700 .67rem/14px var(--mono);letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
+.as-meaning{margin-top:4px;font-size:.9rem;line-height:20px;font-weight:450;text-wrap:pretty}
+
+/* v1's routed track runs from a shift to its test, in the test's rose, with the map's square at the turn */
+.as-set>li.before-link{margin-right:0}
+.as-set>li.linked{margin-left:var(--link)}
+.as-wire{position:absolute;right:100%;top:0;width:var(--link);height:100%;overflow:visible;pointer-events:none;color:var(--test)}
+.as-wire path{fill:none;stroke:currentColor;stroke-width:2}
+.as-wire rect{fill:currentColor}
+/* the palette has no darker shades: a card under the pointer keeps its color and gets a ring of its text color, set in so paper shows on the white ground */
+@media(hover:hover){.as-box:not(.selected):hover{box-shadow:inset 0 0 0 2px var(--tint),inset 0 0 0 4px var(--on)}}
+
+/* the open card runs down into its panel as one piece of color */
+.as-box.selected{border-bottom-left-radius:0;border-bottom-right-radius:0}
+.as-box.selected::after{content:"";position:absolute;inset:100% 0 auto;height:calc(var(--space) + 1px);background:var(--tint);pointer-events:none}
+.as-set>li:has(>.selected:focus-visible){z-index:2}
+
+/* detail */
+.as-detail{width:var(--wrap);margin:0 auto var(--space);display:grid;grid-template-columns:fit-content(400px) minmax(0,var(--a,1fr)) minmax(0,1fr) auto;border-radius:0 0 3px 3px;background:var(--tint);color:var(--on);cursor:auto}
+.as-detail{scroll-margin-bottom:calc(var(--space) + 1px)}
+.as-detail:focus{outline:none}
+.as-detail:focus-visible{outline:2px solid var(--on);outline-offset:-4px}
+.as-detail>div{padding:14px 16px;min-width:0}
+.as-detail>div+div{border-left:1px solid var(--cell)}
+.as-detail p{margin:0}
+.as-detail>.as-head{padding-left:15px}
+.as-head .as-title{margin-top:4px}
+.as-head .as-tests{margin-top:8px;font:700 .67rem/14px var(--mono);letter-spacing:.06em;text-transform:uppercase;text-wrap:balance}
+.as-detail .as-field{margin:0 0 5px;white-space:normal}
+.as-full{font-size:.94rem;line-height:21px;font-weight:450;text-wrap:pretty}
+.as-detail>.as-end{padding:12px;display:flex;align-items:center}
+.as-close{display:flex;align-items:center;justify-content:center;min-height:44px;padding:0 11px;border:1px solid currentColor;border-radius:3px;background:transparent;color:inherit;cursor:pointer}
+.astrip .as-close{font:700 .69rem/1 var(--mono);letter-spacing:.06em;text-transform:uppercase}
+.astrip .as-detail .as-close:focus-visible{outline-color:var(--on);outline-offset:2px}
+@media(hover:hover){.as-close:hover{background:var(--on);color:var(--tint)}}
+
+/* to 1139, so no panel column is too narrow for two lines of the longer copy */
+@media(max-width:1139px) and (min-width:671px){
+  .as-label{padding-right:20px}
+  /* the name is a bar across the top, so no cell has an empty foot */
+  .as-detail{grid-template-columns:minmax(0,var(--a,1fr)) minmax(0,1fr) auto}
+  .as-detail>.as-head{grid-column:1/3;grid-row:1;display:flex;flex-wrap:wrap;align-items:baseline;align-content:center;column-gap:16px;row-gap:4px}
+  .as-head .as-title,.as-head .as-tests{margin-top:0}
+  .as-detail>.as-end{grid-column:3;grid-row:1;border-left:0;padding:8px 12px}
+  .as-detail>.as-first,.as-detail>.as-second{grid-row:2;border-top:1px solid var(--cell)}
+  .as-detail>.as-first{grid-column:1;border-left:0;padding-left:15px}
+  .as-detail>.as-second{grid-column:2/4}
+}
+
+/* phones: the title is one line above the cards */
+@media(max-width:670px){
+  .astrip{--space:16px;--link:38px;--grid-y:10px}
+  .as-row{grid-template-columns:minmax(0,1fr)}
+  .as-label{grid-column:1;padding:var(--space) var(--edge) 12px;border:0;border-bottom:1px solid var(--grey)}
+  .as-name{font-size:1.625rem;white-space:nowrap}
+  .as-name span{display:inline}
+  .as-view{grid-column:1}
+  .as-box{padding:12px}
+  .as-box .as-field{margin-top:11px;line-height:14px;font-size:.64rem;letter-spacing:.035em}
+  .as-title{font-size:.95rem}
+  .as-meaning{font-size:.875rem;line-height:19px}
+  .as-detail{grid-template-columns:minmax(0,1fr) auto}
+  .as-detail>.as-head{grid-column:1;grid-row:1;padding:12px}
+  .as-detail>.as-end{grid-column:2;grid-row:1;border-left:0;padding:8px;align-items:flex-start}
+  .as-detail>.as-first,.as-detail>.as-second{grid-column:1/-1;border-left:0;border-top:1px solid var(--cell);padding:11px 12px 12px}
+}
+
+/* the ring is for keys: after a click, holding Shift to scroll does not draw one */
+.astrip.by-mouse :focus{outline:none!important}
+.astrip.by-mouse .as-view:focus::after{display:none}
+
+/* no movement: one set, scrolled by hand */
+.astrip.still,.astrip.still .as-label,.astrip.still .as-view{cursor:auto}
+.astrip.still .as-box{cursor:pointer}
+.astrip.still .as-view{overflow-x:auto;overflow-y:hidden;touch-action:auto;scroll-padding-inline:var(--gap);scrollbar-width:thin;scrollbar-color:var(--muted) var(--paper)}
+.astrip.still .as-view:has(.selected){scrollbar-width:none}
+.astrip.still .as-view:focus-visible{outline:3px solid var(--blue);outline-offset:-3px}
+.astrip.still .as-view:focus-visible::after{display:none}
+.astrip.still .as-track{will-change:auto;padding-inline:var(--gap);transform:none!important}
+@media(forced-colors:active){.as-box,.as-detail{border:1px solid CanvasText}}
