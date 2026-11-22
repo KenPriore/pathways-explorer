@@ -214,7 +214,7 @@ function renderCompare() {
     <p class="scroll-note" id="table-hint">Scroll across to see all four worlds.</p>
     <div class="table-scroll" tabindex="0" role="region" aria-label="Compare all four worlds" aria-describedby="table-hint">
       <table class="compare-table" aria-label="Four-world comparison"><thead><tr><th scope="col">Dimension</th>${worlds.map(world => `<th scope="col" ${tone(world)}><a href="${worldLink(world.id)}">${worldIcon(world)}${safe(world.name)}</a></th>`).join("")}</tr></thead>
-      <tbody>${axes.map((axis, i) => row(axis, worlds.map(world => term(world.labels[i])))).join("")}${["Who runs the work", "What in-house legal does", "Team size", "Where the data sits"].map((label, i) => row(label, worlds.map(world => world.compare?.[i] === "Not in the scenario" ? `<span class="cmp-open">Not in the scenario</span>` : safe(world.compare?.[i] || "")))).join("")}${row("What goes right", worlds.map(world => safe(world.promise)))}${row("What goes wrong", worlds.map(world => safe(world.danger)))}</tbody></table>
+      <tbody>${axes.map((axis, i) => row(axis, worlds.map(world => term(world.labels[i])))).join("")}${["Who runs the work", "What in-house legal does", "Who’s on the team", "Where the data sits"].map((label, i) => row(label, worlds.map(world => world.compare?.[i] === "Not in the scenario" ? `<span class="cmp-open">Not in the scenario</span>` : safe(world.compare?.[i] || "")))).join("")}${row("What goes right", worlds.map(world => safe(world.promise)))}${row("What goes wrong", worlds.map(world => safe(world.danger)))}</tbody></table>
     </div>
   </div>`;
   startMap();
