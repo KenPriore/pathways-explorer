@@ -164,9 +164,9 @@ function renderWorld(world, tab) {
 // Route map (Ken 11/21): was a popup, now its own world tab at full page width.
 // The animated map lives in route-map.html (from motion idea 03); embed=1 hides its own header and switcher.
 function renderRoute(world) {
-  return `<header class="body-head"><h2 id="section-title">Route map</h2>
-      <p>Three uncertainties, two poles each, make eight combinations. The program mapped all eight and developed four. This world’s line takes one turn at every fork; the dashed stops are the four left undeveloped.</p></header>
-    <iframe class="route-frame" title="Route map: the three forks that lead to ${safe(world.name)}" src="route-map.html?world=${world.id}&embed=1&v=20261121g"></iframe>`;
+  return `<header class="body-head route-cap"><h2 id="section-title">Route map</h2>
+      <p><span><span class="route-part">Three questions with two answers each make eight possible worlds.</span> <span class="route-part">Follow the line to this one.</span></span></p></header>
+    <iframe class="route-frame" title="Route map: the three forks that lead to ${safe(world.name)}" src="route-map.html?world=${world.id}&embed=1&joined=1&v=20261121y"></iframe>`;
 }
 
 function renderOverview(world) {
@@ -178,7 +178,7 @@ function renderOverview(world) {
       <div class="story-beat"><p class="eyebrow">What’s different from today</p><p>${safe(world.story.diff)}</p></div>
     </section>` : "";
   return `${story}<div class="world-overview">
-    <header class="body-head"><h2 id="section-title">How this world works</h2>${world.quote ? quote(world.quote) : worldIcon(world)}</header>
+    <header class="body-head${world.quote ? " quote-band" : ""}"><h2 id="section-title">How this world works</h2>${world.quote ? quote(world.quote) : worldIcon(world)}</header>
     <article class="panel"><h3>What goes right</h3><p>${safe(world.promise)}</p></article>
     <article class="panel"><h3>What goes wrong</h3><p>${safe(world.danger)}</p></article>
     ${world.data ? `<article class="panel panel--data"><h3>Where the data sits</h3><p>${safe(world.data)}</p></article>` : ""}
@@ -210,7 +210,7 @@ function renderCompare() {
   <div class="wrap comparison" id="compare-table">
     <div class="section-head title-block compare-head"><h2 class="compare-title">Compare worlds</h2>
       <p class="cmp-cell"><span class="cmp-eyebrow">How to read this</span>Each pair below changes one answer and holds the rest. Worlds 1 and 2 split on technology: connected systems, or a kit of specialist tools. Worlds 1 and 3 split on who drives the change. Worlds 3 and 4 share systems and providers and part on who makes the final call.</p>
-      <p class="cmp-cell cmp-note"><span class="cmp-eyebrow">What’s not here</span>Three questions, two answers each: eight combinations. The first convening mapped all eight and developed four. The other four stayed on the map, among them any fragmented world where providers run the systems and any world where people decide while the company drives. The real 2040 may carry pieces of all eight, the undeveloped four included.</p></div>
+      <p class="cmp-cell cmp-note"><span class="cmp-eyebrow">What’s not here</span>Three questions, two answers each: eight combinations. The first convening mapped all eight and developed four. The other four stayed on the map, among them any fragmented world where providers run the systems and any world where people decide while the company drives. The real 2040 may carry pieces of all eight.</p></div>
     <p class="scroll-note" id="table-hint">Scroll across to see all four worlds.</p>
     <div class="table-scroll" tabindex="0" role="region" aria-label="Compare all four worlds" aria-describedby="table-hint">
       <table class="compare-table" aria-label="Four-world comparison"><thead><tr><th scope="col">Dimension</th>${worlds.map(world => `<th scope="col" ${tone(world)}><a href="${worldLink(world.id)}">${worldIcon(world)}${safe(world.name)}</a></th>`).join("")}</tr></thead>

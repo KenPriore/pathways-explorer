@@ -43,6 +43,10 @@
   .embed .pop{width:100%;height:100vh;max-height:none;grid-template-rows:1fr auto;padding:0}
   .embed .head,.embed .switch{display:none}
 
+  /* joined=1: the parent page's header is the stage's top bar */
+  .joined .stage{border-top:0;border-radius:0 0 8px 8px;grid-template-rows:1fr}
+  .joined .cap{display:none}
+
   /* SVG */
   .edge{fill:none;stroke:#ffffff8c;stroke-width:1.5;transition:stroke .35s,stroke-width .35s}
   .edge.off{stroke:#ffffff26;stroke-width:1}
@@ -91,6 +95,7 @@
 <script>
   // Set before first paint so the embedded layout never flashes the standalone header.
   if (new URLSearchParams(location.search).get("embed") === "1") document.documentElement.classList.add("embed");
+  if (new URLSearchParams(location.search).get("joined") === "1") document.documentElement.classList.add("joined");
 </script>
 </head>
 <body>
@@ -174,7 +179,7 @@
   function build() {
     const g = geometry(vertical);
     map.innerHTML = "";
-    const svg = el("svg", {viewBox:`0 0 ${g.W} ${g.H}`, role:"img", "aria-label":"Route map: a line leaves Today and forks three times into eight end stops; four worlds were developed, four were mapped but not developed."}, map);
+    const svg = el("svg", {viewBox:`0 0 ${g.W} ${g.H}`, role:"img", "aria-label":"Route map: a line leaves Today and forks three times into eight end stops; four end at worlds, four are left blank."}, map);
     svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
     const gEdges = el("g", {}, svg), gLabels = el("g", {}, svg), gRoute = el("g", {}, svg), gNodes = el("g", {}, svg), gTop = el("g", {}, svg), gLeaves = el("g", {}, svg);
     const edges = [], nodes = [], lbls = [];
@@ -345,7 +350,7 @@
     document.getElementById("title").textContent = w.name;
     document.querySelectorAll("#switch button").forEach(b => b.setAttribute("aria-pressed", String(+b.dataset.id === w.id)));
     const steps = w.bits.map((b, i) => labels[i][b]);
-    routeText.innerHTML = `<span class="vh">Route to World ${num(w.id)}, ${w.name}: </span><b>${steps[0]}</b> → <b>${steps[1]}</b> → <b>${steps[2]}</b>${w.contested ? " (contested)" : ""}`;
+    routeText.innerHTML = `<span class="vh">Route to World ${num(w.id)}, ${w.name}: </span><b>${steps[0]}</b> → <b>${steps[1]}</b> → <b>${steps[2]}</b>${w.contested ? " (but only just)" : ""}`;
     if (animate) play(); else { stop(); build(); finalState(); }
   }
 
