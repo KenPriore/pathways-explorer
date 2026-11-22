@@ -102,10 +102,6 @@ function startMap() {
 
 function renderHome() {
   root.innerHTML = `${heroSection()}
-  <section class="wrap orient" aria-label="What this is">
-    <p class="eyebrow">What this is</p>
-    <p>In 2025, more than 120 people at the TLTF Summit in Austin mapped the changes already under way in legal work. A smaller group of general counsel, law firm leaders, legal tech founders, and judicial, regulatory, and academic voices then met three times in New York to work out where those changes could lead. They named three questions nobody can answer yet. Two answers to each make eight possible worlds, and the group built four of them out in full. None is a forecast. In each one, watch who does the work, who owns the systems, and who makes the final call. The 2026 entries draw mostly on real reporting; later years are fiction.</p>
-  </section>
   <section class="wrap section" id="four-worlds" tabindex="-1">
     <div class="section-head"><h2>Enter a world</h2><p>Every world starts from the same 2026 and takes its own turn at each of the three questions. Start with the one closest to where your organization is headed.</p></div>
     <div class="world-grid">${worlds.map(worldCard).join("")}</div>
