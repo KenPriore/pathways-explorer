@@ -680,7 +680,7 @@ body:has(.world-switcher a:nth-child(4)[aria-current]) .ob-tabs a[aria-current=p
 .hero p.intro .q{font-weight:650}
 .hero p.intro .q1{color:#ffd84d}
 .hero p.intro .q2{color:#DC3220}
-.hero p.intro .q3{color:#9ef0cf}
+.hero p.intro .q3{color:#fff}
 
 /* Ken 11/21: attribution band removed, so every page meets the footer rule directly. Credits had stacked the
    thanks block's margin on the page padding (104/68px); match the other pages' --s-section (80/48px). */
