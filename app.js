@@ -103,7 +103,7 @@ function startMap() {
 function renderHome() {
   root.innerHTML = `${heroSection()}
   <section class="wrap section" id="four-worlds" tabindex="-1">
-    <div class="section-head"><h2>Enter a world</h2><p>Every world starts from the same 2026 and takes its own turn at each of the three questions. Start with the one closest to where your organization is headed.</p></div>
+    <div class="section-head"><h2>Enter a world</h2></div>
     <div class="world-grid">${worlds.map(worldCard).join("")}</div>
   </section>`;
   startMap();

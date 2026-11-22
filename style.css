@@ -666,3 +666,8 @@ body:has(.world-switcher a:nth-child(4)[aria-current]) .ob-tabs a[aria-current=p
   .ob-out::before{display:none}
 }
 @media(max-width:760px){.ob-out{display:none}}
+
+/* Home, "Enter a world" (Ken 11/21: lede removed). A lone heading needs no second rule or lede column:
+   it sits on the card grid's left edge, with the same space to the yellow hero rule and to the cards. */
+#four-worlds{--head-space:clamp(2rem,3.4vw,3rem);padding-top:var(--head-space)}
+#four-worlds>.section-head{display:block;border-top:0;padding-top:0;margin-bottom:var(--head-space)}
