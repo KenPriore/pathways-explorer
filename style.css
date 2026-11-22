@@ -618,3 +618,51 @@ p,li,blockquote{text-wrap:pretty}
 @media(max-width:760px){.world-overview .panel--data{grid-template-columns:minmax(0,1fr)}.world-overview .panel--data h3{padding-block:.8rem}}
 /* An open cell in Compare reads as a gap in the scenario, not as data */
 .cmp-open{font-style:italic;color:var(--soft)}
+
+/* ===== Header: one bar (option A, live 2026-11-21) =====
+   One row: family mark + KEN PRIORE | Pathways 2040, then the three Pathways tabs, then a muted way out.
+   The four-colour stripe is the header's one accent. It runs along the top edge: under the bar its blue
+   quarter disappeared into the blue home hero, and on world pages it doubled the switcher's colour tabs. */
+header.ob{background:var(--white);position:relative;z-index:20;border-bottom:1px solid #e3e6eb}
+header.ob::before{content:"";display:block;height:4px;background:linear-gradient(90deg,var(--blue) 0 25%,var(--yellow) 25% 50%,var(--rose) 50% 75%,var(--navy) 75%)}
+.ob-in{width:var(--wrap);margin:0 auto;min-height:74px;display:flex;align-items:center;gap:28px}
+.ob-brand{display:flex;align-items:center;gap:14px;margin-right:auto;min-width:0}
+.ob-mark{display:flex;align-items:center;gap:12px;color:var(--fam-ink);text-decoration:none;min-height:44px}
+.ob-mark .loopmark{width:30px;height:30px}
+.ob-name{font-weight:800;font-size:17px;letter-spacing:-.01em;line-height:1;white-space:nowrap}
+.ob-rule{width:1px;height:22px;background:var(--fam-line);flex:none}
+.ob-site{display:flex;align-items:center;min-height:44px;font-weight:700;font-size:17px;letter-spacing:-.01em;line-height:1;color:var(--ink);text-decoration:none;white-space:nowrap}
+.ob-site b{font-weight:800;color:var(--blue);margin-left:.3em}
+.ob-tabs{display:flex;align-items:stretch;gap:28px;align-self:stretch}
+.ob-tabs a{position:relative;display:flex;align-items:center;min-height:44px;font-weight:650;font-size:15px;color:var(--ink);text-decoration:none}
+.ob-tabs a::after{content:"";position:absolute;left:0;right:0;bottom:calc(50% - 19px);height:3px;background:transparent;transition:background-color calc(var(--beat)/2) var(--ease-snap)}
+.ob-tabs a:hover{color:var(--blue)}
+.ob-tabs a[aria-current=page]{color:var(--ink)}
+.ob-tabs a[aria-current=page]::after{background:var(--blue)}
+/* on a world page the active tab takes that world's tone, matching the switcher cell below it */
+body:has(.world-switcher a:nth-child(2)[aria-current]) .ob-tabs a[aria-current=page]::after{background:var(--yellow)}
+body:has(.world-switcher a:nth-child(3)[aria-current]) .ob-tabs a[aria-current=page]::after{background:var(--rose)}
+body:has(.world-switcher a:nth-child(4)[aria-current]) .ob-tabs a[aria-current=page]::after{background:var(--navy)}
+.ob-out{display:flex;align-items:center;gap:28px;align-self:stretch}
+.ob-out::before{content:"";width:1px;height:22px;background:var(--fam-line)}
+.ob-home{display:flex;align-items:center;min-height:44px;font-size:13px;font-weight:600;letter-spacing:.01em;color:var(--fam-muted);text-decoration:none;white-space:nowrap}
+.ob-home:hover{color:var(--ink)}
+.ob-home span{margin-left:.25em}
+@media(max-width:760px){
+  .ob-in{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:0;min-height:0}
+  .ob-brand{min-height:60px;gap:12px}
+  .ob-mark{gap:10px}
+  .ob-mark .loopmark{width:26px;height:26px}
+  .ob-name,.ob-site{font-size:16px}
+  .ob-rule{height:20px}
+  .ob-tabs{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;position:relative}
+  .ob-tabs::before{content:"";position:absolute;top:0;height:1px;left:calc((100vw - 100%)/-2);width:100vw;background:#e3e6eb}
+  .ob-tabs a{justify-content:center;min-height:48px}
+  .ob-tabs a::after{display:none}
+  .ob-tabs a[aria-current=page]{text-decoration:underline 3px var(--blue);text-underline-offset:9px}
+  body:has(.world-switcher a:nth-child(2)[aria-current]) .ob-tabs a[aria-current=page]{text-decoration-color:var(--yellow)}
+  body:has(.world-switcher a:nth-child(3)[aria-current]) .ob-tabs a[aria-current=page]{text-decoration-color:var(--rose)}
+  body:has(.world-switcher a:nth-child(4)[aria-current]) .ob-tabs a[aria-current=page]{text-decoration-color:var(--navy)}
+  .ob-out::before{display:none}
+}
+@media(max-width:760px){.ob-out{display:none}}

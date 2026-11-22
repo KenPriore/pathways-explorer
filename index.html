@@ -14,9 +14,9 @@
   <link rel="mask-icon" href="favicon.svg" color="#2E5AA6">
   <meta name="theme-color" content="#2E5AA6">
   <!-- ?v= busts browser caches; bump it on every content/CSS/JS change (Ken saw stale tooltips 11/21) -->
-  <link rel="stylesheet" href="style.css?v=20261121q">
-  <script src="content.js?v=20261121q" defer></script>
-  <script src="app.js?v=20261121q" defer></script>
+  <link rel="stylesheet" href="style.css?v=20261121r">
+  <script src="content.js?v=20261121r" defer></script>
+  <script src="app.js?v=20261121r" defer></script>
   <!-- GoatCounter · one code across all properties; hostname folded into the path so they roll up in one dashboard -->
   <script>window.goatcounter={path:function(){return location.hostname+location.pathname}}</script>
   <script data-goatcounter="https://kenpriore.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
@@ -24,32 +24,29 @@
 <body>
   <a class="skip" href="#main">Skip to content</a>
 
-  <!-- family masthead (same component as kenpriore.ai and ant.kenpriore.ai) -->
-  <header class="mast">
-    <div class="mast-bar"><div class="mast-in">
-      <a class="wordmark" href="https://kenpriore.ai">
-        <svg class="loopmark" width="34" height="34" viewBox="0 0 34 34" aria-hidden="true" focusable="false">
-          <circle cx="17" cy="17" r="12" fill="none" stroke="#17171C" stroke-width="3"/>
-          <g class="orbit"><circle cx="17" cy="5" r="3.4" fill="#2E5AA6"/></g>
-        </svg>
-        <span><span class="wm-name">KEN PRIORE</span><span class="wm-sub">Pathways · kenpriore.ai</span></span>
-      </a>
-      <nav class="top" aria-label="Ken Priore sites">
-        <a href="https://kenpriore.ai/#proof">Experiments</a>
-        <a href="https://kenpriore.com">Writing</a>
-        <a href="https://kenpriore.com/about/">About</a>
-      </nav>
-    </div></div>
-    <nav class="crumb" aria-label="Pathways">
-      <div class="crumb-in">
-        <a class="crumb-home" href="#worlds"><span class="crumb-mark" aria-hidden="true"></span>Pathways<span class="crumb-year"> / 2040</span></a>
-        <div class="jumps">
-          <a href="#worlds" data-nav="worlds">Worlds</a>
-          <a href="#compare" data-nav="compare">Compare</a>
-          <a href="#credits" data-nav="credits">Credits</a>
-        </div>
+  <!-- one-bar header: family mark + KEN PRIORE | Pathways 2040, the three Pathways tabs, a muted way out to kenpriore.ai -->
+  <header class="ob">
+    <div class="ob-in">
+      <div class="ob-brand">
+        <a class="ob-mark" href="https://kenpriore.ai">
+          <svg class="loopmark" width="34" height="34" viewBox="0 0 34 34" aria-hidden="true" focusable="false">
+            <circle cx="17" cy="17" r="12" fill="none" stroke="#17171C" stroke-width="3"/>
+            <g class="orbit"><circle cx="17" cy="5" r="3.4" fill="#2E5AA6"/></g>
+          </svg>
+          <span class="ob-name">KEN PRIORE</span>
+        </a>
+        <span class="ob-rule" aria-hidden="true"></span>
+        <a class="ob-site" href="#worlds">Pathways<b>2040</b></a>
       </div>
-    </nav>
+      <nav class="ob-tabs" aria-label="Pathways">
+        <a href="#worlds" data-nav="worlds">Worlds</a>
+        <a href="#compare" data-nav="compare">Compare</a>
+        <a href="#credits" data-nav="credits">Credits</a>
+      </nav>
+      <div class="ob-out">
+        <a class="ob-home" href="https://kenpriore.ai">kenpriore.ai<span aria-hidden="true">↗</span></a>
+      </div>
+    </div>
   </header>
 
   <main id="main" tabindex="-1"></main>
