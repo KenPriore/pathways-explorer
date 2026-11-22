@@ -608,6 +608,10 @@ p,li,blockquote{text-wrap:pretty}
 @media(min-width:901px){.world-story{grid-template-columns:minmax(0,1fr) minmax(0,1.12fr) minmax(0,.88fr)}}
 .story-beat:last-child{background:var(--paper)}
 .story-beat:last-child p:not(.eyebrow){font:650 clamp(1.1rem,1.45vw,1.32rem)/1.38 var(--slab);letter-spacing:-.015em;color:var(--ink)}
+/* World 4: the third beat is a full paragraph, so body type, bold first sentence, and tracks sized to the three text lengths */
+.world-story--long-diff .story-beat:last-child p:not(.eyebrow){font:inherit;font-size:1.02rem;line-height:1.6;letter-spacing:inherit;color:inherit}
+.world-story--long-diff .story-beat:last-child strong{font-weight:700;color:var(--ink)}
+@media(min-width:901px){.world-story--long-diff{grid-template-columns:minmax(0,.88fr) minmax(0,1.2fr) minmax(0,.92fr)}}
 /* Data band + compare rows (11/21, voice-interview revision).
    "Where the data sits" is the third overview panel in a 2-column grid. Alone in a half row it left an orphan cell,
    so it spans the row as a 2-cell bento band: a filled navy heading cell + a tinted text cell that runs the full

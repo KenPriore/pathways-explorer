@@ -94,6 +94,9 @@ function startMap() {
   if (!map) return;
   mapObserver = new ResizeObserver(() => drawMap(map));
   mapObserver.observe(map);
+  // The browser can drop a canvas's pixels (GPU reset, memory pressure) and restores it blank, so draw again.
+  // Each render makes a new canvas, so each canvas gets exactly one listener.
+  map.querySelector("canvas").addEventListener("contextrestored", () => { if (map.isConnected) drawMap(map); });
   drawMap(map);
   // Cold loads: web fonts can land after the first draw and move the endpoints, so draw again then.
   document.fonts?.ready.then(() => { if (map.isConnected) drawMap(map); });
@@ -169,13 +172,20 @@ function renderRoute(world) {
     <iframe class="route-frame" title="Route map: the three forks that lead to ${safe(world.name)}" src="route-map.html?world=${world.id}&embed=1&joined=1&v=20261121y"></iframe>`;
 }
 
+function boldFirstSentence(text) {
+  const first = text.match(/^.*?[.!?](?=\s|$)/)?.[0] ?? "";
+  return `<strong>${safe(first)}</strong>${safe(text.slice(first.length))}`;
+}
+
 function renderOverview(world) {
+  // World 4's third beat is as long as the others, so it reads as body text with a bold first sentence.
+  const longDiff = world.id === 4;
   // Grounding story: the same three beats for every world, above the right/wrong panels.
-  const story = world.story ? `<section class="world-story" aria-labelledby="story-title" ${tone(world)}>
+  const story = world.story ? `<section class="world-story${longDiff ? " world-story--long-diff" : ""}" aria-labelledby="story-title" ${tone(world)}>
       <h2 id="story-title" class="visually-hidden">This world in brief</h2>
       <div class="story-beat"><p class="eyebrow">The world in 2040</p><p>${safe(world.story.now)}</p></div>
       <div class="story-beat"><p class="eyebrow">How it got here</p><p>${safe(world.story.path)}</p></div>
-      <div class="story-beat"><p class="eyebrow">What’s different from today</p><p>${safe(world.story.diff)}</p></div>
+      <div class="story-beat"><p class="eyebrow">What’s different from today</p><p>${longDiff ? boldFirstSentence(world.story.diff) : safe(world.story.diff)}</p></div>
     </section>` : "";
   return `${story}<div class="world-overview">
     <header class="body-head${world.quote ? " quote-band" : ""}"><h2 id="section-title">How this world works</h2>${world.quote ? quote(world.quote) : worldIcon(world)}</header>
