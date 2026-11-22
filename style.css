@@ -671,3 +671,9 @@ body:has(.world-switcher a:nth-child(4)[aria-current]) .ob-tabs a[aria-current=p
    it sits on the card grid's left edge, with the same space to the yellow hero rule and to the cards. */
 #four-worlds{--head-space:clamp(2rem,3.4vw,3rem);padding-top:var(--head-space)}
 #four-worlds>.section-head{display:block;border-top:0;padding-top:0;margin-bottom:var(--head-space)}
+
+/* Ken 11/22: the three questions in the hero each get their own text color (no fill). All pass 4.5:1 on the hero blue. */
+.hero p.intro .q{font-weight:650}
+.hero p.intro .q1{color:#ffd84d}
+.hero p.intro .q2{color:#ffc9d4}
+.hero p.intro .q3{color:#9ef0cf}

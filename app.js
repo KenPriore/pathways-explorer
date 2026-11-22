@@ -71,7 +71,7 @@ function heroSection({onCompare = false} = {}) {
       <div>
         <p class="eyebrow">Pathways · Scenario explorer</p>
         <h1>The Future<br>of Law to <span>2040</span></h1>
-        <p class="intro">Four possible worlds for legal work in 2040. Each one gives a different answer to the same three open questions: whether legal technology connects into shared systems or stays a kit of specialist tools, whether the company or its outside providers drive the change, and whether systems or people make the final call.</p>
+        <p class="intro">Four possible worlds for legal work in 2040. Each one gives a different answer to the same three open questions: <span class="q q1">whether legal technology connects into shared systems or stays a kit of specialist tools</span>, <span class="q q2">whether the company or its outside providers drive the change</span>, and <span class="q q3">whether systems or people make the final call</span>.</p>
         ${onCompare ? "" : `<div class="actions">
           <a class="button yellow" href="#four-worlds">Explore the four worlds</a>
           <a class="button outline" href="#compare">Compare worlds</a>
