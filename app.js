@@ -112,28 +112,34 @@ function drawMap(map) {
   const bounds = map.getBoundingClientRect();
   const origin = map.querySelector(".map-origin").getBoundingClientRect();
   const scale = window.devicePixelRatio || 1;
-  canvas.width = Math.round(bounds.width * scale);
-  canvas.height = Math.round(bounds.height * scale);
+  // Size and snap to the device pixels the browser paints the canvas on, so equal lines come out equally sharp.
+  const left = Math.round(bounds.left * scale), top = Math.round(bounds.top * scale);
+  canvas.width = Math.round(bounds.right * scale) - left;
+  canvas.height = Math.round(bounds.bottom * scale) - top;
   const context = canvas.getContext("2d");
   context.scale(scale, scale);
   const fromX = origin.right - bounds.left;
   const fromY = (origin.top + origin.bottom) / 2 - bounds.top;
   map.querySelectorAll(".map-ends a").forEach((endpoint, index) => {
     const end = endpoint.getBoundingClientRect();
+    const weight = 4;
+    const centre = (value, edge, start) => (Math.round((value + edge - weight / 2) * scale) - start) / scale + weight / 2;
+    const snapX = value => centre(value, bounds.left, left), snapY = value => centre(value, bounds.top, top);
     const toX = end.left - bounds.left;
-    const toY = (end.top + end.bottom) / 2 - bounds.top;
-    const elbow = fromX + (toX - fromX) * (index === 0 || index === 3 ? .42 : .64);
+    const toY = snapY((end.top + end.bottom) / 2 - bounds.top);
+    const startY = snapY(fromY + (index - 1.5) * 7);
+    const elbow = snapX(fromX + (toX - fromX) * (index === 0 || index === 3 ? .42 : .64));
     const track = getComputedStyle(endpoint).getPropertyValue("--track").trim(); // canvas cannot read var(); this is the resolved token
     context.strokeStyle = track;
     context.fillStyle = track;
-    context.lineWidth = 2;
+    context.lineWidth = weight;
     context.beginPath();
-    context.moveTo(fromX, fromY + (index - 1.5) * 6);
-    context.lineTo(elbow, fromY + (index - 1.5) * 6);
+    context.moveTo(fromX - 3, startY); // both ends tuck under their box, so rounded corners and fractional edges leave no gap
+    context.lineTo(elbow, startY);
     context.lineTo(elbow, toY);
-    context.lineTo(toX, toY);
+    context.lineTo(toX + 1, toY);
     context.stroke();
-    context.fillRect(elbow - 3, toY - 3, 6, 6);
+    context.fillRect(elbow - 5, toY - 5, 10, 10);
   });
 }
 
@@ -165,7 +171,7 @@ function renderWorld(world, tab) {
 function renderRoute(world) {
   return `<header class="body-head route-cap"><h2 id="section-title">Route map</h2>
       <p><span><span class="route-part">Three questions with two answers each make eight possible worlds.</span> <span class="route-part">Follow the line to this one.</span></span></p></header>
-    <iframe class="route-frame" title="Route map: the three forks that lead to ${safe(world.name)}" src="route-map.html?world=${world.id}&embed=1&joined=1&v=20261122j"></iframe>`;
+    <iframe class="route-frame" title="Route map: the three forks that lead to ${safe(world.name)}" src="route-map.html?world=${world.id}&embed=1&joined=1&v=20261122k"></iframe>`;
 }
 
 function boldFirstSentence(text) {
