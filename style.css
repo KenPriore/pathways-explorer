@@ -7,21 +7,20 @@
    paper-07 = grid on the blue maps
    paper-25 = rule on ink
    paper-55 = frames and rules on blue; resting arrow on ink (3:1 or better)
-   ink-20   = tooltip shadow; ink-72 = dialog backdrop */
-:root{--grey-50:rgba(228,229,231,.5);--paper-07:rgba(255,255,255,.07);--paper-25:rgba(255,255,255,.25);--paper-55:rgba(255,255,255,.55);--ink-20:rgba(23,23,28,.2);--ink-72:rgba(23,23,28,.72)}
+   ink-20   = tooltip shadow */
+:root{--grey-50:rgba(228,229,231,.5);--paper-07:rgba(255,255,255,.07);--paper-25:rgba(255,255,255,.25);--paper-55:rgba(255,255,255,.55);--ink-20:rgba(23,23,28,.2)}
 :root{--mono:"Roboto Mono","SFMono-Regular",Consolas,monospace;--slab:"Roboto Slab",Georgia,serif;--radius:8px;--gap:clamp(.75rem,1.35vw,1.15rem);--pad:clamp(1.05rem,2vw,1.75rem)}
 *,*::before,*::after{box-sizing:border-box}
 html{color:var(--ink)}
 body{margin:0;background:var(--paper);color:var(--ink);font:400 1rem/1.55 Archivo,Arial,sans-serif}
 img{display:block;max-width:100%}
 a{color:inherit}
-button,input,select{font:inherit}
-button,select{cursor:pointer}
+button{font:inherit}
+button{cursor:pointer}
 button{color:inherit}
-button:disabled{cursor:default;opacity:.45}
-button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible,details summary:focus-visible{outline:3px solid var(--blue);outline-offset:4px}
+button:focus-visible,a:focus-visible{outline:3px solid var(--blue);outline-offset:4px}
 /* Focus: blue on light grounds, yellow on blue, rose and ink */
-.hero a:focus-visible,.world-hero a:focus-visible,.credits-hero a:focus-visible{outline-color:var(--yellow)}
+.hero a:focus-visible,.credits-hero a:focus-visible{outline-color:var(--yellow)}
 .compare-table thead th:not(:nth-child(3)) a:focus-visible{outline-color:var(--yellow)}
 .table-scroll:focus-visible,#four-worlds:focus-visible{outline:2px solid var(--blue)}
 /* the switcher strip clips outside its edges, so its ring sits inside each tab */
@@ -31,57 +30,25 @@ h1,h2,h3,p{margin:0}
 h1,h2,h3{line-height:1.12}
 p+p{margin-top:1em}
 h1,h2{font-family:var(--slab);letter-spacing:-.045em}
-/* one content width shared by the page, the family masthead, the Pathways bar and the family footer, so every left edge lines up */
+/* one content width shared by the page, the header and the family footer, so every left edge lines up */
 :root{--wrap:min(100% - 5rem,1250px)}
 .wrap{width:var(--wrap);margin-inline:auto}
 .skip{position:absolute;z-index:5;background:var(--paper);padding:.7rem 1rem;top:0;left:1rem;transform:translateY(-115%)}
 .skip:focus{transform:translateY(0)}
-/* ── family masthead: same component as kenpriore.ai / ant.kenpriore.ai (88.5px at desktop) ── */
-:root{--inset:clamp(20px,5vw,72px);--beat:480ms;--ease-cut:cubic-bezier(.2,.7,.2,1);--ease-snap:cubic-bezier(.2,0,0,1)}
+/* ── motion tokens and the family loopmark ── */
+:root{--beat:480ms;--ease-cut:cubic-bezier(.2,.7,.2,1);--ease-snap:cubic-bezier(.2,0,0,1)}
 @media (prefers-reduced-motion:reduce){:root{--beat:0ms}}
-header.mast{background:var(--paper)}
-.mast-bar{font-family:Archivo,"Helvetica Neue",Helvetica,Arial,system-ui,sans-serif;line-height:1.55;border-bottom:4px solid var(--ink)}
-.mast-in{display:flex;align-items:center;justify-content:space-between;padding:18px 0;width:var(--wrap);margin:0 auto;gap:16px}
-.wordmark{display:flex;align-items:center;gap:14px;color:var(--ink);text-decoration:none}
-.wordmark>span{display:block}
 .loopmark{flex:none}
 .loopmark .orbit{transform-origin:17px 17px;animation:orbit-once calc(var(--beat)*4) var(--ease-cut) var(--beat) 1 forwards}
 @keyframes orbit-once{from{transform:rotate(0)}to{transform:rotate(360deg)}}
-.wm-name{display:block;font-weight:800;letter-spacing:-.02em;font-size:20px;line-height:1.5}
-.wm-sub{display:block;font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-top:2px;line-height:1.5}
-nav.top{display:flex;gap:28px;flex-wrap:wrap}
-nav.top a{font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);text-decoration:none;padding-bottom:3px;border-bottom:2px solid transparent;transition:border-color calc(var(--beat)/2) var(--ease-snap)}
-nav.top a:hover{border-bottom-color:var(--ink)}
-@media(max-width:880px){.mast-in{flex-direction:column;align-items:stretch;gap:0}nav.top{gap:18px;margin-top:12px;padding-top:12px;border-top:1px solid var(--grey)}}
-/* property bar: where you are inside Pathways */
-nav.crumb{background:var(--paper);border-bottom:1px solid var(--grey)}
-.crumb-in{width:var(--wrap);margin:0 auto;min-height:52px;display:flex;align-items:stretch;justify-content:space-between;gap:1.2rem}
-.crumb-home{display:flex;align-items:center;gap:.55rem;text-decoration:none;font-weight:850;letter-spacing:.035em;font-size:.98rem;text-transform:uppercase;white-space:nowrap}
-.crumb-mark{width:20px;height:18px;background:linear-gradient(var(--blue) 0 27%,transparent 27% 37%,var(--blue) 37% 64%,transparent 64% 74%,var(--blue) 74%);clip-path:polygon(0 0,100% 0,100% 27%,78% 27%,78% 64%,56% 64%,56% 100%,0 100%)}
-.crumb-year{color:var(--blue)}
-.crumb .jumps{display:flex;gap:1.85rem}
-.crumb .jumps a{display:flex;align-items:center;position:relative;text-decoration:none;font-weight:710;font-size:.94rem;min-height:44px}
-.crumb .jumps a:hover{color:var(--blue)}
-.crumb .jumps [aria-current=page]{color:var(--blue)}
-.crumb .jumps [aria-current=page]::after{content:"";height:4px;position:absolute;inset:auto 0 0;background:var(--blue)}
 .eyebrow{font:700 .85rem/1.4 var(--mono);letter-spacing:.075em;text-transform:uppercase}
 .hero{background:var(--blue);color:var(--paper);border-bottom:7px solid var(--yellow);overflow:hidden}
 .hero-inner{min-height:425px;display:grid;grid-template-columns:1.12fr 1fr;gap:2.8rem;align-items:center;padding-block:2.7rem}
-.hero .eyebrow{color:var(--paper);margin-bottom:.8rem}
 /* Compare: no buttons, so a shorter band that pulls the table up */
 .hero--compact .hero-inner{min-height:0;padding-block:2rem}
 .hero h1{font-size:clamp(3rem,5.8vw,6rem);line-height:.98;font-weight:870}
 .hero h1 span{color:var(--yellow)}
 .hero p.intro{font-size:clamp(1.02rem,1.42vw,1.2rem);max-width:36ch;margin-top:1.15rem;color:var(--paper)}
-.actions{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.4rem}
-.button{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:.55rem .95rem;font-size:.92rem;font-weight:760;color:var(--ink);background:var(--paper);border:1px solid var(--ink);border-radius:var(--radius);text-decoration:none;text-align:center}
-.button:hover{background:var(--grey)}
-.button.yellow{background:var(--yellow);border-color:var(--yellow);color:var(--ink)}
-.button.yellow:hover{border-color:var(--ink)}
-.button.outline{background:transparent;border-color:var(--paper-55);color:var(--paper)}
-.button.outline:hover{background:var(--paper);color:var(--ink)}
-.button.blue{color:var(--paper);background:var(--blue);border-color:var(--blue)}
-.button.blue:hover{background:var(--ink);border-color:var(--ink)}
 .hero-map{margin:0;border:1px solid var(--paper-55);border-radius:var(--radius);padding:1rem 1.15rem;background:var(--blue);color:var(--paper)}
 .map-caption{display:flex;align-items:center;justify-content:space-between;gap:.5rem;padding-bottom:.8rem;border-bottom:1px solid var(--paper-55);font:700 .77rem/1.3 var(--mono);text-transform:uppercase;letter-spacing:.06em}
 .map-caption span:last-child{color:var(--paper)} /* yellow this small on blue is under 4.5:1 */
@@ -93,14 +60,10 @@ nav.crumb{background:var(--paper);border-bottom:1px solid var(--grey)}
 .map-ends b{font:700 .78rem var(--mono);color:var(--paper)} /* numbers stay legible; line and border carry each world */
 .map-ends a:hover{background:var(--paper);color:var(--ink)}
 .map-ends a:hover b{color:var(--ink)}
-.orient{margin-top:2.45rem;padding:var(--pad);background:var(--paper);border:1px solid var(--grey);border-left:7px solid var(--yellow);border-radius:var(--radius);display:grid;grid-template-columns:minmax(9rem,14rem) minmax(0,1fr);gap:.5rem 2rem;align-items:baseline}
-.orient .eyebrow{color:var(--blue)}
-.orient p:not(.eyebrow){max-width:82ch;font-size:1.08rem;line-height:1.6}
-@media(max-width:670px){.orient{grid-template-columns:1fr}}
 .section{padding-block:2.45rem 3.15rem}
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:1.25rem;margin-bottom:1.15rem}
 .section-head p{max-width:47ch;color:var(--ink-2)}
-.section-head h2,.title-block h1,.title-block h2{font-size:clamp(2rem,4.2vw,4.25rem)}
+.section-head h2,.title-block h2{font-size:clamp(2rem,4.2vw,4.25rem)}
 .section-head h2{font-size:clamp(1.95rem,3.3vw,3rem)}
 .section:has(>.world-grid){container-type:inline-size}
 .world-grid{display:grid;grid-template-columns:1fr;gap:var(--gap);grid-auto-rows:1fr}
@@ -126,12 +89,6 @@ nav.crumb{background:var(--paper);border-bottom:1px solid var(--grey)}
 .world-card-footer{padding:.7rem 1.1rem;border-top:1px solid var(--grey);font-weight:760;color:var(--blue);font-size:.91rem}
 
 /* ── family footer: same component as kenpriore.ai / ant.kenpriore.ai ── */
-/* Attribution strip (every route except #credits) */
-.credits-strip{border-top:1px solid var(--grey);padding:1.1rem 0}
-.credits-strip-in{width:var(--wrap);margin:0 auto;max-width:none;font-size:.86rem;line-height:1.55;color:var(--ink-2)}
-.credits-strip a{color:var(--ink);text-underline-offset:3px}
-.credits-strip .credits-more{color:var(--blue);font-weight:600;white-space:nowrap}
-body.on-credits .credits-strip{display:none}
 /* Credits page (#credits): Signal Bold. Blue band, numbered funnel, colour-ruled cards, yellow-ruled thanks. */
 .credits-hero{background:var(--blue);color:var(--paper);border-bottom:7px solid var(--yellow)}
 .credits-hero-in{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:1.5rem clamp(2rem,5vw,5rem);align-items:end;padding-block:clamp(2.25rem,4.5vw,3.5rem)}
@@ -188,7 +145,6 @@ body.on-credits .credits-strip{display:none}
 @media(max-width:980px){.funnel{grid-template-columns:repeat(2,minmax(0,1fr))}.funnel li:nth-child(3)::before{display:none}}
 @media(max-width:760px){.credits-hero-in,.credits-block{grid-template-columns:1fr}.credits-block > *{grid-column:1 !important}.makers{grid-template-columns:1fr}}
 @media(max-width:480px){.funnel{grid-template-columns:1fr}.funnel li + li::before{display:none}.credits-links a{grid-template-columns:2rem minmax(0,1fr) auto}.credits-links .link-host{display:none}}
-@media(max-width:560px){.credits-strip a{display:inline-flex;align-items:center;min-height:44px}}
 footer.family{background:var(--paper);border-top:4px solid var(--ink);padding:48px 0 64px}
 footer.family .container{width:var(--wrap);margin:0 auto}
 footer.family .foot-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:32px}
@@ -206,10 +162,8 @@ footer.family .colophon a{color:inherit;text-decoration:none}
 footer.family .colophon a:hover{color:var(--blue)}
 @media(max-width:900px){footer.family .foot-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:560px){footer.family{padding:36px 0 44px}footer.family .foot-grid{gap:24px 20px}footer.family li a,footer.family .colophon a{display:inline-flex;align-items:center;min-height:44px}}
-@media(max-width:400px){.crumb-year{display:none}.crumb .jumps{gap:1rem}}
-@media(max-width:359px){.subnav a,.subnav button{font-size:.8rem;padding-inline:.15rem}}
+@media(max-width:359px){.subnav a{font-size:.8rem;padding-inline:.15rem}}
 .title-block{padding-block:2.45rem 1.6rem}
-.title-block .eyebrow{color:var(--blue);margin-bottom:.5rem}
 .title-block p:not(.eyebrow){font-size:1.08rem;color:var(--ink-2);max-width:67ch;margin-top:.6rem}
 .world-switcher,.subnav {
   display:grid;
@@ -217,13 +171,13 @@ footer.family .colophon a:hover{color:var(--blue)}
   gap:.5rem;
 }
 .world-switcher,.subnav {padding-block:.85rem}
-.world-switcher a,.subnav a,.subnav button {
+.world-switcher a,.subnav a {
   display:flex;align-items:center;justify-content:center;text-align:center;
   min-height:44px;padding:.52rem .75rem;border:1px solid var(--muted);
   border-radius:var(--radius);background:var(--paper);text-decoration:none;
   font-size:.91rem;line-height:1.25;font-weight:710;
 }
-.world-switcher a:hover,.subnav a:hover,.subnav button:hover {border-color:var(--blue);background:var(--grey)}
+.world-switcher a:hover,.subnav a:hover {border-color:var(--blue);background:var(--grey)}
 .world-switcher [aria-current],.subnav [aria-current] {background:var(--ink);color:var(--paper);border-color:var(--ink)}
 .world-switcher [aria-current]:hover,.subnav [aria-current]:hover {background:var(--ink)}
 .world-hero {background:var(--tone);color:var(--tone-ink);padding-block:clamp(1.75rem,3.5vw,3rem)}
@@ -234,8 +188,6 @@ footer.family .colophon a:hover{color:var(--blue)}
 .world-intro .premise {font:720 clamp(1.08rem,1.7vw,1.42rem)/1.28 var(--slab);letter-spacing:-.025em}
 .world-intro p+p {margin-top:.75rem;color:var(--ink-2)}
 .subnav{border-bottom:1px solid var(--grey)}
-.subnav .overlay-trigger{background:var(--yellow);border-color:var(--yellow)}
-.subnav .overlay-trigger:hover{background:var(--yellow);border-color:var(--ink)}
 .world-body{padding-block:clamp(1.4rem,3vw,2.75rem) 3rem}
 .world-body h2{font-size:clamp(1.75rem,3vw,2.75rem);text-wrap:balance}
 .world-body h3{font-size:1.16rem;line-height:1.23}
@@ -246,14 +198,13 @@ footer.family .colophon a:hover{color:var(--blue)}
 .story-beat + .story-beat{border-left:1px solid var(--grey)}
 .story-beat .eyebrow{color:var(--blue);margin:0 0 .6rem}
 .story-beat p:not(.eyebrow){margin:0;font-size:1.02rem;line-height:1.6;text-wrap:pretty}
-.story-beat:first-child p:not(.eyebrow){font-size:1.1rem;color:var(--ink)}
 @media(max-width:900px){.world-story{grid-template-columns:1fr}.story-beat + .story-beat{border-left:0;border-top:1px solid var(--grey)}}
 .world-overview {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--gap)}
 .world-overview h2,.world-overview .quote {grid-column:1/-1}
-.panel,.world-body .spaced:has(>.plain-list) {
+.panel {
   padding:var(--pad);background:var(--paper);border:1px solid var(--grey);border-radius:var(--radius);
 }
-.panel h3,.spaced>h3 {margin-bottom:.6rem}
+.panel h3 {margin-bottom:.6rem}
 .panel p {max-width:68ch}
 .world-overview .panel {border-top:5px solid var(--blue)}
 .world-overview .panel:nth-of-type(2) {border-top-color:var(--rose)}
@@ -268,31 +219,14 @@ footer.family .colophon a:hover{color:var(--blue)}
 @container (max-width:332.9px){.route-frame{height:calc(100cqw + 127px)}}
 .body-head>h2+p{grid-column:3/-1;align-self:stretch;display:flex;align-items:center;margin:0;padding:.7rem clamp(1rem,1.6vw,1.25rem);background:var(--paper);border:1px solid var(--grey);border-left:5px solid var(--yellow);color:var(--ink);font-size:.95rem;line-height:1.45;text-wrap:pretty}
 @media(max-width:1180px){.body-head>h2+p{grid-column:1/-1}}
-.world-overlay{width:min(calc(100% - 2rem),760px);max-width:none;padding:var(--pad);border:1px solid var(--grey);border-top:6px solid var(--tone);border-radius:var(--radius);background:var(--paper);color:var(--ink)}
-.world-overlay::backdrop{background:var(--ink-72)}
-.overlay-header{display:flex;align-items:start;justify-content:space-between;gap:.75rem;margin-bottom:1rem}
-.overlay-header .eyebrow{color:var(--blue);margin-bottom:.25rem}
-.overlay-header h2{font-size:clamp(1.45rem,5vw,2rem)}
-.axes-list{margin:0;display:grid;gap:.5rem}
-.axes-list div{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);align-items:center;gap:.65rem;border:1px solid var(--grey);border-radius:var(--radius);padding:.8rem 1rem;background:var(--paper)}
-.axes-list dt{font-weight:630;color:var(--ink-2);font-size:.94rem}
-.axes-list dd{margin:0;color:var(--blue);font-weight:760;text-align:right}
-.section-intro{margin-block:.45rem 1.1rem;max-width:70ch;color:var(--ink-2)}
-.spaced {margin-top:1.65rem}
-.world-body .spaced:has(>.plain-list){margin:0;background:var(--grey-50);border-top:5px solid var(--ink)}
 .plain-list{margin:0;padding-left:1.15rem}
 .plain-list li::marker{color:var(--blue)}
 .plain-list li+li{margin-top:.6rem}
-.world-body>.actions{margin-top:var(--gap)}
-select{width:100%;color:var(--ink);background:var(--paper);border:1px solid var(--muted);border-radius:var(--radius);min-height:45px;padding:.55rem .7rem}
-select{appearance:none;padding-right:2.2rem;background-image:linear-gradient(45deg,transparent 50%,var(--ink) 50%),linear-gradient(135deg,var(--ink) 50%,transparent 50%);background-position:calc(100% - 16px) 52%,calc(100% - 11px) 52%;background-size:5px 5px;background-repeat:no-repeat}
 .compare-table{width:100%;border-collapse:collapse;background:var(--paper);table-layout:fixed}
 .compare-table th,.compare-table td{text-align:left;vertical-align:top;border:1px solid var(--grey);padding:.8rem;overflow-wrap:anywhere}
 .compare-table thead th:first-child{width:19%}
 .compare-table th[scope=row]{background:linear-gradient(var(--grey-50),var(--grey-50)),var(--paper);font-size:.91rem;overflow-wrap:normal;word-break:normal;hyphens:auto}
 .compare-table thead th{background:var(--tone,var(--grey));color:var(--tone-ink,var(--ink));font-family:var(--slab);font-size:1.04rem}
-details summary{cursor:pointer;font-weight:760}
-.note{font-size:.9rem;color:var(--ink-2);margin-top:.35rem}
 @media(max-width:960px){
   :root{--wrap:min(100% - 2.6rem,1250px)}
   .hero-inner{gap:1.5rem}
@@ -301,8 +235,6 @@ details summary{cursor:pointer;font-weight:760}
 }
 @media(max-width:670px){
   :root{--wrap:calc(100% - 2rem)}
-  .crumb .jumps{gap:1.25rem}
-  .crumb-home{font-size:.9rem}
   .hero-inner,.world-hero .wrap{grid-template-columns:1fr}
   .hero-inner{padding-block:1.7rem;gap:1.25rem}
   .hero h1{font-size:clamp(2.7rem,10.5vw,4rem)}
@@ -315,9 +247,8 @@ details summary{cursor:pointer;font-weight:760}
   .world-hero .wrap{gap:1rem}
   .world-hero{padding-block:1.6rem}
   .world-switcher{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .subnav a,.subnav button{padding-inline:.25rem}
+  .subnav a{padding-inline:.25rem}
   .world-overview{grid-template-columns:1fr}
-  .world-body .spaced:has(>.plain-list){margin-top:var(--gap)}
   .world-body{padding-block:1.2rem 2rem}
   .compare-table th,.compare-table td{padding:.45rem;font-size:.86rem}
   .compare-table thead th:first-child{width:23%}
@@ -325,8 +256,6 @@ details summary{cursor:pointer;font-weight:760}
 }
 @media(max-width:520px){
   .card-content h3{min-height:0}
-  .axes-list div{padding:.7rem;gap:.4rem}
-  .panel-grid,.signal-list{grid-template-columns:1fr}
 }
 
 @media (max-width:24rem){
@@ -409,7 +338,7 @@ details summary{cursor:pointer;font-weight:760}
    Every composition snaps to a 4-column grid inside var(--wrap), with the same gutter as the card grid.
    Two head patterns, both on that grid:
    · section head  = heading in columns 1–2, lede in columns 3–4, ruled on top (Enter a world, Compare, world chapters)
-   · label rail    = small label in column 1, prose in columns 2–4 (What this is, Related reporting, Credits) */
+   · label rail    = small label in column 1, prose in columns 2–4 (Related reporting, Credits) */
 :root{
   --radius:4px;
   --cols:repeat(4,minmax(0,1fr));
@@ -426,13 +355,7 @@ p,li,blockquote{text-wrap:pretty}
 /* hero */
 .hero-inner{padding-block:clamp(2.5rem,5vw,4rem);gap:var(--gap) clamp(2rem,5vw,4.5rem)}
 .hero p.intro{max-width:44ch;margin-top:1.25rem;line-height:1.5}
-.actions{gap:.5rem}
 
-/* label rail: What this is */
-.orient{margin-top:var(--s-section);padding:0;background:none;border:0;border-radius:0;grid-template-columns:var(--cols);gap:.75rem var(--gap);align-items:baseline}
-.orient .eyebrow{grid-column:1;display:flex;align-items:center;gap:.6rem}
-.orient .eyebrow::before{content:"";width:1.5rem;height:4px;background:var(--yellow);flex:none}
-.orient p:not(.eyebrow){grid-column:2/-1;max-width:62ch;font-size:clamp(1.08rem,1.45vw,1.25rem);line-height:1.55;color:var(--ink)}
 
 /* section head */
 .section{padding-block:var(--s-section)}
@@ -464,7 +387,7 @@ p,li,blockquote{text-wrap:pretty}
 
 /* chapter nav */
 .subnav{border-bottom:0;padding-block:1rem 0}
-.subnav a,.subnav button{border-radius:var(--radius);font-weight:700}
+.subnav a{border-radius:var(--radius);font-weight:700}
 
 /* world chapters */
 .world-body{padding-block:clamp(2rem,4vw,3rem) var(--s-section)}
@@ -474,8 +397,6 @@ p,li,blockquote{text-wrap:pretty}
 .panel p{max-width:var(--measure);line-height:1.6}
 .world-overview .panel{border-top-width:4px}
 .world-overview .panel h3{font-size:clamp(1.2rem,1.7vw,1.45rem);margin-bottom:.65rem}
-.body-actions{margin-top:var(--s-head);padding-top:1.25rem;border-top:1px solid var(--grey)}
-.world-body>.actions{margin-top:var(--s-head)}
 
 /* timeline */
 .milestones{margin:0}
@@ -511,26 +432,24 @@ p,li,blockquote{text-wrap:pretty}
 
 .credits-thanks{margin-left:calc((100% - 3 * var(--gap)) / 4 + var(--gap))}
 @media(max-width:760px){.credits-thanks{margin-left:0}}
-/* credits page + strip: snap to the same 4-column grid (label in column 1, content in 2–4) */
+/* credits page: snap to the same 4-column grid (label in column 1, content in 2–4) */
 .credits-block{grid-template-columns:var(--cols);column-gap:var(--gap)}
 .credits-block > :not(.credits-label){grid-column:2/-1}
 .credits-label{font-size:.78rem;letter-spacing:.09em}
 .credits-hero-in{gap:1.5rem var(--gap)}
-.credits-strip{padding-block:1.25rem}
 
 @media(max-width:900px){
   .section-head,.body-head{grid-template-columns:minmax(0,1fr) auto}
   .section-head h2,.body-head h2,.section-head .compare-title{grid-column:1}
   .section-head p,.title-block p:not(.eyebrow),.body-head .quote{grid-column:1/-1;max-width:62ch}
   .body-head>.world-icon{grid-column:2;grid-row:1}
-  .orient,.related{grid-template-columns:minmax(0,1fr)}
-  .orient .eyebrow,.orient p:not(.eyebrow),.related h3,.related .plain-list{grid-column:1}
+  .related{grid-template-columns:minmax(0,1fr)}
+  .related h3,.related .plain-list{grid-column:1}
   .news-stories{grid-template-columns:minmax(0,1.05fr) minmax(0,1fr)}
   .news-story{grid-column:2}
   .news-story:first-child{grid-column:1}
 }
 @media(max-width:670px){
-  .hero .actions .button{flex:1 1 auto}
   .world-switcher a{min-height:48px;padding:.5rem .75rem;font-size:.86rem}
   .news-story,.news-story:first-child{padding-left:0;padding-right:0}
   .section-head,.body-head{row-gap:.6rem}
@@ -540,25 +459,14 @@ p,li,blockquote{text-wrap:pretty}
 }
 @media(max-width:670px){
   .world-switcher a{text-wrap:balance;font-size:.84rem;line-height:1.25}
-  .subnav a,.subnav button{text-wrap:balance}
-}
-@media(max-width:560px){
-  .credits-strip a{display:inline;min-height:0}
-  .credits-strip .credits-more{display:flex;align-items:center;width:max-content;min-height:44px}
+  .subnav a{text-wrap:balance}
 }
 .compare-table thead th:first-child,.compare-table th[scope=row]{overflow-wrap:normal;word-break:normal}
 @media(max-width:670px){
   .compare-table thead th:first-child{width:7.5rem}
   .compare-table th[scope=row],.compare-table thead th:first-child{padding:.75rem .6rem;font-size:.82rem}
 }
-@media(max-width:359px){
-  .crumb-in{gap:.6rem}
-  .crumb-mark{display:none}
-  .crumb-home{font-size:.84rem}
-  .crumb .jumps{gap:.7rem}
-  .crumb .jumps a{font-size:.84rem}
-}
-@media(max-width:359px){.subnav{grid-template-columns:repeat(2,minmax(0,1fr))}.subnav a,.subnav button{font-size:.86rem;padding-inline:.5rem}}
+@media(max-width:359px){.subnav{grid-template-columns:repeat(2,minmax(0,1fr))}.subnav a{font-size:.86rem;padding-inline:.5rem}}
 /* touch targets on phones */
 @media(max-width:670px){
   .signal-map{height:216px}
@@ -566,14 +474,12 @@ p,li,blockquote{text-wrap:pretty}
   .compare-table th a{min-height:44px;align-content:end}
   .compare-table td>.axis-term{display:inline-flex;align-items:center;min-height:44px;padding-block:0}
 }
-@media(max-width:880px){nav.top a{display:inline-flex;align-items:center;min-height:44px;padding-bottom:0}nav.top{margin-top:4px;padding-top:4px}}
 
 /* ══════════ Bento pass (11/21): every boxed or ruled block is filled edge to edge ══════════
    The old ch caps (36/44/46/52/56/62/66/67/68/82ch) sat inside full-width boxes and grid cells and left a dead right side.
    Rule: a cell's text runs its full width; long copy splits into columns or cells instead of a capped paragraph. */
-.hero p.intro,.credits-lede,.panel p,.section-intro{max-width:none}
+.hero p.intro,.credits-lede,.panel p{max-width:none}
 .section-head p,.title-block p:not(.eyebrow){max-width:none}
-.orient p:not(.eyebrow){max-width:none;font-size:clamp(1.1rem,1.6vw,1.4rem)}
 /* One short paragraph: run it the full content width at a slightly larger size; two columns split it mid-sentence */
 .credits-note{max-width:none;columns:auto;font-size:1.05rem}
 /* thanks: quote cell + a cell naming the four organisations it thanks */
@@ -618,9 +524,7 @@ p,li,blockquote{text-wrap:pretty}
 @media(max-width:760px){.credits-block{grid-template-columns:minmax(0,1fr)}}
 /* signals: the first side story starts on the lead story's eyebrow line */
 @media(min-width:671px){.news-story:nth-child(2){padding-top:clamp(1.25rem,2.5vw,2rem)}}
-/* Copy pass (11/21): longer orient paragraph + rewritten story beats */
-/* "What this is" ran 7 lines at ~120 characters a line; two balanced columns at a readable measure */
-@media(min-width:1100px){.orient p:not(.eyebrow){columns:2;column-gap:clamp(2rem,3.5vw,3rem);font-size:clamp(1.1rem,1.3vw,1.2rem);line-height:1.55}}
+/* Copy pass (11/21): rewritten story beats */
 /* Story beats: the third beat ("what's different") is the short payoff; give it a narrower track, slab type and a light grey fill so no cell sits half empty */
 @media(min-width:901px){.world-story{grid-template-columns:minmax(0,1fr) minmax(0,1.12fr) minmax(0,.88fr)}}
 .story-beat:last-child{background:var(--grey-50)}
@@ -674,9 +578,7 @@ p,li,blockquote{text-wrap:pretty}
 .world-overview .panel--data h3{margin:0;display:flex;align-items:center;padding:clamp(1.05rem,1.8vw,1.4rem) clamp(1.15rem,2vw,1.6rem);background:var(--ink);color:var(--paper)}
 .world-overview .panel--data p{margin:0;max-width:none;align-self:center;padding:clamp(1.05rem,1.8vw,1.4rem) clamp(1.15rem,2.2vw,1.9rem);font:600 clamp(1.06rem,1.35vw,1.24rem)/1.45 var(--slab);letter-spacing:-.012em;color:var(--ink)}
 @media(max-width:760px){.world-overview .panel--data{grid-template-columns:minmax(0,1fr)}.world-overview .panel--data h3{padding-block:.8rem}}
-/* An open cell in Compare reads as a gap in the scenario, not as data */
 .compare-table,.compare-table :is(thead,tbody,tr){border-color:var(--grey)} /* not the browser default grey */
-.cmp-open{font-style:italic;color:var(--ink-2)}
 
 /* ===== Header: one bar (option A, live 2026-11-21) =====
    One row: family mark + KEN PRIORE | Pathways 2040, then the three Pathways tabs, then a muted way out.

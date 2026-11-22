@@ -165,7 +165,7 @@ function renderWorld(world, tab) {
 function renderRoute(world) {
   return `<header class="body-head route-cap"><h2 id="section-title">Route map</h2>
       <p><span><span class="route-part">Three questions with two answers each make eight possible worlds.</span> <span class="route-part">Follow the line to this one.</span></span></p></header>
-    <iframe class="route-frame" title="Route map: the three forks that lead to ${safe(world.name)}" src="route-map.html?world=${world.id}&embed=1&joined=1&v=20261122i"></iframe>`;
+    <iframe class="route-frame" title="Route map: the three forks that lead to ${safe(world.name)}" src="route-map.html?world=${world.id}&embed=1&joined=1&v=20261122j"></iframe>`;
 }
 
 function boldFirstSentence(text) {
@@ -227,13 +227,13 @@ function renderCompare() {
     <p class="scroll-note" id="table-hint">Scroll across to see all four worlds.</p>
     <div class="table-scroll" tabindex="0" role="region" aria-label="Compare all four worlds" aria-describedby="table-hint">
       <table class="compare-table" aria-label="Four-world comparison"><thead><tr><th scope="col">Dimension</th>${worlds.map(world => `<th scope="col" ${tone(world)}><a href="${worldLink(world.id)}">${worldIcon(world)}${safe(world.name)}</a></th>`).join("")}</tr></thead>
-      <tbody>${axes.map((axis, i) => row(axis, worlds.map(world => term(world.labels[i])))).join("")}${["Who runs the work", "What in-house legal does", "Who’s on the team", "Where the data sits"].map((label, i) => row(label, worlds.map(world => world.compare?.[i] === "Not in the scenario" ? `<span class="cmp-open">Not in the scenario</span>` : safe(world.compare?.[i] || "")))).join("")}${row("What goes right", worlds.map(world => safe(world.promise)))}${row("What goes wrong", worlds.map(world => safe(world.danger)))}</tbody></table>
+      <tbody>${axes.map((axis, i) => row(axis, worlds.map(world => term(world.labels[i])))).join("")}${["Who runs the work", "What in-house legal does", "Who’s on the team", "Where the data sits"].map((label, i) => row(label, worlds.map(world => safe(world.compare?.[i] || "")))).join("")}${row("What goes right", worlds.map(world => safe(world.promise)))}${row("What goes wrong", worlds.map(world => safe(world.danger)))}</tbody></table>
     </div>
   </div>`;
   startMap();
 }
 
-// Credits: the full attribution. Every other page carries a one-line strip (index.html) that links here.
+// Credits: the full attribution, linked from the top bar on every page.
 function renderCredits() {
   // Signal Bold layout: blue band → numbered funnel → convener cards → thanks → sources.
   const funnel = [
@@ -322,7 +322,6 @@ function render({scroll = true, focusId = ""} = {}) {
   } else {
     renderHome();
   }
-  document.body.classList.toggle("on-credits", view === "credits");
   document.title = `Pathways · ${title} · Ken Priore`;
   document.querySelectorAll("[data-nav]").forEach(link => {
     if (link.dataset.nav === current) link.setAttribute("aria-current", "page");
@@ -364,8 +363,7 @@ function dismissTerm() {
 }
 function showTerm(button) {
   if (!button) return;
-  const host = button.closest("dialog") || document.body;
-  host.append(tip);
+  document.body.append(tip);
   owner = button;
   tip.textContent = button.getAttribute("aria-description") || definitions[button.dataset.term];
   tip.showPopover();
@@ -396,11 +394,6 @@ document.addEventListener("keydown", e => {
 });
 document.addEventListener("scroll", positionTerm, true);
 window.addEventListener("resize", dismissTerm);
-root.addEventListener("close", dismissTerm, true);
-
-root.addEventListener("click", event => {
-  // (The old "Three axes"/route dialog is gone; Route map is a world tab now.)
-});
 
 previousView = readRoute().view;
 render();

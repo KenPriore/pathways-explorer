@@ -5,14 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
 <title>Route map · Pathways</title>
-<!-- Route-map popup (from motion-ideas/03-route.html, Ken's pick 11/21).
-     Loaded in an iframe by the world page's "Route map" dialog: route-map.html?world=N&embed=1
-     embed=1 hides this file's own header and world switcher (the dialog supplies the title). -->
+<!-- Route map (from motion-ideas/03-route.html, Ken's pick 11/21).
+     Loaded in an iframe by the world page's Route map tab: route-map.html?world=N&embed=1
+     embed=1 hides this file's own header and world switcher (the page supplies the title). -->
 <style>
   @font-face{font-family:"Roboto Slab";src:url("fonts/RobotoSlab-variable.ttf") format("truetype");font-weight:100 900;font-display:swap}
   @font-face{font-family:Archivo;src:url("fonts/Archivo-variable.ttf") format("truetype");font-weight:100 900;font-display:swap}
-  /* Signal Bold v1 palette, same tokens as style.css */
-  :root{--paper:#FFFFFF;--ink:#17171C;--ink-2:#484951;--muted:#5F5F5F;--grey:#E4E5E7;--blue:#2E5AA6;--yellow:#F0C919;--rose:#C0455F}
+  /* Signal Bold v1 palette, the style.css tokens this file uses */
+  :root{--paper:#FFFFFF;--ink:#17171C;--ink-2:#484951;--grey:#E4E5E7;--blue:#2E5AA6;--yellow:#F0C919;--rose:#C0455F}
   /* The only derivations, alphas of paper on the blue map: 07 grid, 25 dimmed branch and pill edge,
      35 blank stop, 55 branch, frame and rule, 75 resting node, 80 label and stop name off the route (4.5:1 or better) */
   :root{--paper-07:rgba(255,255,255,.07);--paper-25:rgba(255,255,255,.25);--paper-35:rgba(255,255,255,.35);--paper-55:rgba(255,255,255,.55);--paper-75:rgba(255,255,255,.75);--paper-80:rgba(255,255,255,.80)}
@@ -44,7 +44,7 @@
   .route b{color:var(--ink)}
   .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
-  /* Embedded in the site's dialog: no own header or switcher, fill the frame */
+  /* Embedded in the Route map tab: no own header or switcher, fill the frame */
   .embed body{display:block;min-height:0;background:transparent}
   .embed .pop{width:100%;height:100vh;max-height:none;grid-template-rows:1fr auto;padding:0}
   .embed .head,.embed .switch{display:none}
@@ -79,7 +79,6 @@
   .leaf .num{fill:var(--paper);font:700 10px var(--mono);letter-spacing:.04em}
   .leaf .nm{font:650 11px Archivo,Arial,sans-serif;fill:var(--paper)}
   .leaf.ne rect{fill:none;stroke:var(--paper-35);stroke-dasharray:3 3}
-  .leaf.ne text{font:700 8.5px var(--mono);letter-spacing:.06em;text-transform:uppercase;fill:var(--paper-55)}
   /* the current stop fills with its track: World 1 would vanish as blue on blue */
   .leaf.cur rect{stroke-opacity:1;fill:var(--track);stroke:var(--track);stroke-width:2}
   .leaf.cur .num,.leaf.cur .nm{fill:var(--track-ink)}
@@ -88,7 +87,6 @@
   .callout rect{fill:var(--track);stroke:var(--track);stroke-width:2}
   .callout .num{font:700 11px var(--mono);fill:var(--track-ink)}
   .callout .nm{font:700 13px Archivo,Arial,sans-serif;fill:var(--track-ink)}
-  .legend{font:700 8.5px var(--mono);letter-spacing:.06em;text-transform:uppercase;fill:var(--paper-55)}
 
   @media (max-width:560px){
     body{display:block;min-height:0}
@@ -388,7 +386,7 @@
     if (v !== vertical) { vertical = v; stop(); build(); finalState(); }
   }).observe(map);
 
-  // ?world=N picks the starting world (the site's dialog passes the current world).
+  // ?world=N picks the starting world (the Route map tab passes the current world).
   const start = worlds.find(w => w.id === Number(new URLSearchParams(location.search).get("world"))) || worlds[0];
   setWorld(start);
 })();
