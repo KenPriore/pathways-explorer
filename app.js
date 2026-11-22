@@ -171,7 +171,7 @@ function renderWorld(world, tab) {
 function renderRoute(world) {
   return `<header class="body-head route-cap"><h2 id="section-title">Route map</h2>
       <p><span><span class="route-part">Three questions with two answers each make eight possible worlds.</span> <span class="route-part">Follow the line to this one.</span></span></p></header>
-    <iframe class="route-frame" title="Route map: the three forks that lead to ${safe(world.name)}" src="route-map.html?world=${world.id}&embed=1&joined=1&v=20261122k"></iframe>`;
+    <iframe class="route-frame" title="Route map: the three forks that lead to ${safe(world.name)}" src="route-map.html?world=${world.id}&embed=1&joined=1&v=20261122l"></iframe>`;
 }
 
 function boldFirstSentence(text) {
@@ -241,39 +241,27 @@ function renderCompare() {
 
 // Credits: the full attribution, linked from the top bar on every page.
 function renderCredits() {
-  // Signal Bold layout: blue band → numbered funnel → convener cards → thanks → sources.
-  const funnel = [
-    ["120+", "people", "At the TLTF Summit in Austin in 2025, they mapped the shifts already underway."],
-    ["3", "convenings", "In New York, a smaller group built the scenarios. I took part in this phase."],
-    ["8", "combinations", "Three open questions, two answers each, give eight possible worlds."],
-    ["4", "worlds", "Four were developed in depth. They are the worlds on this site."]
-  ];
-  const makers = [
-    ["The LegalTech Fund", "Convener", "Host of the TLTF Summit, where the first phase ran.", "https://www.legaltech.com"],
-    ["Law.com", "Convener", "Its reporting supplies the headlines and charts in each world’s Signals.", "https://www.law.com"],
-    ["Harvey", "Partner", "Grounded the imagined futures in what legal AI can do today.", "https://www.harvey.ai"],
-    ["Leaders’ Quest", "Design and facilitation", "Guided the process with scenario planning and the Three Horizons framework.", "https://www.leadersquest.org"]
-  ];
-  // Ken 11/21: the "Read the source material" list is removed. The program link lives in the lede below;
-  // the four organisations are linked in the thank-you bar.
+  // Credits cleanup (live 11/22): blue hero → story → one yellow band → photos.
+  const org = (name, url) => `<a href="${url}">${name}<span class="visually-hidden"> (opens their site)</span></a>`;
+  // Ken's words stay as written. .cp-keep only holds words on one line.
   root.innerHTML = `<section class="credits-hero">
-    <div class="wrap credits-hero-in">
-      <div><p class="eyebrow">Where this comes from</p><h1>Credits and sources</h1></div>
-      <p class="credits-lede">These four worlds come from <a href="https://www.legaltech.com/pathways">Pathways: The Future of Law</a>. The scenarios belong to the people who built them. This site is my retelling, and the wording and any mistakes are mine.</p>
+    <div class="wrap cr-hero">
+      <h1>Credits <span class="cp-keep">and sources</span></h1>
+      <p class="credits-lede">These four worlds come from <a href="https://www.legaltech.com/pathways">Pathways: The Future <span class="cp-keep">of Law</span></a>. <span class="cp-keep">The scenarios</span> belong to the people who <span class="cp-keep">built them.</span> <span class="cp-keep">This site</span> is my retelling, and the wording and any mistakes <span class="cp-keep">are mine.</span></p>
     </div>
   </section>
-  <div class="wrap credits-page">
-    <section class="credits-block" aria-labelledby="built-title">
-      <h2 id="built-title" class="credits-label">How it was built</h2>
-      <ol class="funnel">${funnel.map(([n, unit, text]) => `<li><p class="funnel-n">${n}</p><p class="funnel-unit">${unit}</p><p>${text}</p></li>`).join("")}</ol>
-      <p class="credits-note">The method came from Leaders’ Quest: scenario planning and the Three Horizons framework, developed by Bill Sharpe and colleagues at the International Futures Forum. The room held general counsel, law firm leaders, founders, and judicial, regulatory and academic voices.</p>
-    </section>
-    <section class="credits-block" aria-labelledby="makers-title">
-      <h2 id="makers-title" class="credits-label">Who made it possible</h2>
-      <div class="makers">${makers.map(([name, role, text]) => `<article><p class="maker-role">${role}</p><h3>${name}</h3><p>${text}</p></article>`).join("")}</div>
-    </section>
-    <div class="credits-thanks"><blockquote><p>Thank you to The LegalTech Fund, Law.com and Harvey for convening the work, to Leaders’ Quest for guiding it, and to everyone in the room who argued these worlds into shape.</p><footer>Ken Priore</footer></blockquote><ul class="thanks-orgs" aria-label="The organisations behind Pathways">${makers.map(([name, , , url]) => `<li><a href="${url}">${name}<span class="visually-hidden"> (opens their site)</span><span class="org-arrow" aria-hidden="true">↗</span></a></li>`).join("")}</ul></div>
-  </div>`;
+  ${window.CreditsPhotos?.html() ?? ""}
+  <div class="cr-band">
+    <div class="wrap cr-cols">
+      <p class="cr-thanks">Thank you to ${org("The LegalTech Fund", "https://www.legaltech.com")}, ${org("Law.com", "https://www.law.com")} and ${org("Harvey", "https://www.harvey.ai")} for convening the work, to ${org("Leaders’ Quest", "https://www.leadersquest.org")} for guiding it, and to everyone in the room who argued these worlds <span class="cp-keep">into shape.</span></p>
+      <div class="cr-notes">
+        <p class="cr-method">The method came from Leaders’ Quest: scenario planning and the Three Horizons framework, developed by Bill Sharpe and colleagues at the International <span class="cp-keep">Futures Forum.</span> <span class="cp-keep">The room</span> held general counsel, law firm leaders, founders, and judicial, <span class="cr-tail">regulatory and <span class="cp-keep">academic voices.</span></span></p>
+        <p class="cr-line"><b>Law.com</b> Its reporting supplies the headlines and charts in each <span class="cp-keep">world’s Signals.</span></p>
+        <p class="cr-line"><b>Harvey</b> Grounded the imagined futures in what legal AI can <span class="cp-keep">do today.</span></p>
+      </div>
+    </div>
+  </div>
+  ${window.CreditsPhotos?.strip() ?? ""}`;
 }
 
 // Links shared from the previous pathways.kenpriore.ai build used "#/overview", "#/navigator[/n]"
@@ -311,6 +299,7 @@ function render({scroll = true, focusId = ""} = {}) {
   dismissTerm();
   mapObserver?.disconnect();
   window.AssumptionsStrip?.unmount();
+  window.CreditsPhotos?.unmount();
   const {view, first, tab} = readRoute();
   let current = "worlds";
   let title = "The Future of Law to 2040";
@@ -323,11 +312,13 @@ function render({scroll = true, focusId = ""} = {}) {
     title = "Compare worlds";
   } else if (view === "credits") {
     renderCredits();
+    window.CreditsPhotos?.mount(root);
     current = "credits";
     title = "Credits and sources";
   } else {
     renderHome();
   }
+  document.body.classList.toggle("on-credits", view === "credits");
   document.title = `Pathways · ${title} · Ken Priore`;
   document.querySelectorAll("[data-nav]").forEach(link => {
     if (link.dataset.nav === current) link.setAttribute("aria-current", "page");

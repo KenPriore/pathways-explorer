@@ -1,0 +1,115 @@
+/* Credits cleanup (mockup, 2026-11-22): blue hero, white story, one yellow band, photos. No cells, boxes or inner rules.
+   Text runs on the site's --wrap. The story and the band share one column edge. Signal Bold v1 tokens only. */
+.cp-keep{white-space:nowrap}
+
+.credits-hero .cr-hero{padding-block:64px}
+.credits-hero h1{font:870 72px/72px var(--slab);letter-spacing:-.035em;white-space:nowrap}
+.credits-hero .credits-lede{margin-top:24px;max-width:none;font-size:22px;font-weight:400;line-height:34px}
+
+.cr-cols{display:grid;grid-template-columns:minmax(0,530fr) minmax(0,648fr);column-gap:72px;align-items:start}
+.cp-story{padding-block:64px;color:var(--ink)}
+.cp-story .cp-title{margin:0 0 32px;font:800 44px/48px var(--slab);letter-spacing:-.025em}
+.cp-story .cp-cell{max-width:none;margin:0;font-size:18px;line-height:30px}
+.cp-cell + .cp-cell{margin-top:24px}
+
+.cr-band{background:var(--yellow);color:var(--ink)}
+.cr-band .cr-cols{padding-block:56px}
+.cr-band p{max-width:none;color:var(--ink)}
+.cr-thanks{font:700 26px/40px var(--slab);letter-spacing:-.02em}
+.cr-thanks a{color:var(--ink);white-space:nowrap;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:5px}
+.cr-thanks a:hover{text-decoration-thickness:3px}
+.cr-thanks a:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.cr-notes p{font-size:18px;line-height:28px}
+.cr-notes{padding-top:10px} /* first baseline on the thanks' first baseline */
+.cr-notes .cr-method{margin:0 0 var(--after,20px)}
+/* A run-in label: the name opens the line, and the sentence keeps its own edge, so "Its" and "Grounded" read as starts. */
+.cr-notes .cr-line{position:relative;margin:0;padding-left:4.9em}
+.cr-line b{position:absolute;left:0;font-weight:750;white-space:nowrap}
+
+/* The photos run edge to edge, flush under the yellow. --page repeats the site's --wrap for the credit and the phone captions. */
+.cp-strip{container-type:inline-size;padding-bottom:48px;background:var(--paper)}
+.cp-in{--page:min(100cqw - 5rem,1250px);--edge:calc((100cqw - var(--page))/2)}
+.cp-in .cp-credit{max-width:none;margin:0;padding:0 var(--edge);color:var(--muted);font-size:14px;font-weight:400;line-height:20px;white-space:nowrap}
+
+/* The window. Every photo has the same height and takes its width from its own proportions. */
+.cp-view{
+  --h:min(clamp(410px,31.5cqw,560px),76vh);--cap:38px;
+  position:relative;min-width:0;height:calc(var(--h) + var(--cap));overflow:hidden;overflow:clip;background:var(--paper);
+  cursor:grab;touch-action:pan-y pinch-zoom;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none;
+}
+.cp-view.dragging{cursor:grabbing}
+.cp-track{position:relative;width:max-content;height:calc(var(--h) + var(--cap));will-change:transform}
+.cp-set{display:flex;width:max-content;height:calc(var(--h) + var(--cap));margin:0;padding:0;list-style:none}
+.cp-copy{position:absolute;top:0}
+.cp-photo{flex:none;width:calc(var(--h) * var(--ratio));margin-right:6px}
+.cp-photo img{display:block;width:100%;height:var(--h);background:var(--grey);max-width:none;-webkit-touch-callout:none;pointer-events:none}
+/* the caption sits under its photo, so nothing covers the picture */
+.cp-cap{display:block;height:var(--cap);padding-inline:14px;padding-top:10px;color:var(--muted);font-size:14px;font-weight:400;line-height:20px;white-space:nowrap}
+.cp-view:focus{outline:none}
+/* the ring sits inside the window, so it shows on any photo and is never clipped */
+.cp-view:focus-visible::after{content:"";position:absolute;inset:0;z-index:2;border:4px solid var(--blue);outline:2px solid var(--paper);outline-offset:-6px;pointer-events:none}
+.cp-view.still{overflow-x:auto;overflow-y:hidden;height:auto;touch-action:auto;scrollbar-width:thin;scrollbar-color:var(--muted) var(--paper)}
+.cp-view.still .cp-track{will-change:auto}
+.cp-view.still .cp-photo:last-child{margin-right:0}
+
+/* Two columns from 1100. The queries read the page's own width, so a scrollbar cannot move a fitted line.
+   In each step the left column is fixed and the right one takes the rest within the range where its lines hold,
+   so the two columns start and end on one line. --after makes the thanks and the notes end together. Refit if the words change. */
+body.on-credits main{container:credits/inline-size}
+@media(max-width:1099.98px){.cr-cols{grid-template-columns:minmax(0,1fr)}} /* without container queries */
+@container credits (min-width:1100px){
+  .cr-cols{--left:530px;--right:648px;grid-template-columns:var(--left) var(--right);column-gap:0;justify-content:space-between}
+}
+@container credits (min-width:1100px) and (max-width:1305.98px){
+  .cr-notes{--after:30px;padding-top:12px}
+  .cr-notes p{font-size:17px;line-height:26px}
+}
+@container credits (min-width:1100px) and (max-width:1147.98px){
+  .cr-cols{--left:444px;--right:clamp(528px,100% - 516px,533px)}
+  .cr-notes{--after:18px}
+}
+@container credits (min-width:1148px) and (max-width:1197.98px){
+  .cr-cols{--left:453px;--right:567px}
+  .cr-notes{--after:44px}
+}
+@container credits (min-width:1198px) and (max-width:1250.98px){
+  .cr-cols{--left:464px;--right:clamp(606px,100% - 536px,637px)}
+}
+@container credits (min-width:1251px) and (max-width:1305.98px){
+  .cr-cols{--left:517px;--right:clamp(606px,100% - 589px,637px)}
+}
+@container credits (min-width:1306px) and (max-width:1329.98px){
+  .cr-cols{--right:641px}
+}
+/* Just under two columns the lines are at their longest, so the last one takes a few more words with it. */
+@container credits (min-width:1080px) and (max-width:1099.98px){.cr-tail{white-space:nowrap}}
+/* Story endings in one column: at these widths a paragraph would end on two or three words, so the last phrase moves down whole. */
+@container credits (max-width:499.98px){.cr-end4 .cp-keep{white-space:normal}} /* held together here, it left a half-empty line */
+@container credits (min-width:384px) and (max-width:404.98px){.cr-end3a{white-space:nowrap}}
+@container credits (min-width:482px) and (max-width:506.98px){.cr-end3b{white-space:nowrap}}
+@container credits (min-width:569px) and (max-width:810.98px){.cr-end3c{white-space:nowrap}}
+@container credits (min-width:858px) and (max-width:971.98px){.cr-end2{white-space:nowrap}}
+@container credits (min-width:910px) and (max-width:1053.98px){.cr-end4{white-space:nowrap}}
+@container credits (min-width:939px) and (max-width:1085.98px){.cr-end3d{white-space:nowrap}}
+@container credits (min-width:1029px) and (max-width:1099.98px){.cr-end1{white-space:nowrap}}
+@container credits (max-width:1099.98px){
+  .cr-cols{grid-template-columns:minmax(0,1fr);row-gap:24px}
+  .cr-notes{padding-top:0}
+}
+@media(max-width:960px){.cp-in{--page:min(100cqw - 2.6rem,1250px)}}
+@media(max-width:759.98px){
+  .credits-hero .cr-hero,.cp-story,.cr-band .cr-cols{padding-block:40px}
+  .credits-hero h1{font-size:44px;line-height:44px;white-space:normal}
+  .credits-hero .credits-lede{margin-top:20px;font-size:18px;line-height:28px}
+  .cp-story .cp-title{margin-bottom:24px;font-size:32px;line-height:36px}
+  .cp-story .cr-cols{row-gap:20px}
+  .cp-story .cp-cell{font-size:17px;line-height:27px}
+  .cp-cell + .cp-cell{margin-top:20px}
+  .cr-thanks{font-size:24px;line-height:32px}
+  .cr-thanks a{white-space:normal} /* on a phone the names wrap as running text, so no line is left short */
+  .cr-notes p{font-size:16px;line-height:26px}
+  .cr-notes .cr-line + .cr-line{margin-top:8px} /* both lines turn over here */
+  .cp-in .cp-view{--h:min(calc((100cqw - 18px)/1.5),78vh)}
+  .cp-cap{padding-inline:var(--edge)}
+}
+@media(max-width:670px){.cp-in{--page:calc(100cqw - 2rem)}}
