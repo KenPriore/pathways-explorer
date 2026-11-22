@@ -11,30 +11,36 @@
 <style>
   @font-face{font-family:"Roboto Slab";src:url("fonts/RobotoSlab-variable.ttf") format("truetype");font-weight:100 900;font-display:swap}
   @font-face{font-family:Archivo;src:url("fonts/Archivo-variable.ttf") format("truetype");font-weight:100 900;font-display:swap}
-  :root{--ink:#17233a;--soft:#4e5b6f;--blue:#2e5aa6;--navy:#162b50;--yellow:#f0c919;--rose:#c0455f;--paper:#f7f6f1;--line:#c8cdd3;--panel:#244d94;--mono:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;--slab:"Roboto Slab",Georgia,serif;--tone:#2e5aa6;--tone-ink:#fff;--track:#aecbff}
+  /* Signal Bold v1 palette, same tokens as style.css */
+  :root{--paper:#FFFFFF;--ink:#17171C;--ink-2:#484951;--muted:#5F5F5F;--grey:#E4E5E7;--blue:#2E5AA6;--yellow:#F0C919;--rose:#C0455F}
+  /* The only derivations, alphas of paper on the blue map: 07 grid, 25 dimmed branch and pill edge,
+     35 blank stop, 55 branch, frame and rule, 75 resting label (4.5:1) */
+  :root{--paper-07:rgba(255,255,255,.07);--paper-25:rgba(255,255,255,.25);--paper-35:rgba(255,255,255,.35);--paper-55:rgba(255,255,255,.55);--paper-75:rgba(255,255,255,.75)}
+  html{color:var(--ink)}
+  :root{--mono:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;--slab:"Roboto Slab",Georgia,serif;--tone:var(--blue);--track:var(--paper);--track-ink:var(--blue)}
   *{box-sizing:border-box}
   html,body{margin:0}
   body{background:var(--paper);color:var(--ink);font:400 1rem/1.45 Archivo,Arial,sans-serif;min-height:100vh;display:grid;place-items:center}
   .pop{width:min(720px,100%);height:100vh;max-height:560px;display:grid;grid-template-rows:auto 1fr auto;gap:8px;padding:8px}
-  .box{background:#fff;border:1px solid var(--line);border-radius:8px}
+  .box{background:var(--paper);border:1px solid var(--grey);border-radius:8px}
   .head{display:flex;align-items:center;gap:14px;padding:10px 14px;border-left:7px solid var(--tone)}
-  .eyebrow{margin:0;font:700 .72rem/1.3 var(--mono);letter-spacing:.09em;text-transform:uppercase;color:var(--soft)}
+  .eyebrow{margin:0;font:700 .72rem/1.3 var(--mono);letter-spacing:.09em;text-transform:uppercase;color:var(--ink-2)}
   h1{margin:2px 0 0;font:850 1.45rem/1.1 var(--slab);letter-spacing:-.035em}
-  .head .q{margin-left:auto;font:700 .66rem/1.3 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--soft);text-align:right}
-  .stage{background:var(--panel);border:1px solid #91a9d3;border-radius:8px;color:#fff;display:grid;grid-template-rows:auto 1fr;min-height:0;overflow:hidden}
-  .cap{display:flex;justify-content:space-between;gap:8px;padding:7px 12px;border-bottom:1px solid #7898cc;font:700 .66rem/1.3 var(--mono);letter-spacing:.08em;text-transform:uppercase}
-  .cap span:last-child{color:#f9df66}
-  .map{min-height:0;padding:6px 8px;background-image:linear-gradient(90deg,#ffffff12 1px,transparent 1px),linear-gradient(#ffffff12 1px,transparent 1px);background-size:24px 24px;background-position:center;display:flex;align-items:center;justify-content:center}
+  .head .q{margin-left:auto;font:700 .66rem/1.3 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);text-align:right}
+  .stage{background:var(--blue);border:1px solid var(--paper-55);border-radius:8px;color:var(--paper);display:grid;grid-template-rows:auto 1fr;min-height:0;overflow:hidden}
+  .cap{display:flex;justify-content:space-between;gap:8px;padding:7px 12px;border-bottom:1px solid var(--paper-55);font:700 .66rem/1.3 var(--mono);letter-spacing:.08em;text-transform:uppercase}
+  .cap span:last-child{color:var(--paper)}
+  .map{min-height:0;padding:6px 8px;background-image:linear-gradient(90deg,var(--paper-07) 1px,transparent 1px),linear-gradient(var(--paper-07) 1px,transparent 1px);background-size:24px 24px;background-position:center;display:flex;align-items:center;justify-content:center}
   .map svg{display:block;width:100%;height:100%}
   .foot{display:flex;align-items:center;gap:10px;padding:8px 10px;flex-wrap:wrap}
   .switch{display:flex;gap:6px}
   .switch button,.replay{font:700 .8rem/1 var(--mono);border-radius:6px;cursor:pointer;min-height:36px}
   .switch button{width:36px;border:2px solid transparent;background:var(--c);color:var(--ci)}
-  .switch button[aria-pressed=true]{border-color:var(--ink);box-shadow:inset 0 0 0 2px #fff}
-  .replay{margin-left:auto;padding:0 14px;background:#fff;color:var(--ink);border:1px solid var(--ink);letter-spacing:.06em;text-transform:uppercase}
-  .replay:hover{background:var(--ink);color:#fff}
+  .switch button[aria-pressed=true]{border-color:var(--ink);box-shadow:inset 0 0 0 2px var(--paper)}
+  .replay{margin-left:auto;padding:0 14px;background:var(--paper);color:var(--ink);border:1px solid var(--ink);letter-spacing:.06em;text-transform:uppercase}
+  .replay:hover{background:var(--ink);color:var(--paper)}
   button:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
-  .route{flex:1 1 220px;min-width:0;margin:0;font:700 .7rem/1.35 var(--mono);letter-spacing:.05em;text-transform:uppercase;color:var(--soft)}
+  .route{flex:1 1 220px;min-width:0;margin:0;font:700 .7rem/1.35 var(--mono);letter-spacing:.05em;text-transform:uppercase;color:var(--ink-2)}
   .route b{color:var(--ink)}
   .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
@@ -48,39 +54,40 @@
   .joined .cap{display:none}
 
   /* SVG */
-  .edge{fill:none;stroke:#ffffff8c;stroke-width:1.5;transition:stroke .35s,stroke-width .35s}
-  .edge.off{stroke:#ffffff26;stroke-width:1}
-  .node{fill:var(--panel);stroke:#ffffffb3;stroke-width:1;transition:fill .2s,stroke .2s,opacity .35s}
+  .edge{fill:none;stroke:var(--paper-55);stroke-width:1.5;transition:stroke .35s,stroke-width .35s}
+  .edge.off{stroke:var(--paper-25);stroke-width:1}
+  .node{fill:var(--blue);stroke:var(--paper-75);stroke-width:1;transition:fill .2s,stroke .2s,opacity .35s}
   .node.on{fill:var(--track);stroke:var(--track)}
   .node.off{opacity:.3}
   .lbl{transition:opacity .35s}
-  .lbl text{font:700 9.5px var(--mono);letter-spacing:.05em;text-transform:uppercase;fill:#ffffffb8;transition:fill .25s}
+  .lbl text{font:700 9.5px var(--mono);letter-spacing:.05em;text-transform:uppercase;fill:var(--paper-75);transition:fill .25s}
   .lbl.v text{font-size:8px;letter-spacing:.03em}
-  .lbl .pill{fill:var(--panel);stroke:#ffffff40;stroke-width:1;transition:stroke .25s}
+  .lbl .pill{fill:var(--blue);stroke:var(--paper-25);stroke-width:1;transition:stroke .25s}
   .lbl .arr{opacity:0;transition:opacity .2s}
-  .lbl.on text{fill:var(--track)}
+  .lbl.on text{fill:var(--paper)} /* line, node and pill border carry the world */
   .lbl.on .pill{stroke:var(--track)}
   .lbl.on .arr{opacity:1}
-  .lbl.off{opacity:.3}
-  .today rect{fill:var(--panel);stroke:#afc3e4;stroke-width:1}
-  .today text{font:700 10px var(--mono);letter-spacing:.08em;fill:#fff}
+  .lbl.off{opacity:.7}
+  .today rect{fill:var(--blue);stroke:var(--paper-55);stroke-width:1}
+  .today text{font:700 10px var(--mono);letter-spacing:.08em;fill:var(--paper)}
   .routeline{fill:none;stroke:var(--track);stroke-width:3.5;stroke-linecap:square;stroke-linejoin:miter}
   .leaf{transition:opacity .35s}
-  .leaf rect{fill:var(--panel);stroke-width:1}
-  .leaf.dev{opacity:.5}
-  .leaf .num{font:700 10px var(--mono);letter-spacing:.04em}
-  .leaf .nm{font:650 11px Archivo,Arial,sans-serif;fill:#fff}
-  .leaf.ne rect{fill:none;stroke:#ffffff59;stroke-dasharray:3 3}
-  .leaf.ne text{font:700 8.5px var(--mono);letter-spacing:.06em;text-transform:uppercase;fill:#ffffff73}
+  .leaf rect{fill:var(--blue);stroke-width:1}
+  .leaf.dev{opacity:.75}
+  .leaf .num{fill:var(--paper);font:700 10px var(--mono);letter-spacing:.04em}
+  .leaf .nm{font:650 11px Archivo,Arial,sans-serif;fill:var(--paper)}
+  .leaf.ne rect{fill:none;stroke:var(--paper-35);stroke-dasharray:3 3}
+  .leaf.ne text{font:700 8.5px var(--mono);letter-spacing:.06em;text-transform:uppercase;fill:var(--paper-55)}
   .leaf.cur{opacity:1}
-  .leaf.cur rect{fill:var(--tone);stroke:var(--rim);stroke-width:2}
-  .leaf.cur .num,.leaf.cur .nm{fill:var(--tone-ink)}
+  /* the current stop fills with its track: World 1 would vanish as blue on blue */
+  .leaf.cur rect{fill:var(--track);stroke:var(--track);stroke-width:2}
+  .leaf.cur .num,.leaf.cur .nm{fill:var(--track-ink)}
   .callout{opacity:0;transition:opacity .3s}
   .callout.show{opacity:1}
-  .callout rect{fill:var(--tone);stroke:var(--rim);stroke-width:2}
-  .callout .num{font:700 11px var(--mono);fill:var(--tone-ink)}
-  .callout .nm{font:700 13px Archivo,Arial,sans-serif;fill:var(--tone-ink)}
-  .legend{font:700 8.5px var(--mono);letter-spacing:.06em;text-transform:uppercase;fill:#ffffff8c}
+  .callout rect{fill:var(--track);stroke:var(--track);stroke-width:2}
+  .callout .num{font:700 11px var(--mono);fill:var(--track-ink)}
+  .callout .nm{font:700 13px Archivo,Arial,sans-serif;fill:var(--track-ink)}
+  .legend{font:700 8.5px var(--mono);letter-spacing:.06em;text-transform:uppercase;fill:var(--paper-55)}
 
   @media (max-width:560px){
     body{display:block;min-height:0}
@@ -116,11 +123,14 @@
 </div>
 <script>
 (() => {
+  const css = getComputedStyle(document.documentElement);
+  const token = name => css.getPropertyValue("--" + name).trim();
+  const paper = token("paper"), ink = token("ink"), blue = token("blue"), yellow = token("yellow"), rose = token("rose");
   const worlds = [
-    {id:1, name:"Big Tech Enterprise", tone:"#2E5AA6", ink:"#fff", track:"#aecbff", bits:[0,0,0]},
-    {id:2, name:"The App Store for Law", tone:"#F0C919", ink:"#17233A", track:"#f0c919", bits:[1,0,0]},
-    {id:3, name:"Big Law Owns the Stack", tone:"#C0455F", ink:"#fff", track:"#C0455F", rim:"#C0455F", bits:[0,1,0]},
-    {id:4, name:"Hands on the Wheel", tone:"#162B50", ink:"#fff", track:"#e4edf9", bits:[0,1,1], contested:true}
+    {id:1, name:"Big Tech Enterprise", tone:blue, ink:paper, track:paper, trackInk:blue, bits:[0,0,0]},
+    {id:2, name:"The App Store for Law", tone:yellow, ink, track:yellow, trackInk:ink, bits:[1,0,0]},
+    {id:3, name:"Big Law Owns the Stack", tone:rose, ink:paper, track:rose, trackInk:paper, bits:[0,1,0]},
+    {id:4, name:"Hands on the Wheel", tone:ink, ink:paper, track:ink, trackInk:paper, bits:[0,1,1], contested:true}
   ];
   // Checked against the Pathways book, "Four worlds, shaped by three uncertainties" (11/21):
   // 01 Tech layer: Integrated ↔ Fragmented (book terms; "one stack" overstated it: integrated = interoperable, shared data, connected systems)
@@ -242,12 +252,12 @@
       if (!g.vertical) {
         el("rect", {x:g.D[4], y:cb - 13, width:160, height:26, rx:3, stroke:w ? w.track : null}, grp);
         if (w) {
-          el("text", {x:g.D[4] + 8, y:cb + 3.5, class:"num", fill:w.track}, grp, num(w.id));
+          el("text", {x:g.D[4] + 8, y:cb + 3.5, class:"num"}, grp, num(w.id));
           el("text", {x:g.D[4] + 30, y:cb + 4, class:"nm"}, grp, w.name);
         } // Ken 11/21: undeveloped stops stay blank (empty dashed box) so the four worlds stand out.
       } else {
         el("rect", {x:cb - 18, y:g.D[4], width:36, height:26, rx:3, stroke:w ? w.track : null}, grp);
-        if (w) el("text", {x:cb, y:g.D[4] + 17, class:"num", fill:w.track, "text-anchor":"middle"}, grp, num(w.id));
+        if (w) el("text", {x:cb, y:g.D[4] + 17, class:"num", "text-anchor":"middle"}, grp, num(w.id));
       }
       if (w) grp.style.setProperty("--track", w.track);
       leaves.push({i, w, n:grp});
@@ -345,7 +355,7 @@
   function setWorld(w, animate = true) {
     current = w;
     const root = document.documentElement.style;
-    root.setProperty("--tone", w.tone); root.setProperty("--tone-ink", w.ink); root.setProperty("--track", w.track); root.setProperty("--rim", w.rim || w.track); // rim = border on the filled box
+    root.setProperty("--tone", w.tone); root.setProperty("--track", w.track); root.setProperty("--track-ink", w.trackInk); // track = line, border and the filled stop
     document.getElementById("eyebrow").textContent = `World ${num(w.id)} · 2040`;
     document.getElementById("title").textContent = w.name;
     document.querySelectorAll("#switch button").forEach(b => b.setAttribute("aria-pressed", String(+b.dataset.id === w.id)));

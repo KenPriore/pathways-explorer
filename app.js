@@ -122,8 +122,9 @@ function drawMap(map) {
     const toX = end.left - bounds.left;
     const toY = (end.top + end.bottom) / 2 - bounds.top;
     const elbow = fromX + (toX - fromX) * (index === 0 || index === 3 ? .42 : .64);
-    context.strokeStyle = worlds[index].track;
-    context.fillStyle = worlds[index].track;
+    const track = getComputedStyle(endpoint).getPropertyValue("--track").trim(); // canvas cannot read var(); this is the resolved token
+    context.strokeStyle = track;
+    context.fillStyle = track;
     context.lineWidth = 2;
     context.beginPath();
     context.moveTo(fromX, fromY + (index - 1.5) * 6);
@@ -163,7 +164,7 @@ function renderWorld(world, tab) {
 function renderRoute(world) {
   return `<header class="body-head route-cap"><h2 id="section-title">Route map</h2>
       <p><span><span class="route-part">Three questions with two answers each make eight possible worlds.</span> <span class="route-part">Follow the line to this one.</span></span></p></header>
-    <iframe class="route-frame" title="Route map: the three forks that lead to ${safe(world.name)}" src="route-map.html?world=${world.id}&embed=1&joined=1&v=20261122f"></iframe>`;
+    <iframe class="route-frame" title="Route map: the three forks that lead to ${safe(world.name)}" src="route-map.html?world=${world.id}&embed=1&joined=1&v=20261122g"></iframe>`;
 }
 
 function boldFirstSentence(text) {

@@ -5,7 +5,7 @@ window.PATHWAYS = {
   worlds: [
     {
       id: 1, name: "Big Tech Enterprise", role: "CLO becomes COO",
-      tone: "var(--blue)", ink: "var(--white)", track: "#aecbff",
+      tone: "var(--blue)", ink: "var(--paper)", track: "var(--paper)",
       labels: ["Integrated", "Enterprise-led", "Algorithm-led"],
       premise: "Legal moves inside the software that already runs the business, and the system answers routine legal questions before a lawyer sees them.",
       summary: "The COO owns that software and the legal agents working inside it. In-house legal owns the rules those agents follow and answers for what they decide. Legal stops being a standalone function and becomes a small senior team that may report to the COO or CTO. Watch whether legal keeps its independence as its reach across the company grows.",
@@ -39,7 +39,7 @@ window.PATHWAYS = {
     },
     {
       id: 2, name: "The App Store for Law", role: "In-house legal as conductor",
-      tone: "var(--yellow)", ink: "var(--ink)", track: "#f0c919",
+      tone: "var(--yellow)", ink: "var(--ink)", track: "var(--yellow)",
       labels: ["Fragmented", "Enterprise-led", "Algorithm-led"],
       premise: "No single platform wins. In-house legal picks the specialist tools, plays them off each other, and keeps rebuilding the set as the business changes.",
       summary: "Specialist tools, firms, and agents do the work, and no one company controls the market. In-house legal holds the budget and the company’s own legal knowledge, and sets the standards for access, privilege, security, and how the tools connect. Watch whether all that choice adds up to real control.",
@@ -70,7 +70,7 @@ window.PATHWAYS = {
     },
     {
       id: 3, name: "Big Law Owns the Stack", role: "Law firm–tech alliance",
-      tone: "var(--rose)", ink: "var(--white)", track: "#C0455F",
+      tone: "var(--rose)", ink: "var(--paper)", track: "var(--rose)",
       labels: ["Integrated", "Provider-led", "Algorithm-led"],
       premise: "Law firms and their tech partners build and run the systems that do most legal work, and the company depends on systems it does not own.",
       summary: "The firms hold the data and run the systems. The in-house team decides how much risk the company will accept and handles the exceptions, but what the firm’s system decides usually stands. Watch whether the company can still take its data, playbooks, and matter history to another firm. The easier that stays, the closer this world moves to the App Store.",
@@ -104,7 +104,7 @@ window.PATHWAYS = {
     },
     {
       id: 4, name: "Hands on the Wheel", role: "Human judgment on top",
-      tone: "var(--navy)", ink: "var(--white)", track: "#e4edf9",
+      tone: "var(--ink)", ink: "var(--paper)", track: "var(--ink)",
       labels: ["Integrated", "Provider-led", "Human-led"],
       premise: "Connected systems do most routine legal work, and qualified people keep the power to stop the machine and change the result on the calls that matter most.",
       summary: "Outside providers run the systems that link companies, law firms, courts, and regulators. Licensed people inside and outside the company can challenge those systems and overrule them where fairness and public trust are on the line. People keep the last word, but only just. Watch whether they hold it in practice, or only put a human face on decisions the system already made.",
