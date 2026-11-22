@@ -63,19 +63,14 @@ function worldCard(world) {
 }
 
 // The hero (title + scenario map) tops both the home page and Compare.
-// On Compare the "Compare worlds" button would point at the page you're on, so it drops.
 function heroSection({onCompare = false} = {}) {
-  // Ken 11/21: on Compare, no hero buttons at all, and the band sits tighter (.hero--compact).
+  // Ken 11/22 ("remove"): no hero buttons on either page; the top bar has Worlds and Compare. Compare keeps the tighter band (.hero--compact).
   return `<section class="hero${onCompare ? " hero--compact" : ""}">
     <div class="wrap hero-inner">
       <div>
         <p class="eyebrow">Pathways · Scenario explorer</p>
         <h1>The Future<br>of Law to <span>2040</span></h1>
         <p class="intro">Four possible worlds for legal work in 2040. Each one gives a different answer to the same three open questions: <span class="q q1">whether legal technology connects into shared systems or stays a kit of specialist tools</span>, <span class="q q2">whether the company or its outside providers drive the change</span>, and <span class="q q3">whether systems or people make the final call</span>.</p>
-        ${onCompare ? "" : `<div class="actions">
-          <a class="button yellow" href="#four-worlds">Explore the four worlds</a>
-          <a class="button outline" href="#compare">Compare worlds</a>
-        </div>`}
       </div>
       <figure class="hero-map">
         <figcaption class="map-caption"><span>Scenario map</span><span>2026 to 2040</span></figcaption>

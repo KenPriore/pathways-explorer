@@ -722,3 +722,5 @@ body:has(.world-switcher a:nth-child(4)[aria-current]) .ob-tabs a[aria-current=p
   .body-head.quote-band>h2{padding-block:.8rem}
   .body-head.quote-band>.quote{grid-column:1;border-left:1px solid #d5dce7;border-top:0;border-radius:0 0 var(--radius) var(--radius)}
 }
+/* Ken 11/22: home hero has no buttons now, so drop the minimum height that would pad it at tablet widths */
+.hero:not(.hero--compact) .hero-inner{min-height:0}
