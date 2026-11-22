@@ -3,31 +3,31 @@
    Motion follows the assumptions strip: right to left, a click or tap stops and restarts, drag or swipe either way. */
 window.CreditsPhotos = (() => {
   // Story order, by the capture time in each original. Alt text names only Ken.
+  // [file number, height, alt]. Photo 01 (the whiteboard) was removed (Ken 11/22: "Can you delete that photo from the credits strip"); the files keep their numbers.
   const photos = [
-    [1201, "Ken Priore writes on a whiteboard next to cards of open questions."],
-    [1201, "Ken Priore smiles as he turns to the person sitting next to him during a session."],
-    [1201, "Ken Priore raises a hand mid-sentence as he talks with another participant."],
-    [1200, "Ken Priore sits in a circle of participants around picture cards spread across the floor."],
-    [1201, "Ken Priore, a notepad on his knee, listens during a group discussion."],
-    [1201, "Ken Priore laughs with others in the circle."],
-    [1201, "Ken Priore leans back in his chair and listens to the discussion."],
-    [1201, "Ken Priore holds his notes and presents in front of a Three Horizons chart."],
-    [1201, "Ken Priore talks two participants through a Three Horizons chart."]
+    [2, 1201, "Ken Priore smiles as he turns to the person sitting next to him during a session."],
+    [3, 1201, "Ken Priore raises a hand mid-sentence as he talks with another participant."],
+    [4, 1200, "Ken Priore sits in a circle of participants around picture cards spread across the floor."],
+    [5, 1201, "Ken Priore, a notepad on his knee, listens during a group discussion."],
+    [6, 1201, "Ken Priore laughs with others in the circle."],
+    [7, 1201, "Ken Priore leans back in his chair and listens to the discussion."],
+    [8, 1201, "Ken Priore holds his notes and presents in front of a Three Horizons chart."],
+    [9, 1201, "Ken Priore talks two participants through a Three Horizons chart."]
   ];
   const phone = matchMedia("(max-width:670px)");
   // COPY.md, Captions: a season and NYC, never a day or a month.
-  const caption = index => (index < 6 ? "NYC · Spring 2026" : "NYC · Summer 2026");
+  const caption = number => (number <= 6 ? "NYC · Spring 2026" : "NYC · Summer 2026");
   const calm = matchMedia("(prefers-reduced-motion:reduce)");
   const SPEED = {wide: 40, phone: 30};
   const HOLD = 1200; // a beat on the first photo before it leaves
   const TAP = 8;     // px of travel before a press counts as a drag
   let current = null;
 
-  const list = copy => photos.map(([height, alt], index) => {
-    const file = `photos/${String(index + 1).padStart(2, "0")}`;
+  const list = copy => photos.map(([number, height, alt], index) => {
+    const file = `photos/${String(number).padStart(2, "0")}`;
     return `<li class="cp-photo" data-index="${index}" style="--ratio:${1800 / height}">
       <img width="1800" height="${height}" alt="${copy ? "" : alt}" decoding="async" draggable="false"
-        data-src="${file}.jpg" data-srcset="${file}-720.jpg 720w, ${file}-1200.jpg 1200w, ${file}.jpg 1800w"><span class="cp-cap">${caption(index)}</span></li>`;
+        data-src="${file}.jpg" data-srcset="${file}-720.jpg 720w, ${file}-1200.jpg 1200w, ${file}.jpg 1800w"><span class="cp-cap">${caption(number)}</span></li>`;
   }).join("");
 
   // The words are explorations/credits-photos/COPY.md, Draft (v2, Ken's answers), unchanged.
