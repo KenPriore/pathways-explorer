@@ -68,7 +68,6 @@ function heroSection({onCompare = false} = {}) {
   return `<section class="hero${onCompare ? " hero--compact" : ""}">
     <div class="wrap hero-inner">
       <div>
-        <p class="eyebrow">Pathways</p>
         <h1>The Future<br>of Law to <span>2040</span></h1>
         <p class="intro">Four possible worlds for legal work in 2040. Each one gives a different answer to the same three open questions: <span class="q q1">whether legal technology connects into shared systems or stays a kit of specialist tools</span>, <span class="q q2">whether the company or its outside providers drive the change</span>, and <span class="q q3">whether systems or people make the final call</span>.</p>
       </div>
