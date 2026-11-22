@@ -1,6 +1,6 @@
 @font-face{font-family:Archivo;src:url(fonts/Archivo-variable.ttf) format("truetype");font-weight:100 900;font-display:swap}
 @font-face{font-family:Roboto Slab;src:url(fonts/RobotoSlab-variable.ttf) format("truetype");font-weight:100 900;font-display:swap}
-/* Signal Bold v1 palette, from signal-bold/design-system/v1/tokens.css. No other hue, and no second blue. */
+/* Signal Bold v1 palette. No other hue, and no second blue. */
 :root{--paper:#FFFFFF;--ink:#17171C;--ink-2:#484951;--muted:#5F5F5F;--grey:#E4E5E7;--blue:#2E5AA6;--yellow:#F0C919;--rose:#C0455F}
 /* The only derivations, each an alpha of a token:
    grey-50  = quiet fills (closing story cell, row heads, quote and data cells, term chips)
@@ -8,7 +8,7 @@
    paper-55 = frames and rules on blue (3:1 or better)
    ink-20   = tooltip shadow */
 :root{--grey-50:rgba(228,229,231,.5);--paper-07:rgba(255,255,255,.07);--paper-55:rgba(255,255,255,.55);--ink-20:rgba(23,23,28,.2)}
-:root{--mono:"Roboto Mono","SFMono-Regular",Consolas,monospace;--slab:"Roboto Slab",Georgia,serif;--radius:8px;--gap:clamp(.75rem,1.35vw,1.15rem);--pad:clamp(1.05rem,2vw,1.75rem)}
+:root{--mono:"Roboto Mono","SF Mono",Menlo,Consolas,monospace;--slab:"Roboto Slab",Georgia,serif;--radius:8px;--gap:clamp(.75rem,1.35vw,1.15rem);--pad:clamp(1.05rem,2vw,1.75rem)}
 *,*::before,*::after{box-sizing:border-box}
 html{color:var(--ink)}
 body{margin:0;background:var(--paper);color:var(--ink);font:400 1rem/1.55 Archivo,Arial,sans-serif}
@@ -91,7 +91,7 @@ h1,h2{font-family:var(--slab);letter-spacing:-.045em}
 /* Credits page (#credits): the blue band and lede. The rest of the page is credits-photos.css. */
 .credits-hero{background:var(--blue);color:var(--paper);border-bottom:7px solid var(--yellow)}
 .credits-hero h1{font:870 clamp(2.6rem,5vw,4.6rem)/.98 var(--slab);letter-spacing:-.035em;margin:0;text-wrap:balance}
-/* Compare head (Ken 11/21): heading on its own row, then two equal filled cells. The second cell is dashed,
+/* Compare head: heading on its own row, then two equal filled cells. The second cell is dashed,
    echoing the blank stops on the route map: the four undeveloped combinations, and a 2040 that may mix them all. */
 .section-head.compare-head{grid-template-columns:repeat(2,minmax(0,1fr));align-items:stretch}
 .section-head.compare-head .compare-title{grid-column:1/-1;align-self:end}
@@ -168,7 +168,7 @@ footer.family .colophon a:hover{color:var(--blue)}
 .world-overview .panel:nth-of-type(2) {border-top-color:var(--rose)}
 .world-overview .panel h3 {font:740 clamp(1.25rem,2vw,1.65rem)/1.2 var(--slab);letter-spacing:-.035em}
 .quote {margin:0;background:var(--ink);color:var(--paper);border-left:7px solid var(--yellow);border-radius:var(--radius);padding:var(--pad);font:680 clamp(1.22rem,2.1vw,1.65rem)/1.35 var(--slab);letter-spacing:-.025em}
-/* Route map tab (Ken 11/21: popup too small → its own world tab). The frame spans the full content width;
+/* Route map tab: its own world tab. The frame spans the full content width;
    height follows the map's 640:336 drawing plus its caption and footer rows. */
 .world-body:has(>.route-frame){container-type:inline-size}
 /* frame W: horizontal map (W>=502) = cap 29 + borders 2 + pad 12 + (W-18)*.525 + gap 8 + footer 54; vertical = (W-18) square + same rows */
@@ -292,7 +292,7 @@ footer.family .colophon a:hover{color:var(--blue)}
   .milestone,.milestone:last-child {grid-template-columns:1fr;gap:.5rem}
 }
 
-/* ══════════ Design pass (11/21): one grid, one type scale, one section-head pattern ══════════
+/* ══════════ One grid, one type scale, one section-head pattern ══════════
    Every composition snaps to a 4-column grid inside var(--wrap), with the same gutter as the card grid.
    Two head patterns, both on that grid:
    · section head  = heading in columns 1–2, lede in columns 3–4, ruled on top (Enter a world, Compare, world chapters)
@@ -425,16 +425,14 @@ p,li,blockquote{text-wrap:pretty}
   .compare-table td>.axis-term{display:inline-flex;align-items:center;min-height:44px;padding-block:0}
 }
 
-/* ══════════ Bento pass (11/21): every boxed or ruled block is filled edge to edge ══════════
-   The old ch caps (36/44/46/52/56/62/66/67/68/82ch) sat inside full-width boxes and grid cells and left a dead right side.
+/* ══════════ Every boxed or ruled block is filled edge to edge ══════════
    Rule: a cell's text runs its full width; long copy splits into columns or cells instead of a capped paragraph. */
 .hero p.intro,.credits-lede,.panel p{max-width:none}
 .section-head p,.title-block p:not(.eyebrow){max-width:none}
 /* signals with only two stories: the side story's headline steps up so its cell is not a short line over a void */
 .news-stories:not(:has(.news-story:nth-child(3))) .news-story:nth-child(2) h3{font-size:clamp(1.5rem,2.5vw,2.2rem);line-height:1.12}
 @media(max-width:900px){.section-head p,.title-block p:not(.eyebrow){font-size:1.12rem}}
-/* Section heads (Ken 11/21, "that doesn't look good"): the big heading sat low-left and a grey paragraph floated
-   high-right with a void between. Now one bento row: heading cell + a filled lede cell, same height, text centred. */
+/* Section heads: one bento row, a heading cell + a filled lede cell, same height, text centred. */
 .section-head,.body-head{align-items:stretch}
 .section-head h2,.body-head h2,.section-head .compare-title{align-self:end;margin:0}
 .section-head p,.title-block p:not(.eyebrow),.body-head .quote{align-self:stretch;display:flex;align-items:center;margin:0;max-width:none;padding:.7rem clamp(1rem,1.6vw,1.25rem);background:var(--paper);border:1px solid var(--grey);border-left:5px solid var(--yellow);color:var(--ink);font-size:.95rem;line-height:1.45;text-wrap:pretty}
@@ -449,7 +447,6 @@ p,li,blockquote{text-wrap:pretty}
 @media(max-width:900px){.section-head p,.title-block p:not(.eyebrow){font-size:1rem}}
 /* signals: the first side story starts on the lead story's eyebrow line */
 @media(min-width:671px){.news-story:nth-child(2){padding-top:clamp(1.25rem,2.5vw,2rem)}}
-/* Copy pass (11/21): rewritten story beats */
 /* Story beats: the third beat ("what's different") is the short payoff; give it a narrower track, slab type and a light grey fill so no cell sits half empty */
 @media(min-width:901px){.world-story{grid-template-columns:minmax(0,1fr) minmax(0,1.12fr) minmax(0,.88fr)}}
 .story-beat:last-child{background:var(--grey-50)}
@@ -457,8 +454,8 @@ p,li,blockquote{text-wrap:pretty}
 /* World 4: the third beat is a full paragraph, so body type, bold first sentence, and tracks sized to the three text lengths */
 .world-story--long-diff .story-beat:last-child p:not(.eyebrow){font:inherit;font-size:1.02rem;line-height:1.6;letter-spacing:inherit;color:inherit}
 .world-story--long-diff .story-beat:last-child strong{font-weight:700;color:var(--ink)}
-@media(min-width:901px){.world-story--long-diff{grid-template-columns:minmax(0,.88fr) minmax(0,1.2fr) minmax(0,.92fr)}}
-/* Worlds 1-3 (Ken 11/22): tracks sized to the three text lengths, as on World 4, so the columns end within a line of each other.
+@media(min-width:901px){.world-story--long-diff{grid-template-columns:minmax(0,.86fr) minmax(0,1.22fr) minmax(0,.92fr)}}
+/* Worlds 1-3: tracks sized to the three text lengths, as on World 4, so the columns end within a line of each other.
    The third beat is short enough to keep its slab type. Retune these if that story copy changes length. */
 .story-keep{white-space:nowrap}
 /* The narrow third label wraps, so the three labels share one row and the three texts start on one line */
@@ -495,7 +492,7 @@ p,li,blockquote{text-wrap:pretty}
 @media(min-width:1389px){
   .world-story--w1{grid-template-columns:minmax(0,.84fr) minmax(0,1.42fr) minmax(0,.74fr)}
 }
-/* Data band + compare rows (11/21, voice-interview revision).
+/* Data band + compare rows.
    "Where the data sits" is the third overview panel in a 2-column grid. Alone in a half row it left an orphan cell,
    so it spans the row as a 2-cell bento band: a filled ink heading cell + a tinted text cell that runs the full
    remaining width. Yellow top rule (blue and rose belong to the two panels above). */
@@ -505,8 +502,8 @@ p,li,blockquote{text-wrap:pretty}
 @media(max-width:760px){.world-overview .panel--data{grid-template-columns:minmax(0,1fr)}.world-overview .panel--data h3{padding-block:.8rem}}
 .compare-table,.compare-table :is(thead,tbody,tr){border-color:var(--grey)} /* not the browser default grey */
 
-/* ===== Header: one bar (option A, live 2026-11-21) =====
-   One row: family mark + KEN PRIORE | Pathways 2040, then the three Pathways tabs, then a muted way out.
+/* ===== Header: one bar =====
+   One row: family mark + name | Pathways 2040, then the three Pathways tabs, then a muted way out.
    The four-colour stripe is the header's one accent. It runs along the top edge: under the bar its blue
    quarter disappeared into the blue home hero, and on world pages it doubled the switcher's colour tabs. */
 header.ob{background:var(--paper);position:relative;z-index:20;border-bottom:1px solid var(--grey)}
@@ -553,18 +550,18 @@ body:has(.world-switcher a:nth-child(4)[aria-current]) .ob-tabs a[aria-current=p
 }
 @media(max-width:760px){.ob-out{display:none}}
 
-/* Home, "Enter a world" (Ken 11/21: lede removed). A lone heading needs no second rule or lede column:
+/* Home, "Enter a world": a lone heading needs no second rule or lede column:
    it sits on the card grid's left edge, with the same space to the yellow hero rule and to the cards. */
 #four-worlds{--head-space:clamp(2rem,3.4vw,3rem);padding-top:var(--head-space)}
 #four-worlds>.section-head{display:block;border-top:0;padding-top:0;margin-bottom:var(--head-space)}
 
-/* Ken 11/22: the three questions in the hero each get their own text color (no fill). His choice of yellow, rose and white: q3 passes 4.5:1 on the hero blue; q1 (4.18:1) and q2 (1.36:1) do not. */
+/* The three questions in the hero each get their own text color (no fill): yellow, rose and white. q3 passes 4.5:1 on the hero blue; q1 (4.18:1) and q2 (1.36:1) do not. */
 .hero p.intro .q{font-weight:650}
 .hero p.intro .q1{color:var(--yellow)}
 .hero p.intro .q2{color:var(--rose)}
 .hero p.intro .q3{color:var(--paper)}
 
-/* Route map header, option B: the header is the map's own top bar, in the stage's blue and border.
+/* Route map header: the header is the map's own top bar, in the stage's blue and border.
    route-map.html?joined=1 drops its duplicate caption and squares the top of its stage. */
 .body-head.route-cap{grid-template-columns:auto minmax(0,1fr);gap:0;align-items:stretch;margin:0;padding:0;border:1px solid var(--paper-55);border-bottom-color:var(--paper-55);border-radius:8px 8px 0 0;background:var(--blue);color:var(--paper)}
 .body-head.route-cap>h2{grid-column:1;align-self:stretch;display:flex;align-items:center;padding:.85rem 1.25rem;border-right:1px solid var(--paper-55);color:var(--paper);font-size:1.5rem;white-space:nowrap}
@@ -599,5 +596,5 @@ body:has(.world-switcher a:nth-child(4)[aria-current]) .ob-tabs a[aria-current=p
   .body-head.quote-band>h2{padding-block:.8rem}
   .body-head.quote-band>.quote{grid-column:1;border-left:1px solid var(--grey);border-top:0;border-radius:0 0 var(--radius) var(--radius)}
 }
-/* Ken 11/22: home hero has no buttons now, so drop the minimum height that would pad it at tablet widths */
+/* The home hero has no buttons, so drop the minimum height that would pad it at tablet widths */
 .hero:not(.hero--compact) .hero-inner{min-height:0}

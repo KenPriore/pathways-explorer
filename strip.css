@@ -1,5 +1,5 @@
-/* Assumptions strip (Ken 2026-11-22). A white band under the hero; color alone carries the type.
-   Shift = yellow, To be tested = rose, Frame = blue. Three colors, the site's own (Ken: no navy, no teal). */
+/* Assumptions strip. A white band under the hero; color alone carries the type.
+   Shift = yellow, To be tested = rose, Frame = blue. Three colors, all the site's own. */
 .astrip{
   --shift:var(--yellow);--test:var(--rose);--frame:var(--blue);
   /* the only derivations, alphas of tokens: the grid (blue 16%), the panel's dividers (ink 25% on yellow, paper 55% on rose and blue) */
@@ -25,7 +25,7 @@
 .as-view{
   grid-column:3;position:relative;min-width:0;overflow:hidden;overflow:clip;touch-action:pan-y pinch-zoom;
   cursor:grab;
-  /* v1's grid, reversed to blue on white: it belongs to the window, so the cards move over it */
+  /* the grid, blue on white: it belongs to the window, so the cards move over it */
   background-image:linear-gradient(90deg,var(--grid) 1px,transparent 1px),linear-gradient(var(--grid) 1px,transparent 1px);
   background-size:24px 24px;background-position:-1px var(--grid-y);
 }
@@ -46,7 +46,7 @@
 .as-field{margin-top:11px;font:700 .67rem/14px var(--mono);letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
 .as-meaning{margin-top:4px;font-size:.9rem;line-height:20px;font-weight:450;text-wrap:pretty}
 
-/* v1's routed track runs from a shift to its test, in the test's rose, with the map's square at the turn */
+/* the routed track runs from a shift to its test, in the test's rose, with the map's square at the turn */
 .as-set>li.before-link{margin-right:0}
 .as-set>li.linked{margin-left:var(--link)}
 .as-wire{position:absolute;right:100%;top:0;width:var(--link);height:100%;overflow:visible;pointer-events:none;color:var(--test)}

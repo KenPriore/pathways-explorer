@@ -1,5 +1,5 @@
 /* Clock intro, the year counter: each color comes in with its words, then the page fades in.
-   Every frame is a function of t, so ?intro=1&t=<ms> renders exactly what plays.
+   Every frame is a function of t.
    The last positions are measured from the page underneath, never hard-coded. */
 (() => {
   "use strict";
@@ -50,10 +50,9 @@
   /* The strip has no hold of its own for an overlay, so this uses its public calls:
      seek(0) freezes it at the start, and a fresh mount afterwards gives it the normal opening beat. */
   const strip = window.AssumptionsStrip;
-  const review = new URLSearchParams(location.search).get("strip"); // a frozen review position is left alone
   let stripHeld = false;
   function holdStrip() {
-    if (review || !strip || !document.querySelector("main .astrip")) return;
+    if (!strip || !document.querySelector("main .astrip")) return;
     strip.seek(0);
     stripHeld = true;
   }

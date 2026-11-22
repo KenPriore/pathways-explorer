@@ -1,9 +1,9 @@
 "use strict";
-/* Credits: "How it came together" (mockup, Ken 2026-11-22).
+/* Credits: "How it came together".
    Motion follows the assumptions strip: right to left, a click or tap stops and restarts, drag or swipe either way. */
 window.CreditsPhotos = (() => {
-  // Story order, by the capture time in each original. Alt text names only Ken.
-  // [file number, height, alt]. Photo 01 (the whiteboard) was removed (Ken 11/22: "Can you delete that photo from the credits strip"); the files keep their numbers.
+  // Story order, by the capture time in each original. Alt text names no other participant.
+  // [file number, height, alt]. The files keep their original numbers, so the list starts at 02.
   const photos = [
     [2, 1201, "Ken Priore smiles as he turns to the person sitting next to him during a session."],
     [3, 1201, "Ken Priore raises a hand mid-sentence as he talks with another participant."],
@@ -15,7 +15,7 @@ window.CreditsPhotos = (() => {
     [9, 1201, "Ken Priore talks two participants through a Three Horizons chart."]
   ];
   const phone = matchMedia("(max-width:670px)");
-  // COPY.md, Captions: a season and NYC, never a day or a month.
+  // Captions: a season and NYC, never a day or a month.
   const caption = number => (number <= 6 ? "NYC · Spring 2026" : "NYC · Summer 2026");
   const calm = matchMedia("(prefers-reduced-motion:reduce)");
   const SPEED = {wide: 40, phone: 30};
@@ -30,7 +30,6 @@ window.CreditsPhotos = (() => {
         data-src="${file}.jpg" data-srcset="${file}-720.jpg 720w, ${file}-1200.jpg 1200w, ${file}.jpg 1800w"><span class="cp-cap">${caption(number)}</span></li>`;
   }).join("");
 
-  // The words are explorations/credits-photos/COPY.md, Draft (v2, Ken's answers), unchanged.
   // .cp-keep adds no words: it stops a sentence leaving its first or last word alone at a line's edge.
   function html() {
     return `<section class="cp-story wrap" aria-labelledby="cp-title">
@@ -48,7 +47,7 @@ window.CreditsPhotos = (() => {
     </section>`;
   }
 
-  // The last section of the page, after the thank-you block (Ken: "move the photo strip to the bottom of the pae").
+  // The last section of the page, after the thank-you block.
   function strip() {
     return `<section class="cp-strip"><div class="cp-in">
       <div class="cp-view" role="region" aria-roledescription="carousel" aria-label="Photos of Ken Priore at Pathways" tabindex="0">
@@ -67,10 +66,8 @@ window.CreditsPhotos = (() => {
     const listeners = new AbortController();
     const on = (target, type, handler, options = {}) => target.addEventListener(type, handler, {signal: listeners.signal, ...options});
 
-    const query = new URLSearchParams(location.search).get("photos");
-    let frozen = query !== null && query !== "" && Number.isFinite(Number(query));
-    let offset = frozen ? Number(query) : 0;
-    let held = !frozen, paused = false, onScreen = false, near = false, alive = true;
+    let frozen = false, offset = 0;
+    let held = true, paused = false, onScreen = false, near = false, alive = true;
     let holdTimer = 0, loop = 0, width = 0, height = 0, starts = [], slots = [];
     let frame = 0, last = null, resizeFrame = 0, drag = null, suppressClick = false, coast = 0;
 

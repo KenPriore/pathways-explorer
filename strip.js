@@ -46,12 +46,10 @@ window.AssumptionsStrip = (() => {
     const listeners = new AbortController();
     const on = (target, type, handler, options = {}) => target.addEventListener(type, handler, {signal: listeners.signal, ...options});
 
-    const query = new URLSearchParams(location.search).get("strip");
-    let frozen = query !== null && query !== "" && Number.isFinite(Number(query));
-    let offset = frozen ? Number(query) : 0;
+    let frozen = false, offset = 0;
     let loop = 0, gap = 0, room = 0, viewLeft = 0, width = 0;
     let selected = null, paused = false, byKey = false, resumeAt = null;
-    let onScreen = false, held = !frozen, alive = true;
+    let onScreen = false, held = true, alive = true;
     let frame = 0, last = null, resizeFrame = 0, drag = null, press = null, suppressClick = false, coast = 0;
 
     const wrapped = value => ((value % loop) + loop) % loop;
@@ -193,7 +191,7 @@ window.AssumptionsStrip = (() => {
       gap = parseFloat(getComputedStyle(strip).getPropertyValue("--gap"));
       fitBoxes();
       loop = real.getBoundingClientRect().width;
-      if (before && !frozen) offset *= loop / before; // a frozen review offset stays exactly as asked
+      if (before && !frozen) offset *= loop / before; // a seeked offset stays where it was put
       width = view.getBoundingClientRect().width;
       viewLeft = view.getBoundingClientRect().left;
       room = Math.min(width, root.querySelector(".hero-inner").getBoundingClientRect().right - viewLeft);

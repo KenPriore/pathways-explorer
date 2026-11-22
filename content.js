@@ -1,4 +1,4 @@
-// Four scenarios for legal work through 2040. Copy revised 2026-11-21 (story pass: one job per field, traced to the Pathways book and deck).
+// Four scenarios for legal work through 2040. One job per field, traced to the Pathways book and deck.
 window.PATHWAYS = {
   years: [2026, 2030, 2035, 2040],
   axes: ["Tech layer", "Transformation driver", "Trust and authority"],
@@ -64,8 +64,7 @@ window.PATHWAYS = {
         ["AI pushes legal toward the center of business strategy.", "Law.com · summary"]
       ],
       evidence: [
-        ["How much firms invest", "A Law.com chart asks Am Law 200 firms what share of gross revenue they invested in AI in FY 2025. The largest response bucket is below 0.5%. Responses decline across higher investment bands through 4–5%."],
-        ["What firms prioritize", "Commercial AI tools lead the chart, followed by training and upskilling, and data governance and security. It also tracks custom development for firms and clients, infrastructure, recruiting AI specialists, and other spending."]
+        ["How much firms invest", "A Law.com chart asks Am Law 200 firms what share of gross revenue they invested in AI in FY 2025."]
       ]
     },
     {
@@ -115,11 +114,11 @@ window.PATHWAYS = {
       quote: "A qualified human remains responsible for knowing when to take the wheel.",
       story: {
         now: "Most legal work runs faster and cheaper than ever, and the system gets most of the way on its own. When a call touches fairness, someone’s job, a vulnerable group, or public trust, it goes to a person with the expertise, the access, and the authority to change it. That person might be an in-house lawyer, a firm partner, a licensed specialist, or a legal engineer.",
-        path: "The warnings came in 2026. A federal court sanctioned lawyers for a filing built on AI-invented citations, a leading law school banned AI in core legal reasoning, and states such as Arizona, California, and Oregon began experimenting with who besides lawyers can offer legal help. By 2030 AI agents had failed again and again, and after the breaches and the public backlash, institutions decided a reviewer had to be able to change the result. Professional bodies then licensed a wider workforce so review could keep up.",
+        path: "The warnings came in 2026. A federal court sanctioned lawyers for a filing built on AI-invented citations, a leading law school banned most AI use in graded work, and states such as Arizona, California, and Oregon were already experimenting with who besides lawyers can offer legal help. By 2030 AI agents had failed again and again, and after the breaches and the public backlash, institutions decided a reviewer had to be able to change the result. Professional bodies then licensed a wider workforce so review could keep up.",
         diff: "Today “human review” can mean a signature at the end, and the main way into legal runs through law school and a firm. By 2040 a reviewer who can’t change the outcome doesn’t count. The profession has grown wider: licensed specialists, certified reviewers, and legal engineers whose title now carries a license. None of those routes has to start at law school."
       },
       timeline: [
-        ["Warnings accumulate", "Early signals include sanctions for AI-invented citations, a law school restricting AI in core legal reasoning, and states licensing paraprofessionals for defined services.", "Each one draws a line where a qualified person has to stay involved."],
+        ["Warnings accumulate", "Early signals include sanctions for AI-invented citations, a law school restricting most AI use in graded work, and states licensing paraprofessionals for defined services.", "Each one draws a line where a qualified person has to stay involved."],
         ["Trust failures trigger backlash", "Repeated failures by AI agents push institutions to require human accountability that means something.", "A reviewer now needs expertise, access to the system’s reasoning, and the authority to change what it would do."],
         ["A broader workforce lets review keep up", "Professional bodies license specialists, translators, legal engineers, and certified reviewers.", "Knowing when to intervene becomes a scarce skill."],
         ["Humans challenge a machine-cleared launch", "A board delays a product launch after its legal system cleared it.", "In-house legal brings in a regulatory partner and a licensed consumer-protection specialist. They challenge an assumption that hid a risk to a vulnerable group. The system was right on its own terms. The humans were responsible for the terms."]

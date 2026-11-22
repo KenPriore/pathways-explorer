@@ -1,5 +1,4 @@
-// Generated from the assumptions brief plus COPY.md. The wording is theirs.
-// Mixed order (Ken 2026-11-22): a test always follows its shift, and the tags carry no numbers.
+// The assumptions under the four worlds, in strip order: a test always follows its shift, and the tags carry no numbers.
 window.ASSUMPTIONS = [
   {
     "kind": "shift",

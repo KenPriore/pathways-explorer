@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
 <title>Route map · Pathways</title>
-<!-- Route map (from motion-ideas/03-route.html, Ken's pick 11/21).
+<!-- Route map.
      Loaded in an iframe by the world page's Route map tab: route-map.html?world=N&embed=1
      embed=1 hides this file's own header and world switcher (the page supplies the title). -->
 <style>
@@ -17,7 +17,7 @@
      35 blank stop, 55 branch, frame and rule, 75 resting node, 80 label and stop name off the route (4.5:1 or better) */
   :root{--paper-07:rgba(255,255,255,.07);--paper-25:rgba(255,255,255,.25);--paper-35:rgba(255,255,255,.35);--paper-55:rgba(255,255,255,.55);--paper-75:rgba(255,255,255,.75);--paper-80:rgba(255,255,255,.80)}
   html{color:var(--ink)}
-  :root{--mono:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;--slab:"Roboto Slab",Georgia,serif;--tone:var(--blue);--track:var(--paper);--track-ink:var(--blue)}
+  :root{--mono:"Roboto Mono","SF Mono",Menlo,Consolas,monospace;--slab:"Roboto Slab",Georgia,serif;--tone:var(--blue);--track:var(--paper);--track-ink:var(--blue)}
   *{box-sizing:border-box}
   html,body{margin:0}
   body{background:var(--paper);color:var(--ink);font:400 1rem/1.45 Archivo,Arial,sans-serif;min-height:100vh;display:grid;place-items:center}
@@ -67,7 +67,7 @@
   .lbl.on text{fill:var(--paper)} /* line, node and pill border carry the world */
   .lbl.on .pill{stroke:var(--track)}
   .lbl.on .arr{opacity:1}
-  /* off the route: lighter weight, never group opacity on text (Ken 11/22, 4.5:1) */
+  /* off the route: lighter weight, never group opacity on text (4.5:1 or better) */
   .lbl.off text{font-weight:500}
   .lbl.off .pill{stroke-opacity:.7}
   .today rect{fill:var(--blue);stroke:var(--paper-55);stroke-width:1}
@@ -131,11 +131,11 @@
     {id:3, name:"Big Law Owns the Stack", tone:rose, ink:paper, track:rose, trackInk:paper, bits:[0,1,0]},
     {id:4, name:"Hands on the Wheel", tone:ink, ink:paper, track:ink, trackInk:paper, bits:[0,1,1], contested:true}
   ];
-  // Checked against the Pathways book, "Four worlds, shaped by three uncertainties" (11/21):
-  // 01 Tech layer: Integrated ↔ Fragmented (book terms; "one stack" overstated it: integrated = interoperable, shared data, connected systems)
+  // Checked against the Pathways book, "Four worlds, shaped by three uncertainties":
+  // 01 Tech layer: Integrated ↔ Fragmented (book terms: integrated = interoperable, shared data, connected systems)
   // 02 Transformation driver: Enterprise-led ↔ Provider-led ("Does the enterprise drive legal transformation from within, or do providers build the systems that define it?")
   // 03 Trust and authority: Algorithm ↔ Human. Verbs differ per fork so World 4 reads "Providers run → People decide", not two "-led"s.
-  // "Company drives" (Ken 11/21): the book's "enterprise" = the company (leadership + in-house legal) as buyer; decks said "corporate"/"buyer".
+  // "Company drives": the book's "enterprise" = the company (leadership + in-house legal) as buyer.
   const labels = [["Integrated","Fragmented"],["Company drives","Providers run"],["Systems decide","People decide"]];
   const vLabels = [["Integrated","Fragmented"],["Company","Providers"],["Systems","People"]];
   const NS = "http://www.w3.org/2000/svg";
@@ -258,7 +258,7 @@
         if (w) {
           el("text", {x:g.D[4] + 8, y:cb + 3.5, class:"num"}, grp, num(w.id));
           el("text", {x:g.D[4] + 30, y:cb + 4, class:"nm"}, grp, w.name);
-        } // Ken 11/21: undeveloped stops stay blank (empty dashed box) so the four worlds stand out.
+        } // undeveloped stops stay blank (empty dashed box) so the four worlds stand out.
       } else {
         el("rect", {x:cb - 18, y:g.D[4], width:36, height:26, rx:3, stroke:w ? w.track : null}, grp);
         if (w) el("text", {x:cb, y:g.D[4] + 17, class:"num", "text-anchor":"middle"}, grp, num(w.id));

@@ -19,17 +19,17 @@ const list = entries => `<ul class="plain-list">${entries.map(entry => `<li>${sa
 const quote = text => text ? `<blockquote class="quote">“${safe(text)}”</blockquote>` : "";
 
 const definitions = {
-  // Definitions follow the Pathways book's three uncertainty panels (checked 11/21).
+  // Definitions follow the Pathways book's three uncertainty panels.
   "Integrated": "Connected, standards-based systems share data across the company, law firms, providers, and legal institutions.",
   "Fragmented": "Specialist tools work together through interfaces and shared standards. The value comes from choosing and combining them.",
-  // Ken 11/21 voice interview: this axis is about who controls how legal work runs, not who built the software.
+  // This axis is about who controls how legal work runs, not who built the software.
   "Enterprise-led": "The company controls how legal work runs: the data, the playbooks, the workflows, and the rules. It builds its own systems or directs providers on its terms. The test: if the company fired the vendor tomorrow, it would keep all of them.",
   "Provider-led": "Law firms, legal tech companies, ALSPs, and big tech run the systems, and legal depends on them. If the company fired the provider tomorrow, the provider would keep the playbooks, the data, and the workflows. The same tool can sit in either world. What decides it is who runs the tool.",
   "Algorithm-led": "Automated systems resolve or carry out most legal work. People set the parameters and handle exceptions after the system has shaped the answer.",
   "Human-led": "Technology still does much of the work, but people keep authority over high-stakes judgment and can inspect, challenge, and override the machine."
 };
 
-// Reader-facing names (Ken 11/21): the same plain verbs as the route map, so no world reads as two "-led"s
+// Reader-facing names: the same plain verbs as the route map, so no world reads as two "-led"s
 // competing ("Provider-led" + "Human-led"). Tooltips carry the definition only.
 const display = {
   "Integrated": "Integrated", "Fragmented": "Fragmented",
@@ -37,7 +37,7 @@ const display = {
   "Algorithm-led": "Systems decide", "Human-led": "People decide"
 };
 function term(label, classes = "") {
-  const tipText = definitions[label]; // Ken 11/21: no "(Pathways book: …)" parenthetical
+  const tipText = definitions[label];
   return `<button class="axis-term ${classes}" type="button" data-term="${safe(label)}" aria-description="${safe(tipText)}">${safe(display[label] || label)}</button>`;
 }
 
@@ -64,7 +64,7 @@ function worldCard(world) {
 
 // The hero (title + scenario map) tops both the home page and Compare.
 function heroSection({onCompare = false} = {}) {
-  // Ken 11/22 ("remove"): no hero buttons on either page; the top bar has Worlds and Compare. Compare keeps the tighter band (.hero--compact).
+  // No hero buttons on either page; the top bar has Worlds and Compare. Compare keeps the tighter band (.hero--compact).
   return `<section class="hero${onCompare ? " hero--compact" : ""}">
     <div class="wrap hero-inner">
       <div>
@@ -162,16 +162,15 @@ function renderWorld(world, tab) {
       ${worldTabs.map(([id, name]) => `<a href="${worldLink(world.id, id)}"${active(id === tab)}>${name}</a>`).join("")}
     </nav>
     <section class="world-body" aria-labelledby="section-title">${view}</section>
-    <!-- Ken 11/21 (standing rule): no bottom "Compare worlds / All worlds" buttons on any page; the top bar has them. -->
   </div>`;
 }
 
-// Route map (Ken 11/21): was a popup, now its own world tab at full page width.
-// The animated map lives in route-map.html (from motion idea 03); embed=1 hides its own header and switcher.
+// Route map: its own world tab at full page width.
+// The animated map lives in route-map.html; embed=1 hides its own header and switcher.
 function renderRoute(world) {
   return `<header class="body-head route-cap"><h2 id="section-title">Route map</h2>
       <p><span><span class="route-part">Three questions with two answers each make eight possible worlds.</span> <span class="route-part">Follow the line to this one.</span></span></p></header>
-    <iframe class="route-frame" title="Route map: the three forks that lead to ${safe(world.name)}" src="route-map.html?world=${world.id}&embed=1&joined=1&v=20261122n"></iframe>`;
+    <iframe class="route-frame" title="Route map: the three forks that lead to ${safe(world.name)}" src="route-map.html?world=${world.id}&embed=1&joined=1&v=20261122o"></iframe>`;
 }
 
 function boldFirstSentence(text) {
@@ -241,9 +240,9 @@ function renderCompare() {
 
 // Credits: the full attribution, linked from the top bar on every page.
 function renderCredits() {
-  // Credits cleanup (live 11/22): blue hero → story → one yellow band → photos.
+  // Credits: blue hero → story → one yellow band → photos.
   const org = (name, url) => `<a href="${url}">${name}<span class="visually-hidden"> (opens their site)</span></a>`;
-  // Ken's words stay as written. .cp-keep only holds words on one line.
+  // .cp-keep only holds words on one line; it adds no words.
   root.innerHTML = `<section class="credits-hero">
     <div class="wrap cr-hero">
       <h1>Credits <span class="cp-keep">and sources</span></h1>

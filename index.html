@@ -13,15 +13,15 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="mask-icon" href="favicon.svg" color="#2E5AA6">
   <meta name="theme-color" content="#2E5AA6">
-  <!-- ?v= busts browser caches; bump it on every content/CSS/JS change (Ken saw stale tooltips 11/21) -->
-  <link rel="stylesheet" href="style.css?v=20261122n">
-  <link rel="stylesheet" href="strip.css?v=20261122n">
-  <link rel="stylesheet" href="credits-photos.css?v=20261122n">
-  <script src="content.js?v=20261122n" defer></script>
-  <script src="strip-content.js?v=20261122n" defer></script>
-  <script src="strip.js?v=20261122n" defer></script>
-  <script src="credits-photos.js?v=20261122n" defer></script>
-  <script src="app.js?v=20261122n" defer></script>
+  <!-- ?v= busts browser caches; bump it on every content/CSS/JS change -->
+  <link rel="stylesheet" href="style.css?v=20261122o">
+  <link rel="stylesheet" href="strip.css?v=20261122o">
+  <link rel="stylesheet" href="credits-photos.css?v=20261122o">
+  <script src="content.js?v=20261122o" defer></script>
+  <script src="strip-content.js?v=20261122o" defer></script>
+  <script src="strip.js?v=20261122o" defer></script>
+  <script src="credits-photos.js?v=20261122o" defer></script>
+  <script src="app.js?v=20261122o" defer></script>
   <!-- Clock intro: decide before first paint. Anything that fails releases the page. -->
   <script>
     (function () {
@@ -31,19 +31,19 @@
         if (h && h !== "#worlds") return;
         if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
         if (!forced && sessionStorage.getItem(key)) return;
-        var html = document.documentElement, t = q.get("t");
+        var html = document.documentElement;
         var release = function () { html.classList.remove("yi-wait"); };
         window.yearIntro = {
           key: key, forced: forced, release: release,
-          frame: forced && t !== null ? Math.max(0, Number(t) || 0) : null,
+          frame: null,
           timer: setTimeout(release, 3000)
         };
         html.classList.add("yi-wait");
       } catch (e) { document.documentElement.classList.remove("yi-wait"); }
     })();
   </script>
-  <link rel="stylesheet" href="intro.css?v=20261122n">
-  <script src="intro.js?v=20261122n" defer onload="window.yearIntro &amp;&amp; !window.yearIntro.started &amp;&amp; window.yearIntro.release()" onerror="window.yearIntro &amp;&amp; window.yearIntro.release()"></script>
+  <link rel="stylesheet" href="intro.css?v=20261122o">
+  <script src="intro.js?v=20261122o" defer onload="window.yearIntro &amp;&amp; !window.yearIntro.started &amp;&amp; window.yearIntro.release()" onerror="window.yearIntro &amp;&amp; window.yearIntro.release()"></script>
   <!-- GoatCounter · one code across all properties; hostname folded into the path so they roll up in one dashboard -->
   <script>window.goatcounter={path:function(){return location.hostname+location.pathname}}</script>
   <script data-goatcounter="https://kenpriore.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
@@ -51,7 +51,7 @@
 <body>
   <a class="skip" href="#main">Skip to content</a>
 
-  <!-- one-bar header: family mark + KEN PRIORE | Pathways 2040, the three Pathways tabs, a muted way out to kenpriore.ai -->
+  <!-- one-bar header: family mark + name | Pathways 2040, the three Pathways tabs, a muted way out to kenpriore.ai -->
   <header class="ob">
     <div class="ob-in">
       <div class="ob-brand">
