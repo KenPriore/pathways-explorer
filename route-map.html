@@ -73,11 +73,11 @@
   .leaf.ne rect{fill:none;stroke:#ffffff59;stroke-dasharray:3 3}
   .leaf.ne text{font:700 8.5px var(--mono);letter-spacing:.06em;text-transform:uppercase;fill:#ffffff73}
   .leaf.cur{opacity:1}
-  .leaf.cur rect{fill:var(--tone);stroke:var(--track);stroke-width:2}
+  .leaf.cur rect{fill:var(--tone);stroke:var(--rim);stroke-width:2}
   .leaf.cur .num,.leaf.cur .nm{fill:var(--tone-ink)}
   .callout{opacity:0;transition:opacity .3s}
   .callout.show{opacity:1}
-  .callout rect{fill:var(--tone);stroke:var(--track);stroke-width:2}
+  .callout rect{fill:var(--tone);stroke:var(--rim);stroke-width:2}
   .callout .num{font:700 11px var(--mono);fill:var(--tone-ink)}
   .callout .nm{font:700 13px Archivo,Arial,sans-serif;fill:var(--tone-ink)}
   .legend{font:700 8.5px var(--mono);letter-spacing:.06em;text-transform:uppercase;fill:#ffffff8c}
@@ -119,7 +119,7 @@
   const worlds = [
     {id:1, name:"Big Tech Enterprise", tone:"#2E5AA6", ink:"#fff", track:"#aecbff", bits:[0,0,0]},
     {id:2, name:"The App Store for Law", tone:"#F0C919", ink:"#17233A", track:"#f0c919", bits:[1,0,0]},
-    {id:3, name:"Big Law Owns the Stack", tone:"#C0455F", ink:"#fff", track:"#ffb0c1", bits:[0,1,0]},
+    {id:3, name:"Big Law Owns the Stack", tone:"#C0455F", ink:"#fff", track:"#DC3220", rim:"#ffb0c1", bits:[0,1,0]},
     {id:4, name:"Hands on the Wheel", tone:"#162B50", ink:"#fff", track:"#e4edf9", bits:[0,1,1], contested:true}
   ];
   // Checked against the Pathways book, "Four worlds, shaped by three uncertainties" (11/21):
@@ -345,7 +345,7 @@
   function setWorld(w, animate = true) {
     current = w;
     const root = document.documentElement.style;
-    root.setProperty("--tone", w.tone); root.setProperty("--tone-ink", w.ink); root.setProperty("--track", w.track);
+    root.setProperty("--tone", w.tone); root.setProperty("--tone-ink", w.ink); root.setProperty("--track", w.track); root.setProperty("--rim", w.rim || w.track); // rim = border on the filled box (red vanishes on rose)
     document.getElementById("eyebrow").textContent = `World ${num(w.id)} · 2040`;
     document.getElementById("title").textContent = w.name;
     document.querySelectorAll("#switch button").forEach(b => b.setAttribute("aria-pressed", String(+b.dataset.id === w.id)));

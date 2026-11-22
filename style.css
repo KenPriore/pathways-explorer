@@ -679,7 +679,7 @@ body:has(.world-switcher a:nth-child(4)[aria-current]) .ob-tabs a[aria-current=p
 /* Ken 11/22: the three questions in the hero each get their own text color (no fill). All pass 4.5:1 on the hero blue. */
 .hero p.intro .q{font-weight:650}
 .hero p.intro .q1{color:#ffd84d}
-.hero p.intro .q2{color:#ffc9d4}
+.hero p.intro .q2{color:#DC3220}
 .hero p.intro .q3{color:#9ef0cf}
 
 /* Ken 11/21: attribution band removed, so every page meets the footer rule directly. Credits had stacked the
