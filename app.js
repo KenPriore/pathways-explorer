@@ -165,7 +165,7 @@ function renderWorld(world, tab) {
 function renderRoute(world) {
   return `<header class="body-head route-cap"><h2 id="section-title">Route map</h2>
       <p><span><span class="route-part">Three questions with two answers each make eight possible worlds.</span> <span class="route-part">Follow the line to this one.</span></span></p></header>
-    <iframe class="route-frame" title="Route map: the three forks that lead to ${safe(world.name)}" src="route-map.html?world=${world.id}&embed=1&joined=1&v=20261122h"></iframe>`;
+    <iframe class="route-frame" title="Route map: the three forks that lead to ${safe(world.name)}" src="route-map.html?world=${world.id}&embed=1&joined=1&v=20261122i"></iframe>`;
 }
 
 function boldFirstSentence(text) {
@@ -173,15 +173,22 @@ function boldFirstSentence(text) {
   return `<strong>${safe(first)}</strong>${safe(text.slice(first.length))}`;
 }
 
+// Worlds 1-3: the slab beat runs in a narrow column, so its last two words, and hyphenated words, don’t break.
+function keepLastPair(text) {
+  const at = text.lastIndexOf(" ", text.lastIndexOf(" ") - 1) + 1;
+  const start = safe(text.slice(0, at)).replace(/\b\w+-\w+\b/g, '<span class="story-keep">$&</span>');
+  return `${start}<span class="story-keep">${safe(text.slice(at))}</span>`;
+}
+
 function renderOverview(world) {
   // World 4's third beat is as long as the others, so it reads as body text with a bold first sentence.
   const longDiff = world.id === 4;
   // Grounding story: the same three beats for every world, above the right/wrong panels.
-  const story = world.story ? `<section class="world-story${longDiff ? " world-story--long-diff" : ""}" aria-labelledby="story-title" ${tone(world)}>
+  const story = world.story ? `<section class="world-story${longDiff ? " world-story--long-diff" : ` world-story--w${world.id}`}" aria-labelledby="story-title" ${tone(world)}>
       <h2 id="story-title" class="visually-hidden">This world in brief</h2>
       <div class="story-beat"><p class="eyebrow">The world in 2040</p><p>${safe(world.story.now)}</p></div>
       <div class="story-beat"><p class="eyebrow">How it got here</p><p>${safe(world.story.path)}</p></div>
-      <div class="story-beat"><p class="eyebrow">What’s different from today</p><p>${longDiff ? boldFirstSentence(world.story.diff) : safe(world.story.diff)}</p></div>
+      <div class="story-beat"><p class="eyebrow">What’s different from today</p><p>${longDiff ? boldFirstSentence(world.story.diff) : keepLastPair(world.story.diff)}</p></div>
     </section>` : "";
   return `${story}<div class="world-overview">
     <header class="body-head${world.quote ? " quote-band" : ""}"><h2 id="section-title">How this world works</h2>${world.quote ? quote(world.quote) : worldIcon(world)}</header>
@@ -216,7 +223,7 @@ function renderCompare() {
   <div class="wrap comparison" id="compare-table">
     <div class="section-head title-block compare-head"><h2 class="compare-title">Compare worlds</h2>
       <p class="cmp-cell"><span class="cmp-eyebrow">How to read this</span>Each pair below changes one answer and holds the rest. Worlds 1 and 2 split on technology: connected systems, or a kit of specialist tools. Worlds 1 and 3 split on who drives the change. Worlds 3 and 4 share systems and providers and part on who makes the final call.</p>
-      <p class="cmp-cell cmp-note"><span class="cmp-eyebrow">What’s not here</span>Three questions, two answers each: eight combinations. The first convening mapped all eight and developed four. The other four stayed on the map, among them any fragmented world where providers run the systems and any world where people decide while the company drives. The real 2040 may carry pieces of all eight.</p></div>
+      <p class="cmp-cell cmp-note"><span class="cmp-eyebrow">What’s not here</span>Three questions, two answers each: eight possible worlds. The first convening mapped all eight and developed four. The other four stayed on the map, among them any fragmented world where providers run the systems and any world where people decide while the company drives. The real 2040 may carry pieces of all eight.</p></div>
     <p class="scroll-note" id="table-hint">Scroll across to see all four worlds.</p>
     <div class="table-scroll" tabindex="0" role="region" aria-label="Compare all four worlds" aria-describedby="table-hint">
       <table class="compare-table" aria-label="Four-world comparison"><thead><tr><th scope="col">Dimension</th>${worlds.map(world => `<th scope="col" ${tone(world)}><a href="${worldLink(world.id)}">${worldIcon(world)}${safe(world.name)}</a></th>`).join("")}</tr></thead>

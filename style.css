@@ -629,6 +629,43 @@ p,li,blockquote{text-wrap:pretty}
 .world-story--long-diff .story-beat:last-child p:not(.eyebrow){font:inherit;font-size:1.02rem;line-height:1.6;letter-spacing:inherit;color:inherit}
 .world-story--long-diff .story-beat:last-child strong{font-weight:700;color:var(--ink)}
 @media(min-width:901px){.world-story--long-diff{grid-template-columns:minmax(0,.88fr) minmax(0,1.2fr) minmax(0,.92fr)}}
+/* Worlds 1-3 (Ken 11/22): tracks sized to the three text lengths, as on World 4, so the columns end within a line of each other.
+   The third beat is short enough to keep its slab type. Retune these if that story copy changes length. */
+.story-keep{white-space:nowrap}
+/* The narrow third label wraps, so the three labels share one row and the three texts start on one line */
+@media(min-width:901px){
+  .world-story:not(.world-story--long-diff){grid-template-rows:auto auto}
+  .world-story:not(.world-story--long-diff)>.story-beat{display:grid;grid-row:span 2;grid-template-rows:subgrid;align-items:start;row-gap:0}
+}
+@media(min-width:901px){
+  .world-story--w1{grid-template-columns:minmax(0,.91fr) minmax(0,1.47fr) minmax(0,.62fr)}
+  .world-story--w2{grid-template-columns:minmax(0,1.06fr) minmax(0,1.30fr) minmax(0,.64fr)}
+  .world-story--w3{grid-template-columns:minmax(0,1.30fr) minmax(0,.98fr) minmax(0,.72fr)}
+}
+@media(min-width:1050px){
+  .world-story--w1{grid-template-columns:minmax(0,.93fr) minmax(0,1.47fr) minmax(0,.60fr)}
+}
+@media(min-width:1131px){
+  .world-story--w2{grid-template-columns:minmax(0,1.05fr) minmax(0,1.33fr) minmax(0,.62fr)}
+}
+@media(min-width:1210px){
+  .world-story--w2{grid-template-columns:minmax(0,1.03fr) minmax(0,1.31fr) minmax(0,.66fr)}
+}
+@media(min-width:1227px){
+  .world-story--w3{grid-template-columns:minmax(0,1.26fr) minmax(0,.96fr) minmax(0,.78fr)}
+}
+@media(min-width:1254px){
+  .world-story--w1{grid-template-columns:minmax(0,.88fr) minmax(0,1.46fr) minmax(0,.66fr)}
+}
+@media(min-width:1317px){
+  .world-story--w3{grid-template-columns:minmax(0,1.17fr) minmax(0,.95fr) minmax(0,.88fr)}
+}
+@media(min-width:1379px){
+  .world-story--w2{grid-template-columns:minmax(0,.94fr) minmax(0,1.32fr) minmax(0,.74fr)}
+}
+@media(min-width:1389px){
+  .world-story--w1{grid-template-columns:minmax(0,.84fr) minmax(0,1.42fr) minmax(0,.74fr)}
+}
 /* Data band + compare rows (11/21, voice-interview revision).
    "Where the data sits" is the third overview panel in a 2-column grid. Alone in a half row it left an orphan cell,
    so it spans the row as a 2-cell bento band: a filled ink heading cell + a tinted text cell that runs the full
