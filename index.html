@@ -14,14 +14,36 @@
   <link rel="mask-icon" href="favicon.svg" color="#2E5AA6">
   <meta name="theme-color" content="#2E5AA6">
   <!-- ?v= busts browser caches; bump it on every content/CSS/JS change (Ken saw stale tooltips 11/21) -->
-  <link rel="stylesheet" href="style.css?v=20261122l">
-  <link rel="stylesheet" href="strip.css?v=20261122l">
-  <link rel="stylesheet" href="credits-photos.css?v=20261122l">
-  <script src="content.js?v=20261122l" defer></script>
-  <script src="strip-content.js?v=20261122l" defer></script>
-  <script src="strip.js?v=20261122l" defer></script>
-  <script src="credits-photos.js?v=20261122l" defer></script>
-  <script src="app.js?v=20261122l" defer></script>
+  <link rel="stylesheet" href="style.css?v=20261122m">
+  <link rel="stylesheet" href="strip.css?v=20261122m">
+  <link rel="stylesheet" href="credits-photos.css?v=20261122m">
+  <script src="content.js?v=20261122m" defer></script>
+  <script src="strip-content.js?v=20261122m" defer></script>
+  <script src="strip.js?v=20261122m" defer></script>
+  <script src="credits-photos.js?v=20261122m" defer></script>
+  <script src="app.js?v=20261122m" defer></script>
+  <!-- Clock intro: decide before first paint. Anything that fails releases the page. -->
+  <script>
+    (function () {
+      try {
+        var q = new URLSearchParams(location.search), forced = q.get("intro") === "1";
+        var key = "pathways-intro-seen", h = location.hash;
+        if (h && h !== "#worlds") return;
+        if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        if (!forced && sessionStorage.getItem(key)) return;
+        var html = document.documentElement, t = q.get("t");
+        var release = function () { html.classList.remove("yi-wait"); };
+        window.yearIntro = {
+          key: key, forced: forced, release: release,
+          frame: forced && t !== null ? Math.max(0, Number(t) || 0) : null,
+          timer: setTimeout(release, 3000)
+        };
+        html.classList.add("yi-wait");
+      } catch (e) { document.documentElement.classList.remove("yi-wait"); }
+    })();
+  </script>
+  <link rel="stylesheet" href="intro.css?v=20261122m">
+  <script src="intro.js?v=20261122m" defer onload="window.yearIntro &amp;&amp; !window.yearIntro.started &amp;&amp; window.yearIntro.release()" onerror="window.yearIntro &amp;&amp; window.yearIntro.release()"></script>
   <!-- GoatCounter · one code across all properties; hostname folded into the path so they roll up in one dashboard -->
   <script>window.goatcounter={path:function(){return location.hostname+location.pathname}}</script>
   <script data-goatcounter="https://kenpriore.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
