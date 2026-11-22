@@ -70,7 +70,7 @@ window.PATHWAYS = {
     },
     {
       id: 3, name: "Big Law Owns the Stack", role: "Law firm–tech alliance",
-      tone: "var(--rose)", ink: "var(--white)", track: "#DC3220",
+      tone: "var(--rose)", ink: "var(--white)", track: "#C0455F",
       labels: ["Integrated", "Provider-led", "Algorithm-led"],
       premise: "Law firms and their tech partners build and run the systems that do most legal work, and the company depends on systems it does not own.",
       summary: "The firms hold the data and run the systems. The in-house team decides how much risk the company will accept and handles the exceptions, but what the firm’s system decides usually stands. Watch whether the company can still take its data, playbooks, and matter history to another firm. The easier that stays, the closer this world moves to the App Store.",

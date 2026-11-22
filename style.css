@@ -676,10 +676,10 @@ body:has(.world-switcher a:nth-child(4)[aria-current]) .ob-tabs a[aria-current=p
 #four-worlds{--head-space:clamp(2rem,3.4vw,3rem);padding-top:var(--head-space)}
 #four-worlds>.section-head{display:block;border-top:0;padding-top:0;margin-bottom:var(--head-space)}
 
-/* Ken 11/22: the three questions in the hero each get their own text color (no fill). All pass 4.5:1 on the hero blue. */
+/* Ken 11/22: the three questions in the hero each get their own text color (no fill). q1 and q3 pass 4.5:1 on the hero blue; q2 is rose and does not (1.36:1). */
 .hero p.intro .q{font-weight:650}
 .hero p.intro .q1{color:#ffd84d}
-.hero p.intro .q2{color:#DC3220}
+.hero p.intro .q2{color:#C0455F}
 .hero p.intro .q3{color:#fff}
 
 /* Ken 11/21: attribution band removed, so every page meets the footer rule directly. Credits had stacked the
